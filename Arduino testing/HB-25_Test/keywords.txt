@@ -1,0 +1,27 @@
+#####################################################################
+#	Syntax Colouring Map for the Parallax HB-25 (Part Number: #29144) 
+#	Motor Controller Library
+#####################################################################
+
+#####################################################################
+#	Datatypes (KEYWORD1)
+#####################################################################
+
+HB25MotorControl	KEYWORD1
+
+#####################################################################
+#	Methods and Functions (KEYWORD2)
+#####################################################################
+
+begin				KEYWORD2
+stop				KEYWORD2
+fullForward			KEYWORD2
+fullReverse			KEYWORD2
+rampToSpeed			KEYWORD2
+moveAtSpeed			KEYWORD2
+forwardAtSpeed		KEYWORD2
+reverseAtSpeed		KEYWORD2
+
+#####################################################################
+#	END of Syntax Definitions
+#####################################################################
