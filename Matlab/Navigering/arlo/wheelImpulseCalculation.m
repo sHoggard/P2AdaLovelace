@@ -4,7 +4,7 @@
 function [p] = wheelImpulseCalculation(sigma)
 f=41;
 pc=144;
-d=0; %mätte till typ 1-200cm (jelenas mätning)
+d=0; %mätte till typ 1-200cm (jelenas mätning:15cm)
 p =(sigma * f * pc)/ (pi*d);
 
 
