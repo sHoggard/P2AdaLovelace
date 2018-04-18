@@ -13,7 +13,7 @@
 #include "lcdFunctions.h"
 #include "FreeRTOS.h"
 #include "task.h"
-#include "xHandlerParameter.h"
+#include "xHandlerParameters.h"
 
 #define xBlockTime 100
 portTickType xTimeStampTicks;
