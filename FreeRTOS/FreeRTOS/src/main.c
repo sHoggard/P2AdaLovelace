@@ -48,8 +48,6 @@
 #include "semphr.h"
 //Struct
 #include "xHandlerParameters.h"
-//Initi TC-handler
-#include "conf_tc.h" 
 // From module: TC - Timer Counter
 #include "TimerCounter/TimerCounter.h"
 

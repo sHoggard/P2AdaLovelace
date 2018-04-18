@@ -603,12 +603,6 @@
     <Folder Include="src\TimerCounter" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\adcFunctions.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\adcFunctions.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\ASF\common\utils\stdio\read.c">
       <SubType>compile</SubType>
     </Compile>
@@ -621,19 +615,13 @@
     <Compile Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\conf_tc.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\conf_tc.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\TimerCounter\TimerCounter.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TimerCounter\TimerCounter.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\xHandlerParameter.h">
+    <Compile Include="src\xHandlerParameters.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\config\conf_sio2host.h">
@@ -663,12 +651,6 @@
     <Compile Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\FreeRTOS_CLI.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\buttons.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\buttons.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\consoleFunctions.c">
       <SubType>compile</SubType>
     </Compile>
@@ -679,18 +661,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\delayFunctions.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\lcdApplication.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\lcdApplication.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\lcdFunctions.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\lcdFunctions.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\task_control.c">

@@ -8,9 +8,6 @@
 
 #include <asf.h>
 #include "task_control.h"
-#include "lcdApplication.h"
-#include "buttons.h"
-#include "lcdFunctions.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "xHandlerParameters.h"

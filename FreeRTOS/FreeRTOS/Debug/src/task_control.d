@@ -159,8 +159,7 @@ src/task_control.d src/task_control.o: ../src/task_control.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/task_control.h \
- ../src/lcdApplication.h ../src/buttons.h ../src/lcdFunctions.h \
- ../src/asf.h ../src/delayFunctions.h ../src/xHandlerParameter.h
+ ../src/xHandlerParameters.h
 
 ../src/asf.h:
 
@@ -498,14 +497,4 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/task_control.h:
 
-../src/lcdApplication.h:
-
-../src/buttons.h:
-
-../src/lcdFunctions.h:
-
-../src/asf.h:
-
-../src/delayFunctions.h:
-
-../src/xHandlerParameter.h:
+../src/xHandlerParameters.h:

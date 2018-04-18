@@ -6,13 +6,8 @@
 *	Author: Benjamin Sejdic
 */
 
-#include <asf.h>
 #include "task_player2.h"
-#include "lcdFunctions.h"
-#include "lcdApplication.h"
-#include "buttons.h"
-#include "task_control.h"
-#include "semphr.h"
+
 
 
 void task_player2(void *pvParamters)

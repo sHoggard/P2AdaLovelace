@@ -6,13 +6,7 @@
  *	Author: Benjamin Sejdic
  */ 
 
-#include <asf.h>
 #include "task_player1.h"
-#include "lcdFunctions.h"
-#include "lcdApplication.h"
-#include "buttons.h"
-#include "task_control.h"
-#include "semphr.h"
 
 
 
