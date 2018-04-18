@@ -600,6 +600,7 @@
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\" />
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\PioInterrupt" />
     <Folder Include="src\TimerCounter" />
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +614,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\PioInterrupt\PioInterrupt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\PioInterrupt\PioInterrupt.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TimerCounter\TimerCounter.c">

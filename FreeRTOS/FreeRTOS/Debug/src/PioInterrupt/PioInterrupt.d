@@ -1,5 +1,7 @@
-src/main.d src/main.o: ../src/main.c ../src/asf.h \
- ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
+src/PioInterrupt/PioInterrupt.d src/PioInterrupt/PioInterrupt.o: \
+ ../src/PioInterrupt/PioInterrupt.c ../src/PioInterrupt/PioInterrupt.h \
+ ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -159,11 +161,9 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
- c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- ../src/task_player1.h ../src/task_control.h ../src/task_player2.h \
- ../src/delayFunctions.h ../src/consoleFunctions.h \
- ../src/xHandlerParameters.h ../src/TimerCounter/TimerCounter.h \
- ../src/PioInterrupt/PioInterrupt.h
+ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h
+
+../src/PioInterrupt/PioInterrupt.h:
 
 ../src/asf.h:
 
@@ -500,19 +500,3 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
-
-../src/task_player1.h:
-
-../src/task_control.h:
-
-../src/task_player2.h:
-
-../src/delayFunctions.h:
-
-../src/consoleFunctions.h:
-
-../src/xHandlerParameters.h:
-
-../src/TimerCounter/TimerCounter.h:
-
-../src/PioInterrupt/PioInterrupt.h:

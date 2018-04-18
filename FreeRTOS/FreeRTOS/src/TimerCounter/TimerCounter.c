@@ -30,7 +30,6 @@ void init_timer(void)
 	
 	pmc_enable_periph_clk(ID_TC3);
 	tc_find_mck_divisor( (frequency*16), ul_sysclk, &ul_div, &ul_tcclks, ul_sysclk );
-	
 	tc_init(TC1, 0, ul_tcclks | TC_CMR_CPCTRG); 
 	tc_write_rc(TC1, 0, (ul_sysclk / ul_div) / frequency/16);
 	

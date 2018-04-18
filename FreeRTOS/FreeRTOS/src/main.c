@@ -50,6 +50,7 @@
 #include "xHandlerParameters.h"
 // From module: TC - Timer Counter
 #include "TimerCounter/TimerCounter.h"
+#include "PioInterrupt/PioInterrupt.h"
 
 int main (void)
 {
@@ -67,7 +68,9 @@ int main (void)
 	// Delay initialization
 	delayInit();
 	// Insert application code here, after the board has been initialized.
-	init_timer();
+	//init_timer();
+	ioport_init();
+	configPioInterrupt();	
 	//Check pin for the TC-handler
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);
 	//Configuring board settings

@@ -10,6 +10,8 @@ src\ASF\sam\drivers\tc\tc.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
+src\PioInterrupt\PioInterrupt.c
+
 src\TimerCounter\TimerCounter.c
 
 src\ASF\sam\drivers\adc\adc_sam3u.c
