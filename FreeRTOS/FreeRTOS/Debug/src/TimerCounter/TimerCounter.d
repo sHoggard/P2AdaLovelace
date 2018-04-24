@@ -162,7 +162,8 @@ src/TimerCounter/TimerCounter.d src/TimerCounter/TimerCounter.o: \
  ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
  ../src/TimerCounter/TimerCounter.h \
- ../src/TimerCounter/../consoleFunctions.h ../src/DelayFunctions.h \
+ ../src/ConsoleFunctions/consoleFunctions.h \
+ ../src/DelayFunctions/DelayFunctions.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
@@ -508,9 +509,9 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/TimerCounter/TimerCounter.h:
 
-../src/TimerCounter/../consoleFunctions.h:
+../src/ConsoleFunctions/consoleFunctions.h:
 
-../src/DelayFunctions.h:
+../src/DelayFunctions/DelayFunctions.h:
 
 c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h:
 

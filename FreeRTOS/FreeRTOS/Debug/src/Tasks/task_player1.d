@@ -1,6 +1,6 @@
-src/task_player2.d src/task_player2.o: ../src/task_player2.c \
- ../src/task_player2.h ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
- ../src/ASF/sam/utils/compiler.h \
+src/Tasks/task_player1.d src/Tasks/task_player1.o: \
+ ../src/Tasks/task_player1.c ../src/Tasks/task_player1.h ../src/asf.h \
+ ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -159,9 +159,9 @@ src/task_player2.d src/task_player2.o: ../src/task_player2.c \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/task_control.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Tasks/task_control.h
 
-../src/task_player2.h:
+../src/Tasks/task_player1.h:
 
 ../src/asf.h:
 
@@ -499,4 +499,4 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/task_control.h:
+../src/Tasks/task_control.h:

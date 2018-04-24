@@ -27,13 +27,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  11 .debug_ranges 00000d68  00000000  00000000  00048f7f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macro  0001b5c3  00000000  00000000  00049ce7  2**0
+ 12 .debug_macro  0001b5c7  00000000  00000000  00049ce7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   000124d3  00000000  00000000  000652aa  2**0
+ 13 .debug_line   00012525  00000000  00000000  000652ae  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    0006bb44  00000000  00000000  0007777d  2**0
+ 14 .debug_str    0006bb44  00000000  00000000  000777d3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00002c14  00000000  00000000  000e32c4  2**2
+ 15 .debug_frame  00002c14  00000000  00000000  000e3318  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -8201,11 +8201,11 @@ __STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
    84234:	69706d6f 	.word	0x69706d6f
    84238:	3a64656c 	.word	0x3a64656c
    8423c:	72704120 	.word	0x72704120
-   84240:	20333220 	.word	0x20333220
+   84240:	20343220 	.word	0x20343220
    84244:	38313032 	.word	0x38313032
    84248:	3a303120 	.word	0x3a303120
-   8424c:	353a3831 	.word	0x353a3831
-   84250:	2d2d2032 	.word	0x2d2d2032
+   8424c:	313a3433 	.word	0x313a3433
+   84250:	2d2d2038 	.word	0x2d2d2038
    84254:	0000000d 	.word	0x0000000d
 
 00084258 <_global_impure_ptr>:

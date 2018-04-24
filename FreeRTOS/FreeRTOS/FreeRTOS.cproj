@@ -610,6 +610,9 @@
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\" />
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\ConsoleFunctions" />
+    <Folder Include="src\DelayFunctions" />
+    <Folder Include="src\Tasks" />
     <Folder Include="src\PioInterrupt" />
     <Folder Include="src\TimerCounter" />
   </ItemGroup>
@@ -632,10 +635,40 @@
     <Compile Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ConsoleFunctions\consoleFunctions.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ConsoleFunctions\consoleFunctions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\DelayFunctions\delayFunctions.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\DelayFunctions\delayFunctions.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\PioInterrupt\PioInterrupt.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\PioInterrupt\PioInterrupt.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_control.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_player1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_player1.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_player2.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_player2.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TimerCounter\TimerCounter.c">
@@ -672,36 +705,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\FreeRTOS_CLI.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\consoleFunctions.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\consoleFunctions.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\delayFunctions.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\delayFunctions.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_control.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_control.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_player1.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_player1.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_player2.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\task_player2.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\config\FreeRTOSConfig.h">

@@ -35,13 +35,13 @@
 #include <inttypes.h>
 #include <stdio_serial.h>
 //Tasks
-#include "task_player1.h"
-#include "task_player2.h"
-#include "task_control.h"
+#include "Tasks/task_player1.h"
+#include "Tasks/task_player2.h"
+#include "Tasks/task_control.h"
 //Delay
-#include "delayFunctions.h"
+#include "DelayFunctions/delayFunctions.h"
 //Console Data Visualizer
-#include "consoleFunctions.h"
+#include "ConsoleFunctions/consoleFunctions.h"
 //FreeRTOS
 #include "FreeRTOS.h"
 //Semaphores
