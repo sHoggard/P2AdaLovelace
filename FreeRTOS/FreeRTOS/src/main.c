@@ -226,33 +226,25 @@ int main(void)
 	/* Initialize the SAM system */
 	sysclk_init();
 	board_init();
-	//initMotors();
-	
+
 	/* Configure the console uart for debug information */
 	configureConsole();
-	
+
 	/* Output example information */
 	puts(STRING_HEADER);
 	
+	pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 21), PIO_TYPE_PIO_PERIPH_B);
+	pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 22), PIO_TYPE_PIO_PERIPH_B);
+	
 	/* Enable PWM peripheral clock */
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-	pmc_enable_periph_clk(ID_PWM0);
-#else
-	pmc_enable_periph_clk(ID_PWM);
-#endif
 
-pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 21), PIO_TYPE_PIO_PERIPH_B);
-pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 22), PIO_TYPE_PIO_PERIPH_B);
+	pmc_enable_periph_clk(ID_PWM);
 
 
 	/* Disable PWM channels for LEDs */
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-	pwm_channel_disable(PWM0, PIN_PWM_LED0_CHANNEL);
-	pwm_channel_disable(PWM0, PIN_PWM_LED1_CHANNEL);
-#else
+
 	pwm_channel_disable(PWM, PIN_PWM_LED0_CHANNEL);
 	pwm_channel_disable(PWM, PIN_PWM_LED1_CHANNEL);
-#endif
 
 	/* Set PWM clock A as PWM_FREQUENCY*PERIOD_VALUE (clock B is not used) */
 	pwm_clock_t clock_setting = {
@@ -260,11 +252,13 @@ pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 22), PIO_TYPE_PIO_PERIPH_B);
 		.ul_clkb = 0,
 		.ul_mck = sysclk_get_cpu_hz()
 	};
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-	pwm_init(PWM0, &clock_setting);
-#else
+	
+	//itoa(sysclk_get_cpu_hz(), buffer, 10);
+	//puts(buffer);
+	
+
 	pwm_init(PWM, &clock_setting);
-#endif
+
 
 	/* Initialize PWM channel for LED0 */
 	/* Period is left-aligned */
@@ -278,24 +272,20 @@ pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 22), PIO_TYPE_PIO_PERIPH_B);
 	/* Duty cycle value of output waveform */
 	g_pwm_channel_led.ul_duty = INIT_DUTY_VALUE;
 	g_pwm_channel_led.channel = PIN_PWM_LED0_CHANNEL;
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-	pwm_channel_init(PWM0, &g_pwm_channel_led);
-#else
+
 	pwm_channel_init(PWM, &g_pwm_channel_led);
-#endif
+
 
 	/* Enable channel counter event interrupt */
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-	pwm_channel_enable_interrupt(PWM0, PIN_PWM_LED0_CHANNEL, 0);
-#else
+
 	pwm_channel_enable_interrupt(PWM, PIN_PWM_LED0_CHANNEL, 0);
-#endif
+
 
 	/* Initialize PWM channel for LED1 */
 	/* Period is center-aligned */
-	g_pwm_channel_led.alignment = PWM_ALIGN_CENTER;
+	g_pwm_channel_led.alignment = PWM_ALIGN_LEFT;
 	/* Output waveform starts at a high level */
-	g_pwm_channel_led.polarity = PWM_HIGH;
+	g_pwm_channel_led.polarity = PWM_LOW;
 	/* Use PWM clock A as source clock */
 	g_pwm_channel_led.ul_prescaler = PWM_CMR_CPRE_CLKA;
 	/* Period value of output waveform */
@@ -303,38 +293,22 @@ pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 22), PIO_TYPE_PIO_PERIPH_B);
 	/* Duty cycle value of output waveform */
 	g_pwm_channel_led.ul_duty = INIT_DUTY_VALUE;
 	g_pwm_channel_led.channel = PIN_PWM_LED1_CHANNEL;
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-	pwm_channel_init(PWM0, &g_pwm_channel_led);
 
-	/* Disable channel counter event interrupt */
-	pwm_channel_disable_interrupt(PWM0, PIN_PWM_LED1_CHANNEL, 0);
-#else
 	pwm_channel_init(PWM, &g_pwm_channel_led);
 
 	/* Disable channel counter event interrupt */
 	pwm_channel_disable_interrupt(PWM, PIN_PWM_LED1_CHANNEL, 0);
-#endif
+
 
 	/* Configure interrupt and enable PWM interrupt */
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-	NVIC_DisableIRQ(PWM0_IRQn);
-	NVIC_ClearPendingIRQ(PWM0_IRQn);
-	NVIC_SetPriority(PWM0_IRQn, 0);
-	NVIC_EnableIRQ(PWM0_IRQn);
-	
-	/* Enable PWM channels for LEDs */
-	pwm_channel_enable(PWM0, PIN_PWM_LED0_CHANNEL);
-	pwm_channel_enable(PWM0, PIN_PWM_LED1_CHANNEL);
-#else
-	/*NVIC_DisableIRQ(PWM_IRQn);
+	NVIC_DisableIRQ(PWM_IRQn);
 	NVIC_ClearPendingIRQ(PWM_IRQn);
 	NVIC_SetPriority(PWM_IRQn, 0);
 	NVIC_EnableIRQ(PWM_IRQn);
-	*/
+	
 	/* Enable PWM channels for LEDs */
 	pwm_channel_enable(PWM, PIN_PWM_LED0_CHANNEL);
 	pwm_channel_enable(PWM, PIN_PWM_LED1_CHANNEL);
-#endif
 
 
 	/* Infinite loop */
