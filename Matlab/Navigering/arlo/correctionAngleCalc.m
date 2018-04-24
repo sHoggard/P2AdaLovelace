@@ -1,4 +1,4 @@
-%Function described to calculate a correctional angle based off of the two
+%Function described to calculate a correctional angle based on the two
 %latest calculated angles towards the object from the robotS
 
 function [sigma] = correctionAngleCalc(angleVector)
