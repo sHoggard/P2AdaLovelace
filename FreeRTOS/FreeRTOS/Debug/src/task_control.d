@@ -151,7 +151,7 @@ src/task_control.d src/task_control.o: ../src/task_control.c ../src/asf.h \
  ../src/ASF/common/services/clock/sam3x/osc.h \
  ../src/ASF/sam/drivers/pmc/pmc.h ../src/ASF/common/services/clock/pll.h \
  ../src/ASF/common/services/clock/sam3x/pll.h \
- ../src/ASF/sam/drivers/pmc/sleep.h \
+ ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
  ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h \
  ../src/ASF/common/services/serial/serial.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
@@ -159,8 +159,7 @@ src/task_control.d src/task_control.o: ../src/task_control.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/task_control.h \
- ../src/lcdApplication.h ../src/buttons.h ../src/lcdFunctions.h \
- ../src/asf.h ../src/delayFunctions.h ../src/xHandlerParameter.h
+ ../src/xHandlerParameters.h
 
 ../src/asf.h:
 
@@ -478,6 +477,8 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pmc/sleep.h:
 
+../src/ASF/sam/drivers/pwm/pwm.h:
+
 ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h:
 
 ../src/ASF/common/services/serial/serial.h:
@@ -498,14 +499,4 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/task_control.h:
 
-../src/lcdApplication.h:
-
-../src/buttons.h:
-
-../src/lcdFunctions.h:
-
-../src/asf.h:
-
-../src/delayFunctions.h:
-
-../src/xHandlerParameter.h:
+../src/xHandlerParameters.h:

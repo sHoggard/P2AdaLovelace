@@ -1,5 +1,6 @@
-src/task_player2.d src/task_player2.o: ../src/task_player2.c ../src/asf.h \
- ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
+src/task_player2.d src/task_player2.o: ../src/task_player2.c \
+ ../src/task_player2.h ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -151,16 +152,16 @@ src/task_player2.d src/task_player2.o: ../src/task_player2.c ../src/asf.h \
  ../src/ASF/common/services/clock/sam3x/osc.h \
  ../src/ASF/sam/drivers/pmc/pmc.h ../src/ASF/common/services/clock/pll.h \
  ../src/ASF/common/services/clock/sam3x/pll.h \
- ../src/ASF/sam/drivers/pmc/sleep.h \
+ ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
  ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h \
  ../src/ASF/common/services/serial/serial.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/task_player2.h \
- ../src/lcdFunctions.h ../src/asf.h ../src/lcdApplication.h \
- ../src/buttons.h ../src/delayFunctions.h ../src/task_control.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/task_control.h
+
+../src/task_player2.h:
 
 ../src/asf.h:
 
@@ -478,6 +479,8 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pmc/sleep.h:
 
+../src/ASF/sam/drivers/pwm/pwm.h:
+
 ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h:
 
 ../src/ASF/common/services/serial/serial.h:
@@ -495,17 +498,5 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/ASF/sam/drivers/trng/trng.h:
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
-
-../src/task_player2.h:
-
-../src/lcdFunctions.h:
-
-../src/asf.h:
-
-../src/lcdApplication.h:
-
-../src/buttons.h:
-
-../src/delayFunctions.h:
 
 ../src/task_control.h:

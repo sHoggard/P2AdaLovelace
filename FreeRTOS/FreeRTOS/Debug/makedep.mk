@@ -2,17 +2,17 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-src\adcFunctions.c
-
 src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\adc\adc.c
+
+src\ASF\sam\drivers\pwm\pwm.c
 
 src\ASF\sam\drivers\tc\tc.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
-src\conf_tc.c
+src\PioInterrupt\PioInterrupt.c
 
 src\TimerCounter\TimerCounter.c
 
@@ -24,15 +24,9 @@ src\ASF\sam\drivers\usart\usart.c
 
 src\ASF\thirdparty\freertos\freertos-7.3.0\source\FreeRTOS_CLI.c
 
-src\buttons.c
-
 src\consoleFunctions.c
 
 src\delayFunctions.c
-
-src\lcdApplication.c
-
-src\lcdFunctions.c
 
 src\task_control.c
 

@@ -5,6 +5,10 @@
  *  Author: Spellabbet
  */ 
 
+#include <asf.h>
+#include "semphr.h"
+#include "task_control.h"
+
 
 #ifndef TASK_PLAYER1_H_
 #define TASK_PLAYER1_H_

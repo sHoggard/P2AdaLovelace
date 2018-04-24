@@ -44,6 +44,7 @@
           <option id="sam.drivers.uart" value="Add" config="" content-id="Atmel.ASF" />
           <option id="thirdparty.os.freertos.version" value="Add" config="7.3.0" content-id="Atmel.ASF" />
           <option id="thirdparty.wireless.addons.sio2host" value="Add" config="uart" content-id="Atmel.ASF" />
+          <option id="sam.drivers.pwm" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.applications.user_application" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.utils.cmsis.sam3x.source.template" value="Add" config="" content-id="Atmel.ASF" />
         </options>
@@ -240,6 +241,8 @@
           <file path="src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.c" framework="" version="3.35.1" source="thirdparty\wireless\addons\sio2host\uart\sio2host.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.h" framework="" version="3.35.1" source="thirdparty\wireless\addons\sio2host\uart\sio2host.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/Config/conf_sio2host.h" framework="" version="3.35.1" source="thirdparty\wireless\addons\sio2host\module_config\conf_sio2host.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/pwm/pwm.c" framework="" version="3.35.1" source="sam\drivers\pwm\pwm.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/sam/drivers/pwm/pwm.h" framework="" version="3.35.1" source="sam\drivers\pwm\pwm.h" changed="False" content-id="Atmel.ASF" />
         </files>
         <documentation help="http://asf.atmel.com/docs/3.35.1/common.applications.user_application.arduino_due_x/html/index.html" />
         <offline-documentation help="" />
@@ -301,6 +304,7 @@
       <Value>../src/ASF/sam/drivers/adc</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+      <Value>../src/ASF/sam/drivers/pwm</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -352,6 +356,7 @@
       <Value>../src/ASF/sam/drivers/adc</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+      <Value>../src/ASF/sam/drivers/pwm</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM3=true -DBOARD=ARDUINO_DUE_X -D__SAM3X8E__ -Dprintf=iprintf -Dscanf=iscanf -D__FREERTOS__</armgcc.preprocessingassembler.general.AssemblerFlags>
@@ -386,6 +391,7 @@
       <Value>../src/ASF/sam/drivers/adc</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+      <Value>../src/ASF/sam/drivers/pwm</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -441,6 +447,7 @@
       <Value>../src/ASF/sam/drivers/adc</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+      <Value>../src/ASF/sam/drivers/pwm</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -493,6 +500,7 @@
       <Value>../src/ASF/sam/drivers/adc</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+      <Value>../src/ASF/sam/drivers/pwm</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
@@ -528,6 +536,7 @@
       <Value>../src/ASF/sam/drivers/adc</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+      <Value>../src/ASF/sam/drivers/pwm</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -559,6 +568,7 @@
     <Folder Include="src\ASF\sam\drivers\adc\" />
     <Folder Include="src\ASF\sam\drivers\pio\" />
     <Folder Include="src\ASF\sam\drivers\pmc\" />
+    <Folder Include="src\ASF\sam\drivers\pwm\" />
     <Folder Include="src\ASF\sam\drivers\tc\" />
     <Folder Include="src\ASF\sam\drivers\trng\" />
     <Folder Include="src\ASF\sam\drivers\uart\" />
@@ -600,31 +610,32 @@
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\" />
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\PioInterrupt" />
     <Folder Include="src\TimerCounter" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\adcFunctions.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\adcFunctions.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\ASF\common\utils\stdio\read.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ASF\sam\drivers\adc\adc.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ASF\sam\drivers\pwm\pwm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\pwm\pwm.h">
+      <SubType>compile</SubType>
+    </None>
     <Compile Include="src\ASF\sam\drivers\tc\tc.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\conf_tc.c">
+    <Compile Include="src\PioInterrupt\PioInterrupt.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\conf_tc.h">
+    <Compile Include="src\PioInterrupt\PioInterrupt.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TimerCounter\TimerCounter.c">
@@ -633,7 +644,7 @@
     <Compile Include="src\TimerCounter\TimerCounter.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\xHandlerParameter.h">
+    <Compile Include="src\xHandlerParameters.h">
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\config\conf_sio2host.h">
@@ -663,12 +674,6 @@
     <Compile Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\FreeRTOS_CLI.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\buttons.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\buttons.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\consoleFunctions.c">
       <SubType>compile</SubType>
     </Compile>
@@ -679,18 +684,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\delayFunctions.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\lcdApplication.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\lcdApplication.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\lcdFunctions.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\lcdFunctions.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\task_control.c">
