@@ -1,6 +1,6 @@
-src/ConsoleFunctions/consoleFunctions.d \
- src/ConsoleFunctions/consoleFunctions.o: \
- ../src/ConsoleFunctions/consoleFunctions.c \
+src/Utilities/ConsoleFunctions/consoleFunctions.d \
+ src/Utilities/ConsoleFunctions/consoleFunctions.o: \
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.c \
  ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdio.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h \
@@ -162,7 +162,7 @@ src/ConsoleFunctions/consoleFunctions.d \
  ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
  ../src/ASF/sam/drivers/tc/tc.h ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/config/conf_board.h \
- ../src/ConsoleFunctions/consoleFunctions.h
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.h
 
 ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h:
 
@@ -502,4 +502,4 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/config/conf_board.h:
 
-../src/ConsoleFunctions/consoleFunctions.h:
+../src/Utilities/ConsoleFunctions/consoleFunctions.h:

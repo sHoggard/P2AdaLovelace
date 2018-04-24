@@ -1,5 +1,6 @@
-src/TimerCounter/TimerCounter.d src/TimerCounter/TimerCounter.o: \
- ../src/TimerCounter/TimerCounter.c \
+src/Utilities/TimerCounter/TimerCounter.d \
+ src/Utilities/TimerCounter/TimerCounter.o: \
+ ../src/Utilities/TimerCounter/TimerCounter.c \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_newlib_version.h \
@@ -161,9 +162,9 @@ src/TimerCounter/TimerCounter.d src/TimerCounter/TimerCounter.o: \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
- ../src/TimerCounter/TimerCounter.h \
- ../src/ConsoleFunctions/consoleFunctions.h \
- ../src/DelayFunctions/DelayFunctions.h \
+ ../src/Utilities/TimerCounter/TimerCounter.h \
+ ../src/Utilities/TimerCounter/../ConsoleFunctions/consoleFunctions.h \
+ ../src/Utilities/TimerCounter/../DelayFunctions/DelayFunctions.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
@@ -507,11 +508,11 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/TimerCounter/TimerCounter.h:
+../src/Utilities/TimerCounter/TimerCounter.h:
 
-../src/ConsoleFunctions/consoleFunctions.h:
+../src/Utilities/TimerCounter/../ConsoleFunctions/consoleFunctions.h:
 
-../src/DelayFunctions/DelayFunctions.h:
+../src/Utilities/TimerCounter/../DelayFunctions/DelayFunctions.h:
 
 c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h:
 

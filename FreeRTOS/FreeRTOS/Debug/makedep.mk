@@ -12,11 +12,7 @@ src\ASF\sam\drivers\tc\tc.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
-src\ConsoleFunctions\consoleFunctions.c
-
-src\DelayFunctions\delayFunctions.c
-
-src\PioInterrupt\PioInterrupt.c
+src\MotorControl\MotorControl.c
 
 src\Tasks\task_control.c
 
@@ -24,7 +20,15 @@ src\Tasks\task_player1.c
 
 src\Tasks\task_player2.c
 
-src\TimerCounter\TimerCounter.c
+src\Utilities\ConsoleFunctions\consoleFunctions.c
+
+src\Utilities\DelayFunctions\delayFunctions.c
+
+src\Utilities\PioInterrupt\PioInterrupt.c
+
+src\Utilities\TimerCounter\TimerCounter.c
+
+src\WheelCounters\WheelCounters.c
 
 src\ASF\sam\drivers\adc\adc_sam3u.c
 

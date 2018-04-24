@@ -39,9 +39,9 @@
 #include "Tasks/task_player2.h"
 #include "Tasks/task_control.h"
 //Delay
-#include "DelayFunctions/delayFunctions.h"
+#include "Utilities/DelayFunctions/delayFunctions.h"
 //Console Data Visualizer
-#include "ConsoleFunctions/consoleFunctions.h"
+#include "Utilities/ConsoleFunctions/consoleFunctions.h"
 //FreeRTOS
 #include "FreeRTOS.h"
 //Semaphores
@@ -49,7 +49,7 @@
 //Struct
 #include "xHandlerParameters.h"
 // From module: TC - Timer Counter
-#include "TimerCounter/TimerCounter.h"
+#include "Utilities/TimerCounter/TimerCounter.h"
 //#include "PioInterrupt/PioInterrupt.h"
 
 

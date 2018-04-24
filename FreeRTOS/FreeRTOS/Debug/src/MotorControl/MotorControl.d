@@ -1,5 +1,7 @@
-src/main.d src/main.o: ../src/main.c ../src/asf.h \
- ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
+src/MotorControl/MotorControl.d src/MotorControl/MotorControl.o: \
+ ../src/MotorControl/MotorControl.c ../src/MotorControl/MotorControl.h \
+ ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -159,13 +161,9 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
- c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- ../src/Tasks/task_player1.h ../src/Tasks/task_control.h \
- ../src/Tasks/task_player2.h ../src/Tasks/task_control.h \
- ../src/Utilities/DelayFunctions/delayFunctions.h \
- ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
- ../src/xHandlerParameters.h ../src/Utilities/TimerCounter/TimerCounter.h \
- ../src/asf.h ../src/config/conf_board.h
+ ../src/MotorControl/../Utilities/DelayFunctions/delayFunctions.h
+
+../src/MotorControl/MotorControl.h:
 
 ../src/asf.h:
 
@@ -503,24 +501,4 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
-
-../src/Tasks/task_player1.h:
-
-../src/Tasks/task_control.h:
-
-../src/Tasks/task_player2.h:
-
-../src/Tasks/task_control.h:
-
-../src/Utilities/DelayFunctions/delayFunctions.h:
-
-../src/Utilities/ConsoleFunctions/consoleFunctions.h:
-
-../src/xHandlerParameters.h:
-
-../src/Utilities/TimerCounter/TimerCounter.h:
-
-../src/asf.h:
-
-../src/config/conf_board.h:
+../src/MotorControl/../Utilities/DelayFunctions/delayFunctions.h:
