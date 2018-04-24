@@ -165,7 +165,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/Utilities/DelayFunctions/delayFunctions.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
  ../src/xHandlerParameters.h ../src/Utilities/TimerCounter/TimerCounter.h \
- ../src/asf.h ../src/config/conf_board.h
+ ../src/config/conf_board.h ../src/MotorControl/MotorControl.h
 
 ../src/asf.h:
 
@@ -521,6 +521,6 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/Utilities/TimerCounter/TimerCounter.h:
 
-../src/asf.h:
-
 ../src/config/conf_board.h:
+
+../src/MotorControl/MotorControl.h:
