@@ -26,6 +26,7 @@ void configPioInterrupt(){
 
 
 void myISR(uint32_t id, uint32_t mask){
+
 	quadratureCounter++;
 	printf("myISR\n");
 	printf("D13 pin to HIGH\n");

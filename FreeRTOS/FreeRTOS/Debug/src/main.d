@@ -151,7 +151,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/common/services/clock/sam3x/osc.h \
  ../src/ASF/sam/drivers/pmc/pmc.h ../src/ASF/common/services/clock/pll.h \
  ../src/ASF/common/services/clock/sam3x/pll.h \
- ../src/ASF/sam/drivers/pmc/sleep.h \
+ ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
  ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h \
  ../src/ASF/common/services/serial/serial.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
@@ -163,7 +163,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/task_player1.h ../src/task_control.h ../src/task_player2.h \
  ../src/delayFunctions.h ../src/consoleFunctions.h \
  ../src/xHandlerParameters.h ../src/TimerCounter/TimerCounter.h \
- ../src/PioInterrupt/PioInterrupt.h
+ ../src/asf.h ../src/config/conf_board.h
 
 ../src/asf.h:
 
@@ -481,6 +481,8 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pmc/sleep.h:
 
+../src/ASF/sam/drivers/pwm/pwm.h:
+
 ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h:
 
 ../src/ASF/common/services/serial/serial.h:
@@ -515,4 +517,6 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/TimerCounter/TimerCounter.h:
 
-../src/PioInterrupt/PioInterrupt.h:
+../src/asf.h:
+
+../src/config/conf_board.h:
