@@ -1,3 +1,9 @@
+%--------------------------------------------------------------------%
+
+%   Stanna upp och rotera roboten påväg till objektet                %
+
+%--------------------------------------------------------------------%
+
 function stopSolutionMainMethod(xR,yR)
 
 %------Variable Declaration------------------------------------------%
