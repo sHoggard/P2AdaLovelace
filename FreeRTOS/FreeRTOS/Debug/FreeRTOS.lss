@@ -29,11 +29,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_macro  0001bf7c  00000000  00000000  0004a5a7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   00013605  00000000  00000000  00066523  2**0
+ 13 .debug_line   00013c05  00000000  00000000  00066523  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    0006bc11  00000000  00000000  00079b28  2**0
+ 14 .debug_str    0006bcea  00000000  00000000  0007a128  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00002c44  00000000  00000000  000e573c  2**2
+ 15 .debug_frame  00002c44  00000000  00000000  000e5e14  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -8255,9 +8255,9 @@ pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 22), PIO_TYPE_PIO_PERIPH_B);
    8429c:	72704120 	.word	0x72704120
    842a0:	20343220 	.word	0x20343220
    842a4:	38313032 	.word	0x38313032
-   842a8:	3a333120 	.word	0x3a333120
-   842ac:	313a3534 	.word	0x313a3534
-   842b0:	2d2d2031 	.word	0x2d2d2031
+   842a8:	3a343120 	.word	0x3a343120
+   842ac:	343a3233 	.word	0x343a3233
+   842b0:	2d2d2034 	.word	0x2d2d2034
    842b4:	0000000d 	.word	0x0000000d
 
 000842b8 <_global_impure_ptr>:
