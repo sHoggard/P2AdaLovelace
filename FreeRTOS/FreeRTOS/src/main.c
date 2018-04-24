@@ -35,13 +35,13 @@
 #include <inttypes.h>
 #include <stdio_serial.h>
 //Tasks
-#include "task_player1.h"
-#include "task_player2.h"
-#include "task_control.h"
+#include "Tasks/task_player1.h"
+#include "Tasks/task_player2.h"
+#include "Tasks/task_control.h"
 //Delay
-#include "delayFunctions.h"
+#include "Utilities/DelayFunctions/delayFunctions.h"
 //Console Data Visualizer
-#include "consoleFunctions.h"
+#include "Utilities/ConsoleFunctions/consoleFunctions.h"
 //FreeRTOS
 #include "FreeRTOS.h"
 //Semaphores
@@ -49,9 +49,12 @@
 //Struct
 #include "xHandlerParameters.h"
 // From module: TC - Timer Counter
-#include "TimerCounter/TimerCounter.h"
+#include "Utilities/TimerCounter/TimerCounter.h"
 //#include "PioInterrupt/PioInterrupt.h"
 
+#include "conf_board.h"
+#include "conf_clock.h"
+#include "MotorControl/MotorControl.h"
 
 /**
  * \file
@@ -126,17 +129,13 @@
  * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
-#include "asf.h"
-#include "stdio_serial.h"
-#include "conf_board.h"
-#include "conf_clock.h"
 
 /** PWM frequency in Hz */
 #define PWM_FREQUENCY      1000
 /** Period value of PWM output waveform */
 #define PERIOD_VALUE       100
 /** Initial duty cycle value */
-#define INIT_DUTY_VALUE    0
+#define INIT_DUTY_VALUE    50
 
 #define STRING_EOL    "\r"
 #define STRING_HEADER "-- PWM LED Example --\r\n" \
@@ -145,25 +144,35 @@
 
 /** PWM channel instance for LEDs */
 pwm_channel_t g_pwm_channel_led;
+//
+///**
+ //* \brief Interrupt handler for the PWM controller.
+ //*/
+//#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+//void PWM0_Handler(void)
+//#else
+//void PWM_Handler(void)
+//#endif
+//{
+	//static uint32_t ul_count = 0;  /* PWM counter value */
+	//static uint32_t ul_duty = INIT_DUTY_VALUE;  /* PWM duty cycle rate */
+	//static uint8_t fade_in = 1;  /* LED fade in flag */
+//
+//#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
+	//uint32_t events = pwm_channel_get_interrupt_status(PWM0);
+//#else
+	//uint32_t events = pwm_channel_get_interrupt_status(PWM);
+//#endif
 
-/**
- * \brief Interrupt handler for the PWM controller.
- */
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-void PWM0_Handler(void)
-#else
 void PWM_Handler(void)
-#endif
 {
-	static uint32_t ul_count = 0;  /* PWM counter value */
-	static uint32_t ul_duty = INIT_DUTY_VALUE;  /* PWM duty cycle rate */
-	static uint8_t fade_in = 1;  /* LED fade in flag */
+static uint32_t ul_count = 0;  /* PWM counter value */
+static uint32_t ul_duty = INIT_DUTY_VALUE;  /* PWM duty cycle rate */
+static uint8_t fade_in = 1;  /* LED fade in flag */
 
-#if (SAMV70 || SAMV71 || SAME70 || SAMS70)
-	uint32_t events = pwm_channel_get_interrupt_status(PWM0);
-#else
-	uint32_t events = pwm_channel_get_interrupt_status(PWM);
-#endif
+uint32_t events = pwm_channel_get_interrupt_status(PWM);
+
+
 
 	/* Interrupt on PIN_PWM_LED0_CHANNEL */
 	if ((events & (1 << PIN_PWM_LED0_CHANNEL)) ==
@@ -202,28 +211,9 @@ void PWM_Handler(void)
 #endif
 		}
 	}
-}
-
-/**
- *  \brief Configure the Console UART.
- */
-static void configure_console(void)
-{
-	const usart_serial_options_t uart_serial_options = {
-		.baudrate = CONF_UART_BAUDRATE,
-#ifdef CONF_UART_CHAR_LENGTH
-		.charlength = CONF_UART_CHAR_LENGTH,
-#endif
-		.paritytype = CONF_UART_PARITY,
-#ifdef CONF_UART_STOP_BITS
-		.stopbits = CONF_UART_STOP_BITS,
-#endif
-	};
-
-	/* Configure console UART. */
-	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
-	stdio_serial_init(CONF_UART, &uart_serial_options);
-}
+	}
+	
+	
 
 /**
  * \brief Application entry point for PWM with LED example.
@@ -236,10 +226,11 @@ int main(void)
 	/* Initialize the SAM system */
 	sysclk_init();
 	board_init();
-
+	//initMotors();
+	
 	/* Configure the console uart for debug information */
-	configure_console();
-
+	configureConsole();
+	
 	/* Output example information */
 	puts(STRING_HEADER);
 	
@@ -249,6 +240,10 @@ int main(void)
 #else
 	pmc_enable_periph_clk(ID_PWM);
 #endif
+
+pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 21), PIO_TYPE_PIO_PERIPH_B);
+pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 22), PIO_TYPE_PIO_PERIPH_B);
+
 
 	/* Disable PWM channels for LEDs */
 #if (SAMV70 || SAMV71 || SAME70 || SAMS70)
@@ -331,11 +326,11 @@ int main(void)
 	pwm_channel_enable(PWM0, PIN_PWM_LED0_CHANNEL);
 	pwm_channel_enable(PWM0, PIN_PWM_LED1_CHANNEL);
 #else
-	NVIC_DisableIRQ(PWM_IRQn);
+	/*NVIC_DisableIRQ(PWM_IRQn);
 	NVIC_ClearPendingIRQ(PWM_IRQn);
 	NVIC_SetPriority(PWM_IRQn, 0);
 	NVIC_EnableIRQ(PWM_IRQn);
-	
+	*/
 	/* Enable PWM channels for LEDs */
 	pwm_channel_enable(PWM, PIN_PWM_LED0_CHANNEL);
 	pwm_channel_enable(PWM, PIN_PWM_LED1_CHANNEL);

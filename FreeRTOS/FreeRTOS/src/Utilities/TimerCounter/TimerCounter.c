@@ -9,8 +9,8 @@
 #include <inttypes.h>
 #include "asf.h"
 #include "TimerCounter.h"
-#include "../consoleFunctions.h"
-#include "DelayFunctions.h"
+#include "../ConsoleFunctions/consoleFunctions.h"
+#include "../DelayFunctions/DelayFunctions.h"
 
 //#include <util/delay.h>
 #include <string.h>

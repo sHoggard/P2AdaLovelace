@@ -7,7 +7,7 @@
 
 
 #include "MotorControl.h"
-#include "delay.h"
+#include "../Utilities/DelayFunctions/delayFunctions.h"
 
 void initMotors()
 {
@@ -85,14 +85,14 @@ void initMotors()
 	pwm_channel_enable(PWM, PWM_CHANNEL_1);
 	
 	//wait for motors to initialize
-	delay_ms(5);
+	delayMicroseconds(5000);
 	
 	//stop motors
 	pwm_channel_update_duty(PWM, &pwm_motorLeft, 1500);
 	pwm_channel_update_duty(PWM, &pwm_motorRight, 1500);
 	
 	//wait, for some reason
-	delay_ms(20);
+	delayMicroseconds(20000);
 	
 	//test settings
 	pwm_channel_update_duty(PWM, &pwm_motorLeft, 1800);

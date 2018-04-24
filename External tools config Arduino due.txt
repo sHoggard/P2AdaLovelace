@@ -1,0 +1,8 @@
+Command:
+$(SolutionDir)\BossacArduinoDue.bat
+
+Arguments:
+"$(SolutionDir)\bossac.exe" "$(ProjectDir)\Debug\$(ProjectFileName).bin"
+
+Checkboxes:
+Use Output window

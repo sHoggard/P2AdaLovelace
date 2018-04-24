@@ -12,9 +12,23 @@ src\ASF\sam\drivers\tc\tc.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
-src\PioInterrupt\PioInterrupt.c
+src\MotorControl\MotorControl.c
 
-src\TimerCounter\TimerCounter.c
+src\Tasks\task_control.c
+
+src\Tasks\task_player1.c
+
+src\Tasks\task_player2.c
+
+src\Utilities\ConsoleFunctions\consoleFunctions.c
+
+src\Utilities\DelayFunctions\delayFunctions.c
+
+src\Utilities\PioInterrupt\PioInterrupt.c
+
+src\Utilities\TimerCounter\TimerCounter.c
+
+src\WheelCounters\WheelCounters.c
 
 src\ASF\sam\drivers\adc\adc_sam3u.c
 
@@ -23,16 +37,6 @@ src\ASF\sam\drivers\trng\trng.c
 src\ASF\sam\drivers\usart\usart.c
 
 src\ASF\thirdparty\freertos\freertos-7.3.0\source\FreeRTOS_CLI.c
-
-src\consoleFunctions.c
-
-src\delayFunctions.c
-
-src\task_control.c
-
-src\task_player1.c
-
-src\task_player2.c
 
 src\ASF\thirdparty\freertos\freertos-7.3.0\source\list.c
 

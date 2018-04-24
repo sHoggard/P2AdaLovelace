@@ -1,4 +1,7 @@
-src/task_control.d src/task_control.o: ../src/task_control.c ../src/asf.h \
+src/Utilities/PioInterrupt/PioInterrupt.d \
+ src/Utilities/PioInterrupt/PioInterrupt.o: \
+ ../src/Utilities/PioInterrupt/PioInterrupt.c \
+ ../src/Utilities/PioInterrupt/PioInterrupt.h ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -158,8 +161,10 @@ src/task_control.d src/task_control.o: ../src/task_control.c ../src/asf.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/task_control.h \
- ../src/xHandlerParameters.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h \
+ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h
+
+../src/Utilities/PioInterrupt/PioInterrupt.h:
 
 ../src/asf.h:
 
@@ -497,6 +502,4 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/task_control.h:
-
-../src/xHandlerParameters.h:
+c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
