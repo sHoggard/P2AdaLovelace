@@ -7,7 +7,7 @@
 
 
 #include "MotorControl.h"
-#include "Utilities/DelayFunctions/delayFunctions.h"
+#include "delay.h"
 
 void initMotors()
 {
@@ -16,7 +16,7 @@ void initMotors()
 	//pio_set_input(PIOC, PIN_MOTOR_RIGHT, PIO_DEFAULT);
 	
 	//apparently, pins need to unload their charge
-	delayMicroseconds(20000);
+	delay_ms(20);
 	
 	//wait until both motors are powered up
 	while (!pio_get_pin_value(MOTOR_LEFT) || !pio_get_pin_value(MOTOR_RIGHT));
@@ -92,8 +92,8 @@ void initMotors()
 	//pwm_channel_update_duty(PWM, &pwm_motorLeft, 1500);
 	//pwm_channel_update_duty(PWM, &pwm_motorRight, 1500);
 	
-	//wait, for some reason
-	//delay_ms(20);
+	//wait, because the motors are not ready
+	delay_ms(20);
 	
 	//test settings
 	pwm_channel_update_duty(PWM, &pwm_motorLeft, 1800);

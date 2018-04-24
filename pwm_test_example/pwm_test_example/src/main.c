@@ -193,10 +193,10 @@ int main(void)
 
 
 	/* Configure interrupt and enable PWM interrupt */
-	NVIC_DisableIRQ(PWM_IRQn);
-	NVIC_ClearPendingIRQ(PWM_IRQn);
-	NVIC_SetPriority(PWM_IRQn, 0);
-	NVIC_EnableIRQ(PWM_IRQn);
+	//NVIC_DisableIRQ(PWM_IRQn);
+	//NVIC_ClearPendingIRQ(PWM_IRQn);
+	//NVIC_SetPriority(PWM_IRQn, 0);
+	//NVIC_EnableIRQ(PWM_IRQn);
 	
 	/* Enable PWM channels for LEDs */
 	pwm_channel_enable(PWM, PIN_PWM_LED0_CHANNEL);
