@@ -1,13 +1,10 @@
-src/ASF/common/services/clock/sam3x/sysclk.d \
- src/ASF/common/services/clock/sam3x/sysclk.o: \
- ../src/ASF/common/services/clock/sam3x/sysclk.c \
- ../src/ASF/common/services/clock/sysclk.h \
- ../src/ASF/common/utils/parts.h ../src/config/conf_clock.h \
- ../src/ASF/common/services/clock/sam3x/sysclk.h \
- ../src/ASF/common/services/clock/osc.h \
- ../src/ASF/common/services/clock/sam3x/osc.h \
- ../src/ASF/common/boards/board.h ../src/ASF/sam/utils/compiler.h \
+src/ASF/common/services/delay/sam/cycle_counter.d \
+ src/ASF/common/services/delay/sam/cycle_counter.o: \
+ ../src/ASF/common/services/delay/sam/cycle_counter.c \
+ ../src/ASF/common/services/delay/sam/cycle_counter.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
+ ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
  ../src/ASF/sam/utils/preprocessor/tpaste.h \
  ../src/ASF/sam/utils/preprocessor/stringz.h \
@@ -122,29 +119,15 @@ src/ASF/common/services/clock/sam3x/sysclk.d \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\stdlib.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\alloca.h \
  ../src/ASF/common/utils/interrupt.h \
- ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h \
- ../src/ASF/sam/boards/arduino_due_x/arduino_due_x.h \
- ../src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.h \
- ../src/ASF/sam/drivers/pmc/pmc.h ../src/ASF/common/services/clock/pll.h \
- ../src/ASF/common/services/clock/sam3x/pll.h
+ ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h
 
-../src/ASF/common/services/clock/sysclk.h:
-
-../src/ASF/common/utils/parts.h:
-
-../src/config/conf_clock.h:
-
-../src/ASF/common/services/clock/sam3x/sysclk.h:
-
-../src/ASF/common/services/clock/osc.h:
-
-../src/ASF/common/services/clock/sam3x/osc.h:
-
-../src/ASF/common/boards/board.h:
+../src/ASF/common/services/delay/sam/cycle_counter.h:
 
 ../src/ASF/sam/utils/compiler.h:
 
 c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h:
+
+../src/ASF/common/utils/parts.h:
 
 ../src/ASF/sam/utils/preprocessor/preprocessor.h:
 
@@ -375,13 +358,3 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/ASF/common/utils/interrupt.h:
 
 ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h:
-
-../src/ASF/sam/boards/arduino_due_x/arduino_due_x.h:
-
-../src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.h:
-
-../src/ASF/sam/drivers/pmc/pmc.h:
-
-../src/ASF/common/services/clock/pll.h:
-
-../src/ASF/common/services/clock/sam3x/pll.h:

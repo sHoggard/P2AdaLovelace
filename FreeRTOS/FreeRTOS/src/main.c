@@ -63,6 +63,8 @@ int main (void)
 	/* Initialize the SAM system */
 	sysclk_init();
 	board_init();
+	init_timer();
+	delayInit();
 	//initMotors();
 	
 	/* Configure the console uart for debug information */
