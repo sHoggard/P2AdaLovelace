@@ -134,8 +134,6 @@ src/Utilities/ConsoleFunctions/consoleFunctions.d \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h \
- ../src/ASF/common/services/delay/delay.h \
- ../src/ASF/common/services/delay/sam/cycle_counter.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h \
  ../src/config/FreeRTOSConfig.h \
@@ -441,10 +439,6 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 ../src/asf.h:
 
 ../src/ASF/sam/drivers/adc/adc.h:
-
-../src/ASF/common/services/delay/delay.h:
-
-../src/ASF/common/services/delay/sam/cycle_counter.h:
 
 ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h:
 
