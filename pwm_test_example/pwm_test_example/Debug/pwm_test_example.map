@@ -5565,8 +5565,8 @@ OUTPUT(pwm_test_example.elf elf32-littlearm)
                               0x58e92 (size before relaxing)
  .debug_str     0x0005feb4      0x740 src/ASF/sam/utils/syscalls/gcc/syscalls.o
                                0x4f24 (size before relaxing)
- .debug_str     0x000605f4      0x73f src/main.o
-                              0x5e264 (size before relaxing)
+ .debug_str     0x000605f4      0x7b0 src/main.o
+                              0x5e27b (size before relaxing)
 
 .debug_frame    0x00000000     0x1ccc
  .debug_frame   0x00000000       0x30 src/ASF/common/utils/stdio/read.o

@@ -29,9 +29,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_line   0000b93c  00000000  00000000  00038877  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    00060d33  00000000  00000000  000441b3  2**0
+ 13 .debug_str    00060da4  00000000  00000000  000441b3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00001ccc  00000000  00000000  000a4ee8  2**2
+ 14 .debug_frame  00001ccc  00000000  00000000  000a4f58  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1473,22 +1473,39 @@ Disassembly of section .text:
 00080d40 <main>:
    80d40:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
    80d44:	b087      	sub	sp, #28
+	/* Initialize the SAM system */
+	sysclk_init();
    80d46:	4b42      	ldr	r3, [pc, #264]	; (80e50 <main+0x110>)
    80d48:	4798      	blx	r3
+	board_init();
    80d4a:	4b42      	ldr	r3, [pc, #264]	; (80e54 <main+0x114>)
    80d4c:	4798      	blx	r3
    80d4e:	2008      	movs	r0, #8
    80d50:	4c41      	ldr	r4, [pc, #260]	; (80e58 <main+0x118>)
    80d52:	47a0      	blx	r4
+ * \param opt         Options needed to set up RS232 communication (see \ref usart_options_t).
+ *
+ */
+static inline void stdio_serial_init(volatile void *usart, const usart_serial_options_t *opt)
+{
+	stdio_base = (void *)usart;
    80d54:	4d41      	ldr	r5, [pc, #260]	; (80e5c <main+0x11c>)
    80d56:	4b42      	ldr	r3, [pc, #264]	; (80e60 <main+0x120>)
    80d58:	601d      	str	r5, [r3, #0]
+	ptr_put = (int (*)(void volatile*,char))&usart_serial_putchar;
    80d5a:	4a42      	ldr	r2, [pc, #264]	; (80e64 <main+0x124>)
    80d5c:	4b42      	ldr	r3, [pc, #264]	; (80e68 <main+0x128>)
    80d5e:	601a      	str	r2, [r3, #0]
+	ptr_get = (void (*)(void volatile*,char*))&usart_serial_getchar;
    80d60:	4a42      	ldr	r2, [pc, #264]	; (80e6c <main+0x12c>)
    80d62:	4b43      	ldr	r3, [pc, #268]	; (80e70 <main+0x130>)
    80d64:	601a      	str	r2, [r3, #0]
+static inline void usart_serial_init(usart_if p_usart,
+		usart_serial_options_t *opt)
+{
+#if ((!SAM4L) && (!SAMG55))
+	sam_uart_opt_t uart_settings;
+	uart_settings.ul_mck = sysclk_get_peripheral_hz();
    80d66:	4f43      	ldr	r7, [pc, #268]	; (80e74 <main+0x134>)
    80d68:	9700      	str	r7, [sp, #0]
    80d6a:	f44f 33e1 	mov.w	r3, #115200	; 0x1c200
@@ -1501,6 +1518,12 @@ Disassembly of section .text:
    80d7c:	4669      	mov	r1, sp
    80d7e:	4b3e      	ldr	r3, [pc, #248]	; (80e78 <main+0x138>)
    80d80:	4798      	blx	r3
+	fdevopen((int (*)(char, FILE*))(_write),(int (*)(FILE*))(_read));
+#  endif
+#  if UC3 || SAM
+	// For AVR32 and SAM GCC
+	// Specify that stdout and stdin should not be buffered.
+	setbuf(stdout, NULL);
    80d82:	4e3e      	ldr	r6, [pc, #248]	; (80e7c <main+0x13c>)
    80d84:	6833      	ldr	r3, [r6, #0]
    80d86:	6898      	ldr	r0, [r3, #8]
@@ -1511,6 +1534,12 @@ Disassembly of section .text:
    80d90:	6858      	ldr	r0, [r3, #4]
    80d92:	2100      	movs	r1, #0
    80d94:	47a8      	blx	r5
+
+	/* Configure the console uart for debug information */
+	configure_console();
+
+	/* Output example information */
+	puts(STRING_HEADER);
    80d96:	483b      	ldr	r0, [pc, #236]	; (80e84 <main+0x144>)
    80d98:	4b3b      	ldr	r3, [pc, #236]	; (80e88 <main+0x148>)
    80d9a:	4798      	blx	r3
@@ -1523,6 +1552,11 @@ Disassembly of section .text:
    80dac:	47a8      	blx	r5
    80dae:	2024      	movs	r0, #36	; 0x24
    80db0:	47a0      	blx	r4
+
+
+	/* Disable PWM channels for LEDs */
+
+	pwm_channel_disable(PWM, PIN_PWM_LED0_CHANNEL);
    80db2:	4d37      	ldr	r5, [pc, #220]	; (80e90 <main+0x150>)
    80db4:	4628      	mov	r0, r5
    80db6:	2104      	movs	r1, #4
@@ -1531,6 +1565,9 @@ Disassembly of section .text:
    80dbc:	4628      	mov	r0, r5
    80dbe:	2105      	movs	r1, #5
    80dc0:	47a0      	blx	r4
+
+	/* Set PWM clock A as PWM_FREQUENCY*PERIOD_VALUE (clock B is not used) */
+	pwm_clock_t clock_setting = {
    80dc2:	4b35      	ldr	r3, [pc, #212]	; (80e98 <main+0x158>)
    80dc4:	9303      	str	r3, [sp, #12]
    80dc6:	2600      	movs	r6, #0
@@ -1540,6 +1577,11 @@ Disassembly of section .text:
    80dce:	a903      	add	r1, sp, #12
    80dd0:	4b32      	ldr	r3, [pc, #200]	; (80e9c <main+0x15c>)
    80dd2:	4798      	blx	r3
+
+
+	/* Initialize PWM channel for LED0 */
+	/* Period is left-aligned */
+	g_pwm_channel_led.alignment = PWM_ALIGN_LEFT;
    80dd4:	4c32      	ldr	r4, [pc, #200]	; (80ea0 <main+0x160>)
    80dd6:	8126      	strh	r6, [r4, #8]
    80dd8:	72a6      	strb	r6, [r4, #10]
@@ -1575,16 +1617,47 @@ Disassembly of section .text:
    80e28:	4632      	mov	r2, r6
    80e2a:	4b1f      	ldr	r3, [pc, #124]	; (80ea8 <main+0x168>)
    80e2c:	4798      	blx	r3
+
+    \param [in]      IRQn  External interrupt number. Value cannot be negative.
+ */
+__STATIC_INLINE void NVIC_DisableIRQ(IRQn_Type IRQn)
+{
+  NVIC->ICER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* disable interrupt */
    80e2e:	4b1f      	ldr	r3, [pc, #124]	; (80eac <main+0x16c>)
    80e30:	2210      	movs	r2, #16
    80e32:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
+
+    \param [in]      IRQn  External interrupt number. Value cannot be negative.
+ */
+__STATIC_INLINE void NVIC_ClearPendingIRQ(IRQn_Type IRQn)
+{
+  NVIC->ICPR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* Clear pending interrupt */
    80e36:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
+__STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+{
+  if(IRQn < 0) {
+    SCB->SHP[((uint32_t)(IRQn) & 0xF)-4] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff); } /* set Priority for Cortex-M  System Interrupts */
+  else {
+    NVIC->IP[(uint32_t)(IRQn)] = ((priority << (8 - __NVIC_PRIO_BITS)) & 0xff);    }        /* set Priority for device specific Interrupts  */
    80e3a:	f883 6324 	strb.w	r6, [r3, #804]	; 0x324
+
+    \param [in]      IRQn  External interrupt number. Value cannot be negative.
+ */
+__STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
+{
+  NVIC->ISER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* enable interrupt */
    80e3e:	605a      	str	r2, [r3, #4]
+	NVIC_ClearPendingIRQ(PWM_IRQn);
+	NVIC_SetPriority(PWM_IRQn, 0);
+	NVIC_EnableIRQ(PWM_IRQn);
+	
+	/* Enable PWM channels for LEDs */
+	pwm_channel_enable(PWM, PIN_PWM_LED0_CHANNEL);
    80e40:	4628      	mov	r0, r5
    80e42:	4641      	mov	r1, r8
    80e44:	4c1a      	ldr	r4, [pc, #104]	; (80eb0 <main+0x170>)
    80e46:	47a0      	blx	r4
+	pwm_channel_enable(PWM, PIN_PWM_LED1_CHANNEL);
    80e48:	4628      	mov	r0, r5
    80e4a:	4639      	mov	r1, r7
    80e4c:	47a0      	blx	r4
@@ -4437,11 +4510,11 @@ Disassembly of section .text:
    82a00:	69706d6f 	.word	0x69706d6f
    82a04:	3a64656c 	.word	0x3a64656c
    82a08:	72704120 	.word	0x72704120
-   82a0c:	20333220 	.word	0x20333220
+   82a0c:	20343220 	.word	0x20343220
    82a10:	38313032 	.word	0x38313032
-   82a14:	3a333120 	.word	0x3a333120
-   82a18:	303a3535 	.word	0x303a3535
-   82a1c:	2d2d2034 	.word	0x2d2d2034
+   82a14:	3a383120 	.word	0x3a383120
+   82a18:	323a3531 	.word	0x323a3531
+   82a1c:	2d2d2033 	.word	0x2d2d2033
    82a20:	0000000d 	.word	0x0000000d
    82a24:	00000043 	.word	0x00000043
 
