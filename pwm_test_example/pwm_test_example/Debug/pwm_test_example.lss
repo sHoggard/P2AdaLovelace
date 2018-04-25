@@ -1255,29 +1255,15 @@ Disassembly of section .text:
    80b6a:	4770      	bx	lr
 
 00080b6c <usart_serial_getchar>:
- * \param p_usart   Base address of the USART instance.
- * \param data   Data to read
- *
- */
-static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
-{
    80b6c:	b5f0      	push	{r4, r5, r6, r7, lr}
    80b6e:	b083      	sub	sp, #12
    80b70:	4604      	mov	r4, r0
    80b72:	460d      	mov	r5, r1
-	uint32_t val = 0;
    80b74:	2300      	movs	r3, #0
    80b76:	9301      	str	r3, [sp, #4]
-
-	/* Avoid Cppcheck Warning */
-	UNUSED(val);
-
-#ifdef UART
-	if (UART == (Uart*)p_usart) {
    80b78:	4b1f      	ldr	r3, [pc, #124]	; (80bf8 <usart_serial_getchar+0x8c>)
    80b7a:	4298      	cmp	r0, r3
    80b7c:	d107      	bne.n	80b8e <usart_serial_getchar+0x22>
-		while (uart_read((Uart*)p_usart, data));
    80b7e:	461f      	mov	r7, r3
    80b80:	4e1e      	ldr	r6, [pc, #120]	; (80bfc <usart_serial_getchar+0x90>)
    80b82:	4638      	mov	r0, r7
@@ -1286,16 +1272,9 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
    80b88:	2800      	cmp	r0, #0
    80b8a:	d1fa      	bne.n	80b82 <usart_serial_getchar+0x16>
    80b8c:	e019      	b.n	80bc2 <usart_serial_getchar+0x56>
-		while (usart_read(p_usart, &val));
-		*data = (uint8_t)(val & 0xFF);
-	}
-#else
-# ifdef USART0
-	if (USART0 == p_usart) {
    80b8e:	4b1c      	ldr	r3, [pc, #112]	; (80c00 <usart_serial_getchar+0x94>)
    80b90:	4298      	cmp	r0, r3
    80b92:	d109      	bne.n	80ba8 <usart_serial_getchar+0x3c>
-		while (usart_read(p_usart, &val));
    80b94:	461f      	mov	r7, r3
    80b96:	4e1b      	ldr	r6, [pc, #108]	; (80c04 <usart_serial_getchar+0x98>)
    80b98:	4638      	mov	r0, r7
@@ -1303,18 +1282,12 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
    80b9c:	47b0      	blx	r6
    80b9e:	2800      	cmp	r0, #0
    80ba0:	d1fa      	bne.n	80b98 <usart_serial_getchar+0x2c>
-		*data = (uint8_t)(val & 0xFF);
    80ba2:	9b01      	ldr	r3, [sp, #4]
    80ba4:	702b      	strb	r3, [r5, #0]
    80ba6:	e019      	b.n	80bdc <usart_serial_getchar+0x70>
-	}
-# endif
-# ifdef USART1
-	if (USART1 == p_usart) {
    80ba8:	4b17      	ldr	r3, [pc, #92]	; (80c08 <usart_serial_getchar+0x9c>)
    80baa:	4298      	cmp	r0, r3
    80bac:	d109      	bne.n	80bc2 <usart_serial_getchar+0x56>
-		while (usart_read(p_usart, &val));
    80bae:	461e      	mov	r6, r3
    80bb0:	4c14      	ldr	r4, [pc, #80]	; (80c04 <usart_serial_getchar+0x98>)
    80bb2:	4630      	mov	r0, r6
@@ -1322,18 +1295,12 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
    80bb6:	47a0      	blx	r4
    80bb8:	2800      	cmp	r0, #0
    80bba:	d1fa      	bne.n	80bb2 <usart_serial_getchar+0x46>
-		*data = (uint8_t)(val & 0xFF);
    80bbc:	9b01      	ldr	r3, [sp, #4]
    80bbe:	702b      	strb	r3, [r5, #0]
    80bc0:	e018      	b.n	80bf4 <usart_serial_getchar+0x88>
-	}
-# endif
-# ifdef USART2
-	if (USART2 == p_usart) {
    80bc2:	4b12      	ldr	r3, [pc, #72]	; (80c0c <usart_serial_getchar+0xa0>)
    80bc4:	429c      	cmp	r4, r3
    80bc6:	d109      	bne.n	80bdc <usart_serial_getchar+0x70>
-		while (usart_read(p_usart, &val));
    80bc8:	461e      	mov	r6, r3
    80bca:	4c0e      	ldr	r4, [pc, #56]	; (80c04 <usart_serial_getchar+0x98>)
    80bcc:	4630      	mov	r0, r6
@@ -1341,18 +1308,12 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
    80bd0:	47a0      	blx	r4
    80bd2:	2800      	cmp	r0, #0
    80bd4:	d1fa      	bne.n	80bcc <usart_serial_getchar+0x60>
-		*data = (uint8_t)(val & 0xFF);
    80bd6:	9b01      	ldr	r3, [sp, #4]
    80bd8:	702b      	strb	r3, [r5, #0]
    80bda:	e00b      	b.n	80bf4 <usart_serial_getchar+0x88>
-	}
-# endif
-# ifdef USART3
-	if (USART3 == p_usart) {
    80bdc:	4b0c      	ldr	r3, [pc, #48]	; (80c10 <usart_serial_getchar+0xa4>)
    80bde:	429c      	cmp	r4, r3
    80be0:	d108      	bne.n	80bf4 <usart_serial_getchar+0x88>
-		while (usart_read(p_usart, &val));
    80be2:	461e      	mov	r6, r3
    80be4:	4c07      	ldr	r4, [pc, #28]	; (80c04 <usart_serial_getchar+0x98>)
    80be6:	4630      	mov	r0, r6
@@ -1360,15 +1321,8 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
    80bea:	47a0      	blx	r4
    80bec:	2800      	cmp	r0, #0
    80bee:	d1fa      	bne.n	80be6 <usart_serial_getchar+0x7a>
-		*data = (uint8_t)(val & 0xFF);
    80bf0:	9b01      	ldr	r3, [sp, #4]
    80bf2:	702b      	strb	r3, [r5, #0]
-		*data = (uint8_t)(val & 0xFF);
-	}
-# endif
-#endif /* ifdef USART */
-
-}
    80bf4:	b003      	add	sp, #12
    80bf6:	bdf0      	pop	{r4, r5, r6, r7, pc}
    80bf8:	400e0800 	.word	0x400e0800
@@ -1380,20 +1334,11 @@ static inline void usart_serial_getchar(usart_if p_usart, uint8_t *data)
    80c10:	400a4000 	.word	0x400a4000
 
 00080c14 <usart_serial_putchar>:
- *   \retval 1  The character was written.
- *   \retval 0  The function timed out before the USART transmitter became
- * ready to send.
- */
-static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
-{
    80c14:	b570      	push	{r4, r5, r6, lr}
    80c16:	460c      	mov	r4, r1
-#ifdef UART
-	if (UART == (Uart*)p_usart) {
    80c18:	4b21      	ldr	r3, [pc, #132]	; (80ca0 <usart_serial_putchar+0x8c>)
    80c1a:	4298      	cmp	r0, r3
    80c1c:	d107      	bne.n	80c2e <usart_serial_putchar+0x1a>
-		while (uart_write((Uart*)p_usart, c)!=0);
    80c1e:	461e      	mov	r6, r3
    80c20:	4d20      	ldr	r5, [pc, #128]	; (80ca4 <usart_serial_putchar+0x90>)
    80c22:	4630      	mov	r0, r6
@@ -1402,16 +1347,9 @@ static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
    80c28:	2800      	cmp	r0, #0
    80c2a:	d1fa      	bne.n	80c22 <usart_serial_putchar+0xe>
    80c2c:	e02b      	b.n	80c86 <usart_serial_putchar+0x72>
-		while (usart_write(p_usart, c)!=0);
-		return 1;
-	}
-#else
-# ifdef USART0
-	if (USART0 == p_usart) {
    80c2e:	4b1e      	ldr	r3, [pc, #120]	; (80ca8 <usart_serial_putchar+0x94>)
    80c30:	4298      	cmp	r0, r3
    80c32:	d107      	bne.n	80c44 <usart_serial_putchar+0x30>
-		while (usart_write(p_usart, c)!=0);
    80c34:	461e      	mov	r6, r3
    80c36:	4d1d      	ldr	r5, [pc, #116]	; (80cac <usart_serial_putchar+0x98>)
    80c38:	4630      	mov	r0, r6
@@ -1420,15 +1358,9 @@ static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
    80c3e:	2800      	cmp	r0, #0
    80c40:	d1fa      	bne.n	80c38 <usart_serial_putchar+0x24>
    80c42:	e022      	b.n	80c8a <usart_serial_putchar+0x76>
-		return 1;
-	}
-# endif
-# ifdef USART1
-	if (USART1 == p_usart) {
    80c44:	4b1a      	ldr	r3, [pc, #104]	; (80cb0 <usart_serial_putchar+0x9c>)
    80c46:	4298      	cmp	r0, r3
    80c48:	d107      	bne.n	80c5a <usart_serial_putchar+0x46>
-		while (usart_write(p_usart, c)!=0);
    80c4a:	461e      	mov	r6, r3
    80c4c:	4d17      	ldr	r5, [pc, #92]	; (80cac <usart_serial_putchar+0x98>)
    80c4e:	4630      	mov	r0, r6
@@ -1437,15 +1369,9 @@ static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
    80c54:	2800      	cmp	r0, #0
    80c56:	d1fa      	bne.n	80c4e <usart_serial_putchar+0x3a>
    80c58:	e019      	b.n	80c8e <usart_serial_putchar+0x7a>
-		return 1;
-	}
-# endif
-# ifdef USART2
-	if (USART2 == p_usart) {
    80c5a:	4b16      	ldr	r3, [pc, #88]	; (80cb4 <usart_serial_putchar+0xa0>)
    80c5c:	4298      	cmp	r0, r3
    80c5e:	d107      	bne.n	80c70 <usart_serial_putchar+0x5c>
-		while (usart_write(p_usart, c)!=0);
    80c60:	461e      	mov	r6, r3
    80c62:	4d12      	ldr	r5, [pc, #72]	; (80cac <usart_serial_putchar+0x98>)
    80c64:	4630      	mov	r0, r6
@@ -1454,15 +1380,9 @@ static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
    80c6a:	2800      	cmp	r0, #0
    80c6c:	d1fa      	bne.n	80c64 <usart_serial_putchar+0x50>
    80c6e:	e010      	b.n	80c92 <usart_serial_putchar+0x7e>
-		return 1;
-	}
-# endif
-# ifdef USART3
-	if (USART3 == p_usart) {
    80c70:	4b11      	ldr	r3, [pc, #68]	; (80cb8 <usart_serial_putchar+0xa4>)
    80c72:	4298      	cmp	r0, r3
    80c74:	d10f      	bne.n	80c96 <usart_serial_putchar+0x82>
-		while (usart_write(p_usart, c)!=0);
    80c76:	461e      	mov	r6, r3
    80c78:	4d0c      	ldr	r5, [pc, #48]	; (80cac <usart_serial_putchar+0x98>)
    80c7a:	4630      	mov	r0, r6
@@ -1471,59 +1391,17 @@ static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
    80c80:	2800      	cmp	r0, #0
    80c82:	d1fa      	bne.n	80c7a <usart_serial_putchar+0x66>
    80c84:	e009      	b.n	80c9a <usart_serial_putchar+0x86>
-static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
-{
-#ifdef UART
-	if (UART == (Uart*)p_usart) {
-		while (uart_write((Uart*)p_usart, c)!=0);
-		return 1;
    80c86:	2001      	movs	r0, #1
    80c88:	bd70      	pop	{r4, r5, r6, pc}
-	}
-#else
-# ifdef USART0
-	if (USART0 == p_usart) {
-		while (usart_write(p_usart, c)!=0);
-		return 1;
    80c8a:	2001      	movs	r0, #1
    80c8c:	bd70      	pop	{r4, r5, r6, pc}
-	}
-# endif
-# ifdef USART1
-	if (USART1 == p_usart) {
-		while (usart_write(p_usart, c)!=0);
-		return 1;
    80c8e:	2001      	movs	r0, #1
    80c90:	bd70      	pop	{r4, r5, r6, pc}
-	}
-# endif
-# ifdef USART2
-	if (USART2 == p_usart) {
-		while (usart_write(p_usart, c)!=0);
-		return 1;
    80c92:	2001      	movs	r0, #1
    80c94:	bd70      	pop	{r4, r5, r6, pc}
-		return 1;
-	}
-# endif
-#endif /* ifdef USART */
-
-	return 0;
    80c96:	2000      	movs	r0, #0
    80c98:	bd70      	pop	{r4, r5, r6, pc}
-	}
-# endif
-# ifdef USART3
-	if (USART3 == p_usart) {
-		while (usart_write(p_usart, c)!=0);
-		return 1;
    80c9a:	2001      	movs	r0, #1
-	}
-# endif
-#endif /* ifdef USART */
-
-	return 0;
-}
    80c9c:	bd70      	pop	{r4, r5, r6, pc}
    80c9e:	bf00      	nop
    80ca0:	400e0800 	.word	0x400e0800
@@ -1535,78 +1413,41 @@ static inline int usart_serial_putchar(usart_if p_usart, const uint8_t c)
    80cb8:	400a4000 	.word	0x400a4000
 
 00080cbc <PWM_Handler>:
-
-/**
- * \brief Interrupt handler for the PWM controller.
- */
-void PWM_Handler(void)
-{
    80cbc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
-	static uint32_t ul_count = 0;  /* PWM counter value */
-	static uint32_t ul_duty = INIT_DUTY_VALUE;  /* PWM duty cycle rate */
-	static uint8_t fade_in = 1;  /* LED fade in flag */
-
-	uint32_t events = pwm_channel_get_interrupt_status(PWM);
    80cbe:	4819      	ldr	r0, [pc, #100]	; (80d24 <PWM_Handler+0x68>)
    80cc0:	4b19      	ldr	r3, [pc, #100]	; (80d28 <PWM_Handler+0x6c>)
    80cc2:	4798      	blx	r3
-
-	/* Interrupt on PIN_PWM_LED0_CHANNEL */
-	if ((events & (1 << PIN_PWM_LED0_CHANNEL)) ==
    80cc4:	f010 0f10 	tst.w	r0, #16
    80cc8:	d02b      	beq.n	80d22 <PWM_Handler+0x66>
-		ul_count++;
-
-		/* Fade in/out */
-		//if (ul_count == (PWM_FREQUENCY / (PERIOD_VALUE - INIT_DUTY_VALUE))) {
-			/* Fade in */
-			if (fade_in) {
    80cca:	4b18      	ldr	r3, [pc, #96]	; (80d2c <PWM_Handler+0x70>)
    80ccc:	781b      	ldrb	r3, [r3, #0]
    80cce:	b153      	cbz	r3, 80ce6 <PWM_Handler+0x2a>
-				ul_duty++;
    80cd0:	4a17      	ldr	r2, [pc, #92]	; (80d30 <PWM_Handler+0x74>)
    80cd2:	6813      	ldr	r3, [r2, #0]
    80cd4:	3301      	adds	r3, #1
    80cd6:	6013      	str	r3, [r2, #0]
-				if (ul_duty == 2000) {
    80cd8:	f5b3 6ffa 	cmp.w	r3, #2000	; 0x7d0
    80cdc:	d10e      	bne.n	80cfc <PWM_Handler+0x40>
-					fade_in = 0;
    80cde:	2200      	movs	r2, #0
    80ce0:	4b12      	ldr	r3, [pc, #72]	; (80d2c <PWM_Handler+0x70>)
    80ce2:	701a      	strb	r2, [r3, #0]
    80ce4:	e00a      	b.n	80cfc <PWM_Handler+0x40>
-				}
-				} else {
-				/* Fade out */
-				ul_duty--;
    80ce6:	4a12      	ldr	r2, [pc, #72]	; (80d30 <PWM_Handler+0x74>)
    80ce8:	6813      	ldr	r3, [r2, #0]
    80cea:	3b01      	subs	r3, #1
    80cec:	6013      	str	r3, [r2, #0]
-				if (ul_duty == INIT_DUTY_VALUE) {
    80cee:	f240 52dc 	movw	r2, #1500	; 0x5dc
    80cf2:	4293      	cmp	r3, r2
    80cf4:	d102      	bne.n	80cfc <PWM_Handler+0x40>
-					fade_in = 1;
    80cf6:	2201      	movs	r2, #1
    80cf8:	4b0c      	ldr	r3, [pc, #48]	; (80d2c <PWM_Handler+0x70>)
    80cfa:	701a      	strb	r2, [r3, #0]
-				}
-			}
-
-			/* Set new duty cycle */
-			ul_count = 0;
    80cfc:	2200      	movs	r2, #0
    80cfe:	4b0d      	ldr	r3, [pc, #52]	; (80d34 <PWM_Handler+0x78>)
    80d00:	601a      	str	r2, [r3, #0]
-			g_pwm_channel_led.channel = PIN_PWM_LED0_CHANNEL;
    80d02:	4c0d      	ldr	r4, [pc, #52]	; (80d38 <PWM_Handler+0x7c>)
    80d04:	2304      	movs	r3, #4
    80d06:	6023      	str	r3, [r4, #0]
-
-			pwm_channel_update_duty(PWM, &g_pwm_channel_led, ul_duty);
    80d08:	4f06      	ldr	r7, [pc, #24]	; (80d24 <PWM_Handler+0x68>)
    80d0a:	4e09      	ldr	r6, [pc, #36]	; (80d30 <PWM_Handler+0x74>)
    80d0c:	4638      	mov	r0, r7
@@ -1614,12 +1455,8 @@ void PWM_Handler(void)
    80d10:	6832      	ldr	r2, [r6, #0]
    80d12:	4d0a      	ldr	r5, [pc, #40]	; (80d3c <PWM_Handler+0x80>)
    80d14:	47a8      	blx	r5
-
-			g_pwm_channel_led.channel = PIN_PWM_LED1_CHANNEL;
    80d16:	2305      	movs	r3, #5
    80d18:	6023      	str	r3, [r4, #0]
-
-			pwm_channel_update_duty(PWM, &g_pwm_channel_led, ul_duty);
    80d1a:	4638      	mov	r0, r7
    80d1c:	4621      	mov	r1, r4
    80d1e:	6832      	ldr	r2, [r6, #0]
@@ -1634,12 +1471,6 @@ void PWM_Handler(void)
    80d3c:	00080325 	.word	0x00080325
 
 00080d40 <main>:
- * Output PWM waves on LEDs to make them fade in and out.
- *
- * \return Unused (ANSI-C compatibility).
- */
-int main(void)
-{
    80d40:	e92d 4ff0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, lr}
    80d44:	b087      	sub	sp, #28
 	/* Initialize the SAM system */
@@ -1649,12 +1480,6 @@ int main(void)
 	board_init();
    80d4a:	4b42      	ldr	r3, [pc, #264]	; (80e54 <main+0x114>)
    80d4c:	4798      	blx	r3
- *
- * \param ul_id Id (number) of the peripheral clock.
- */
-static inline void sysclk_enable_peripheral_clock(uint32_t ul_id)
-{
-	pmc_enable_periph_clk(ul_id);
    80d4e:	2008      	movs	r0, #8
    80d50:	4c41      	ldr	r4, [pc, #260]	; (80e58 <main+0x118>)
    80d52:	47a0      	blx	r4
@@ -1683,20 +1508,12 @@ static inline void usart_serial_init(usart_if p_usart,
 	uart_settings.ul_mck = sysclk_get_peripheral_hz();
    80d66:	4f43      	ldr	r7, [pc, #268]	; (80e74 <main+0x134>)
    80d68:	9700      	str	r7, [sp, #0]
-	uart_settings.ul_baudrate = opt->baudrate;
    80d6a:	f44f 33e1 	mov.w	r3, #115200	; 0x1c200
    80d6e:	9301      	str	r3, [sp, #4]
-	uart_settings.ul_mode = opt->paritytype;
    80d70:	f44f 6300 	mov.w	r3, #2048	; 0x800
    80d74:	9302      	str	r3, [sp, #8]
    80d76:	2008      	movs	r0, #8
    80d78:	47a0      	blx	r4
-	
-#ifdef UART
-	if (UART == (Uart*)p_usart) {
-		sysclk_enable_peripheral_clock(ID_UART);
-		/* Configure UART */
-		uart_init((Uart*)p_usart, &uart_settings);
    80d7a:	4628      	mov	r0, r5
    80d7c:	4669      	mov	r1, sp
    80d7e:	4b3e      	ldr	r3, [pc, #248]	; (80e78 <main+0x138>)
@@ -1713,7 +1530,6 @@ static inline void usart_serial_init(usart_if p_usart,
    80d88:	2100      	movs	r1, #0
    80d8a:	4d3d      	ldr	r5, [pc, #244]	; (80e80 <main+0x140>)
    80d8c:	47a8      	blx	r5
-	setbuf(stdin, NULL);
    80d8e:	6833      	ldr	r3, [r6, #0]
    80d90:	6858      	ldr	r0, [r3, #4]
    80d92:	2100      	movs	r1, #0
@@ -1727,20 +1543,13 @@ static inline void usart_serial_init(usart_if p_usart,
    80d96:	483b      	ldr	r0, [pc, #236]	; (80e84 <main+0x144>)
    80d98:	4b3b      	ldr	r3, [pc, #236]	; (80e88 <main+0x148>)
    80d9a:	4798      	blx	r3
-	
-	pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 21), PIO_TYPE_PIO_PERIPH_B);
    80d9c:	2055      	movs	r0, #85	; 0x55
    80d9e:	f04f 5180 	mov.w	r1, #268435456	; 0x10000000
    80da2:	4d3a      	ldr	r5, [pc, #232]	; (80e8c <main+0x14c>)
    80da4:	47a8      	blx	r5
-	pio_configure_pin(IOPORT_CREATE_PIN(PIOC, 22), PIO_TYPE_PIO_PERIPH_B);
    80da6:	2056      	movs	r0, #86	; 0x56
    80da8:	f04f 5180 	mov.w	r1, #268435456	; 0x10000000
    80dac:	47a8      	blx	r5
-	
-	/* Enable PWM peripheral clock */
-
-	pmc_enable_periph_clk(ID_PWM);
    80dae:	2024      	movs	r0, #36	; 0x24
    80db0:	47a0      	blx	r4
 
@@ -1753,7 +1562,6 @@ static inline void usart_serial_init(usart_if p_usart,
    80db6:	2104      	movs	r1, #4
    80db8:	4c36      	ldr	r4, [pc, #216]	; (80e94 <main+0x154>)
    80dba:	47a0      	blx	r4
-	pwm_channel_disable(PWM, PIN_PWM_LED1_CHANNEL);
    80dbc:	4628      	mov	r0, r5
    80dbe:	2105      	movs	r1, #5
    80dc0:	47a0      	blx	r4
@@ -1765,12 +1573,6 @@ static inline void usart_serial_init(usart_if p_usart,
    80dc6:	2600      	movs	r6, #0
    80dc8:	9604      	str	r6, [sp, #16]
    80dca:	9705      	str	r7, [sp, #20]
-	
-	//itoa(sysclk_get_cpu_hz(), buffer, 10);
-	//puts(buffer);
-	
-
-	pwm_init(PWM, &clock_setting);
    80dcc:	4628      	mov	r0, r5
    80dce:	a903      	add	r1, sp, #12
    80dd0:	4b32      	ldr	r3, [pc, #200]	; (80e9c <main+0x15c>)
@@ -1782,69 +1584,34 @@ static inline void usart_serial_init(usart_if p_usart,
 	g_pwm_channel_led.alignment = PWM_ALIGN_LEFT;
    80dd4:	4c32      	ldr	r4, [pc, #200]	; (80ea0 <main+0x160>)
    80dd6:	8126      	strh	r6, [r4, #8]
-	/* Output waveform starts at a low level */
-	g_pwm_channel_led.polarity = PWM_LOW;
    80dd8:	72a6      	strb	r6, [r4, #10]
-	/* Use PWM clock A as source clock */
-	g_pwm_channel_led.ul_prescaler = PWM_CMR_CPRE_CLKA;
    80dda:	f04f 0b0b 	mov.w	fp, #11
    80dde:	f8c4 b004 	str.w	fp, [r4, #4]
-	/* Period value of output waveform */
-	g_pwm_channel_led.ul_period = PERIOD_VALUE;
    80de2:	f242 7a10 	movw	sl, #10000	; 0x2710
    80de6:	f8c4 a010 	str.w	sl, [r4, #16]
-	/* Duty cycle value of output waveform */
-	g_pwm_channel_led.ul_duty = INIT_DUTY_VALUE;
    80dea:	f240 57dc 	movw	r7, #1500	; 0x5dc
    80dee:	60e7      	str	r7, [r4, #12]
-	g_pwm_channel_led.channel = PIN_PWM_LED0_CHANNEL;
    80df0:	f04f 0804 	mov.w	r8, #4
    80df4:	f8c4 8000 	str.w	r8, [r4]
-
-	pwm_channel_init(PWM, &g_pwm_channel_led);
    80df8:	4628      	mov	r0, r5
    80dfa:	4621      	mov	r1, r4
    80dfc:	f8df 90b4 	ldr.w	r9, [pc, #180]	; 80eb4 <main+0x174>
    80e00:	47c8      	blx	r9
-
-
-	/* Enable channel counter event interrupt */
-
-	pwm_channel_enable_interrupt(PWM, PIN_PWM_LED0_CHANNEL, 0);
    80e02:	4628      	mov	r0, r5
    80e04:	4641      	mov	r1, r8
    80e06:	4632      	mov	r2, r6
    80e08:	4b26      	ldr	r3, [pc, #152]	; (80ea4 <main+0x164>)
    80e0a:	4798      	blx	r3
-
-
-	/* Initialize PWM channel for LED1 */
-	/* Period is center-aligned */
-	g_pwm_channel_led.alignment = PWM_ALIGN_LEFT;
    80e0c:	8126      	strh	r6, [r4, #8]
-	/* Output waveform starts at a high level */
-	g_pwm_channel_led.polarity = PWM_LOW;
    80e0e:	72a6      	strb	r6, [r4, #10]
-	/* Use PWM clock A as source clock */
-	g_pwm_channel_led.ul_prescaler = PWM_CMR_CPRE_CLKA;
    80e10:	f8c4 b004 	str.w	fp, [r4, #4]
-	/* Period value of output waveform */
-	g_pwm_channel_led.ul_period = PERIOD_VALUE;
    80e14:	f8c4 a010 	str.w	sl, [r4, #16]
-	/* Duty cycle value of output waveform */
-	g_pwm_channel_led.ul_duty = INIT_DUTY_VALUE;
    80e18:	60e7      	str	r7, [r4, #12]
-	g_pwm_channel_led.channel = PIN_PWM_LED1_CHANNEL;
    80e1a:	2705      	movs	r7, #5
    80e1c:	6027      	str	r7, [r4, #0]
-
-	pwm_channel_init(PWM, &g_pwm_channel_led);
    80e1e:	4628      	mov	r0, r5
    80e20:	4621      	mov	r1, r4
    80e22:	47c8      	blx	r9
-
-	/* Disable channel counter event interrupt */
-	pwm_channel_disable_interrupt(PWM, PIN_PWM_LED1_CHANNEL, 0);
    80e24:	4628      	mov	r0, r5
    80e26:	4639      	mov	r1, r7
    80e28:	4632      	mov	r2, r6
