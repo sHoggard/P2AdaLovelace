@@ -121,6 +121,7 @@ C_SRCS +=  \
 ../src/ASF/sam/drivers/tc/tc.c \
 ../src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.c \
 ../src/MotorControl/MotorControl.c \
+../src/Tasks/task_interrupt.c \
 ../src/Tasks/task_control.c \
 ../src/Tasks/task_player1.c \
 ../src/Tasks/task_player2.c \
@@ -170,6 +171,7 @@ src/ASF/sam/drivers/pwm/pwm.o \
 src/ASF/sam/drivers/tc/tc.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
 src/MotorControl/MotorControl.o \
+src/Tasks/task_interrupt.o \
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -212,6 +214,7 @@ src/ASF/sam/drivers/pwm/pwm.o \
 src/ASF/sam/drivers/tc/tc.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
 src/MotorControl/MotorControl.o \
+src/Tasks/task_interrupt.o \
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -254,6 +257,7 @@ src/ASF/sam/drivers/pwm/pwm.d \
 src/ASF/sam/drivers/tc/tc.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
 src/MotorControl/MotorControl.d \
+src/Tasks/task_interrupt.d \
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -296,6 +300,7 @@ src/ASF/sam/drivers/pwm/pwm.d \
 src/ASF/sam/drivers/tc/tc.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
 src/MotorControl/MotorControl.d \
+src/Tasks/task_interrupt.d \
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -345,6 +350,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

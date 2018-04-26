@@ -14,7 +14,7 @@
 #define TASK_PLAYER1_H_
 
 #define TASK_PLAYER1_STACK_SIZE (2048/ sizeof(portSTACK_TYPE)) 
-#define TASK_PLAYER1_PRIORITY   (1)
+#define TASK_PLAYER1_PRIORITY   (2)
 
 
 void task_player1(void *pvParamters);

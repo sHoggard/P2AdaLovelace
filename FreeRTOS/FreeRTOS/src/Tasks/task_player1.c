@@ -13,32 +13,31 @@
 
 void task_player1(void *pvParamters)
 {
+	portTickType xLastWakeTime;
+	portTickType xTimeIncrement = 3000/portTICK_RATE_MS;
 	printf("P1\n");
 	while(1){
-	portTickType xLastWakeTime;
-	portTickType xTimeIncrement = 200/portTICK_RATE_MS;
-	xLastWakeTime = xTaskGetTickCount();
-	//printf("task_player1\n");
+		//task_player1
+		//PIO_PA15_IDX = Digital Pin 24
+		ioport_set_pin_level(PIO_PA15_IDX, HIGH);
+		
+		xLastWakeTime = xTaskGetTickCount();
+		
 	
-	//task_player1
-	//PIO_PA15_IDX = Digital Pin 24
-	volatile int j=0; /* makes sure j doesn't overflow */
-	ioport_set_pin_level(PIO_PA15_IDX, LOW);
-	
-	
-	
-	ioport_set_pin_level(PIO_PB27_IDX, HIGH);
-	printf("P1, pinLevelsSet");
-	printf("PB14 level: ");
-	if(ioport_get_pin_level(PIO_PB14_IDX) == HIGH)
-		printf("PB14 is HIGH");
-	for (int i=0; i<50; i++) /* The delay counter */
-	{
-		ioport_set_pin_level(PIO_PA16_IDX, LOW);
-		j++; /* some easy predictable operation */
-		vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
-	}
-	printf("give xSemaphorePlayer1\n");
-	xSemaphoreGive(xSemaphorePlayer1);
+		volatile int j=0; /* makes sure j doesn't overflow */
+		for (int i=0; i<50; i++) /* The delay counter */
+		{
+			
+			j++; /* some easy predictable operation */
+			
+		}
+		
+		printf("give xSemaphorePlayer1\n");
+		printf("end task_player1 EoL(2.1)\n");
+		ioport_set_pin_level(PIO_PA15_IDX, LOW);
+		vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );	
+		//xSemaphoreGive(xSemaphoreInterrupt);
+		xSemaphoreGive(xSemaphorePlayer1);
+		vTaskSuspend(NULL);
 	}
 }
