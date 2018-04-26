@@ -165,12 +165,11 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
  ../src/Tasks/task_player1.h ../src/Tasks/task_control.h \
  ../src/Tasks/task_player2.h ../src/Tasks/task_control.h \
- ../src/Tasks/task_interrupt.h \
  ../src/Utilities/DelayFunctions/delayFunctions.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
  ../src/xHandlerParameters.h ../src/Utilities/TimerCounter/TimerCounter.h \
- ../src/Utilities/PioInterrupt/PioInterrupt.h ../src/config/conf_board.h \
- ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h
+ ../src/config/conf_board.h ../src/MotorControl/MotorControl.h \
+ ../src/WheelCounters/WheelCounters.h
 
 ../src/asf.h:
 
@@ -522,8 +521,6 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/Tasks/task_control.h:
 
-../src/Tasks/task_interrupt.h:
-
 ../src/Utilities/DelayFunctions/delayFunctions.h:
 
 ../src/Utilities/ConsoleFunctions/consoleFunctions.h:
@@ -531,8 +528,6 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/xHandlerParameters.h:
 
 ../src/Utilities/TimerCounter/TimerCounter.h:
-
-../src/Utilities/PioInterrupt/PioInterrupt.h:
 
 ../src/config/conf_board.h:
 
