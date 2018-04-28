@@ -335,27 +335,27 @@ __attribute__(( naked )) void PendSV_Handler( void )
 }
 /*-----------------------------------------------------------*/
 
-void SysTick_Handler( void )
-{
-	/* If using preemption, also force a context switch. */
-	#if configUSE_PREEMPTION == 1
-		portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;
-	#endif
-
-	/* Only reset the systick load register if configUSE_TICKLESS_IDLE is set to
-	1.  If it is set to 0 tickless idle is not being used.  If it is set to a 
-	value other than 0 or 1 then a timer other than the SysTick is being used
-	to generate the tick interrupt. */
-	#if configUSE_TICKLESS_IDLE == 1
-		portNVIC_SYSTICK_LOAD_REG = ulTimerReloadValueForOneTick;
-	#endif
-
-	( void ) portSET_INTERRUPT_MASK_FROM_ISR();
-	{
-		vTaskIncrementTick();
-	}
-	portCLEAR_INTERRUPT_MASK_FROM_ISR( 0 );
-}
+//void SysTick_Handler( void )
+//{
+	///* If using preemption, also force a context switch. */
+	//#if configUSE_PREEMPTION == 1
+		//portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT;
+	//#endif
+//
+	///* Only reset the systick load register if configUSE_TICKLESS_IDLE is set to
+	//1.  If it is set to 0 tickless idle is not being used.  If it is set to a 
+	//value other than 0 or 1 then a timer other than the SysTick is being used
+	//to generate the tick interrupt. */
+	//#if configUSE_TICKLESS_IDLE == 1
+		//portNVIC_SYSTICK_LOAD_REG = ulTimerReloadValueForOneTick;
+	//#endif
+//
+	//( void ) portSET_INTERRUPT_MASK_FROM_ISR();
+	//{
+		//vTaskIncrementTick();
+	//}
+	//portCLEAR_INTERRUPT_MASK_FROM_ISR( 0 );
+//}
 /*-----------------------------------------------------------*/
 
 #if configUSE_TICKLESS_IDLE == 1

@@ -164,7 +164,8 @@ src/WheelCounters/WheelCounters.d src/WheelCounters/WheelCounters.o: \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/MotorControl/MotorControl.h
 
 ../src/WheelCounters/WheelCounters.h:
 
@@ -509,3 +510,5 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+../src/MotorControl/MotorControl.h:

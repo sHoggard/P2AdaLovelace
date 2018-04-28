@@ -32,15 +32,32 @@
 #include <asf.h>
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
+#include "TimeTick/time_tick.h"
+#include "Utilities/ConsoleFunctions/consoleFunctions.h"
 
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 	sysclk_init();
 	board_init();
+	configureConsole();
 
 	// Insert application code here, after the board has been initialized.
 	
 	initMotors();
 	initSensors();
+	
+	time_tick_init();
+	
+	char buffer[20];
+	
+	while (1)
+	{
+		if (time_tick_get()%500 == 0)
+		{
+			puts(itoa(counterLeft, buffer, 10));
+			puts(itoa(counterRight, buffer, 10));
+			puts("\n");
+		}
+	}
 }

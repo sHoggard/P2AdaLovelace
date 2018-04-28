@@ -235,10 +235,10 @@ void PIOB_Handler(void)
  * \brief Parallel IO Controller C interrupt handler.
  * Redefined PIOC interrupt handler for NVIC interrupt table.
  */
-void PIOC_Handler(void)
-{
-	pio_handler_process(PIOC, ID_PIOC);
-}
+//void PIOC_Handler(void)
+//{
+	//pio_handler_process(PIOC, ID_PIOC);
+//}
 #endif
 
 #ifdef ID_PIOD
