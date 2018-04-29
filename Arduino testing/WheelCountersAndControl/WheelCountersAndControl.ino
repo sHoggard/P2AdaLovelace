@@ -11,6 +11,7 @@
 #define FULL_FORWARD 2000
 #define MOTOR_INCREMENTS 50   //must not be more than 100
 #define FULL_ROTATION 731
+#define ROTATION_PRECISION 2
 #define LOOP_DELAY 100
 #define PRINT_DELAY 5
 
@@ -82,7 +83,11 @@ void sensorSetup() {
 void printStatus() {
   tempLeft = counterLeft;
   tempRight = counterRight;
-  printString = "Left counter: ";
+  printString = "Command: ";
+  printString.concat(command);
+  printString.concat("\nMode: ");
+  printString.concat(mode);
+  printString.concat("\nLeft counter: ");
   printString.concat(tempLeft);
   printString.concat("\nRight counter: ");
   printString.concat(tempRight);
@@ -90,6 +95,8 @@ void printStatus() {
   printString.concat(abs(tempLeft - tempRight));
   printString.concat("\nOrientation: ");
   printString.concat(orientation);
+  printString.concat("\nOrientationToAim: ");
+  printString.concat(orientationToAim);
   printString.concat("\nAim: ");
   printString.concat(aim);
   printString.concat("\n");
@@ -143,14 +150,17 @@ void readInput() {
 void calculateOrientation() {
   //may need to be changed to only use positive orientations
   orientation = (int)((counterLeft - counterRight)%FULL_ROTATION);
-  if (orientation < (-FULL_ROTATION)/2) {
+  if (orientation < 0) {
     orientation += FULL_ROTATION;
-  }
-  if (orientation > FULL_ROTATION/2) {
-    orientation -= FULL_ROTATION;
   }
 
   orientationToAim = aim - orientation;
+  if (orientationToAim < (-FULL_ROTATION/2)) {
+    orientationToAim += FULL_ROTATION;
+  }
+  if (orientationToAim > FULL_ROTATION/2) {
+    orientationToAim -= FULL_ROTATION;
+  }
 }
 
 void regulate() {
@@ -176,28 +186,33 @@ void regulate() {
       if (tempLeft > 5) {
         tempLeft = 5;
       }
+      if (abs(aimLeft - counterLeft) < ROTATION_PRECISION) {
+        tempLeft = 0;
+      }
       tempRight = ((aimRight - counterRight)/100) + 1;
       if (tempRight > 5) {
         tempRight = 5;
+      }
+      if (abs(aimRight - counterRight) < ROTATION_PRECISION) {
+        tempRight = 0;
       }
       motorLeft.writeMicroseconds(MOTOR_BRAKE + tempLeft*MOTOR_INCREMENTS);
       motorRight.writeMicroseconds(MOTOR_BRAKE + tempRight*MOTOR_INCREMENTS);
       break;
     case 'o':
-      if (aim == orientation) {
+      if (aim == orientation) {         //(abs(aim - orientation) < ROTATION_PRECISION)
         mode = 's';
         break;
       }
-      tempLeft = (orientationToAim/100) + 1;
-      if (tempLeft > 5) {
-        tempLeft = 5;
+      aimLeft = orientationToAim/100;
+      if (orientationToAim > 0) {
+        aimLeft++;
       }
-      tempRight = (orientationToAim/100) + 1;
-      if (tempRight > 5) {
-        tempRight = 5;
+      if (orientationToAim < 0) {
+        aimLeft--;
       }
-      motorLeft.writeMicroseconds(MOTOR_BRAKE + (((orientationToAim)/100) + 1)*MOTOR_INCREMENTS);
-      motorRight.writeMicroseconds(MOTOR_BRAKE - (((orientationToAim)/100) + 1)*MOTOR_INCREMENTS);
+      motorLeft.writeMicroseconds(MOTOR_BRAKE + aimLeft*MOTOR_INCREMENTS);
+      motorRight.writeMicroseconds(MOTOR_BRAKE - aimLeft*MOTOR_INCREMENTS);
       break;
     case 's':
       motorLeft.writeMicroseconds(MOTOR_BRAKE);
