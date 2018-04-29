@@ -46,7 +46,7 @@ void sensorRight2Event(void);
 
 void motorSetup() {
   Serial.println("motorSetup");
-  //put motors in rest mode
+  //wait for motors to be powered up
   pinMode(pin_motorLeft, INPUT);
   pinMode(pin_motorRight, INPUT);
   while (digitalRead(pin_motorLeft) == 0 || digitalRead(pin_motorRight) == 0) {
@@ -60,7 +60,7 @@ void motorSetup() {
   //motors are ready to be attached
   motorLeft.attach(pin_motorLeft, FULL_REVERSE, FULL_FORWARD);
   motorRight.attach(pin_motorRight, FULL_REVERSE, FULL_FORWARD);
-  //engage brakes and wait
+  //put motors in rest mode and wait
   motorLeft.writeMicroseconds(MOTOR_BRAKE);
   motorRight.writeMicroseconds(MOTOR_BRAKE);
   delay(20);
@@ -88,6 +88,10 @@ void printStatus() {
   printString.concat(tempRight);
   printString.concat("\nDifference: ");
   printString.concat(abs(tempLeft - tempRight));
+  printString.concat("\nOrientation: ");
+  printString.concat(orientation);
+  printString.concat("\nAim: ");
+  printString.concat(aim);
   printString.concat("\n");
   Serial.println(printString);
 }
@@ -120,16 +124,17 @@ void readInput() {
       case 'o':
         mode = command;
         aim = Serial.parseInt()%FULL_ROTATION;
+        if (aim < 0) {
+          aim += FULL_ROTATION;
+        }
         break;
       case 's':
         mode = command;
-        motorLeft.writeMicroseconds(MOTOR_BRAKE);
-        motorRight.writeMicroseconds(MOTOR_BRAKE);
+        aim = 0;
         break;
       case 'c':
         counterLeft = 0;
         counterRight = 0;
-        mode = 's';
         break;
     }
   }
@@ -183,8 +188,20 @@ void regulate() {
         mode = 's';
         break;
       }
+      tempLeft = (orientationToAim/100) + 1;
+      if (tempLeft > 5) {
+        tempLeft = 5;
+      }
+      tempRight = (orientationToAim/100) + 1;
+      if (tempRight > 5) {
+        tempRight = 5;
+      }
       motorLeft.writeMicroseconds(MOTOR_BRAKE + (((orientationToAim)/100) + 1)*MOTOR_INCREMENTS);
       motorRight.writeMicroseconds(MOTOR_BRAKE - (((orientationToAim)/100) + 1)*MOTOR_INCREMENTS);
+      break;
+    case 's':
+      motorLeft.writeMicroseconds(MOTOR_BRAKE);
+      motorRight.writeMicroseconds(MOTOR_BRAKE);
       break;
   }
 }
