@@ -1,7 +1,7 @@
 #include <Servo.h>
 
-#define pin_motorLeft 2
-#define pin_motorRight 3
+#define pin_motorLeft 9
+#define pin_motorRight 8
 #define pin_sensorLeft1 34
 #define pin_sensorLeft2 35
 #define pin_sensorRight1 38
@@ -9,7 +9,10 @@
 #define FULL_REVERSE 1000
 #define MOTOR_BRAKE 1500
 #define FULL_FORWARD 2000
-#define FULL_ROTATION 144
+#define MOTOR_INCREMENTS 50   //must not be more than 100
+#define FULL_ROTATION 731
+#define LOOP_DELAY 100
+#define PRINT_DELAY 5
 
 Servo motorLeft;
 Servo motorRight;
@@ -22,11 +25,15 @@ byte sensorRight2;
 signed long counterLeft = 0;
 signed long counterRight = 0;
 
+signed long aimLeft = 0;
+signed long aimRight = 0;
+
 int bumps = 0;
-char command = s;
-char mode = s;
+char command = 's';
+char mode = 's';
 signed long aim = 0;
-int orientation;
+int orientation;            //strictly calculated
+int orientationToAim = 0;
 
 signed long tempLeft;
 signed long tempRight;
@@ -53,6 +60,10 @@ void motorSetup() {
   //motors are ready to be attached
   motorLeft.attach(pin_motorLeft, FULL_REVERSE, FULL_FORWARD);
   motorRight.attach(pin_motorRight, FULL_REVERSE, FULL_FORWARD);
+  //engage brakes and wait
+  motorLeft.writeMicroseconds(MOTOR_BRAKE);
+  motorRight.writeMicroseconds(MOTOR_BRAKE);
+  delay(20);
 }
 
 void sensorSetup() {
@@ -82,38 +93,99 @@ void printStatus() {
 }
 
 void readInput() {
+  //if no "aim" is provided, 0 is default, meaning e.g. no speed
   while (Serial.available()) {
     command = Serial.read();
     switch (command) {
-      case f:
-      case b:
-      case l:
-      case r:
+      case 'f':
+      case 'b':
+      case 'l':
+      case 'r':
         mode = command;
         aim = Serial.parseInt();
         if (aim > 5) {
           aim = 5;
         }
         break;
-      case d:
+      case 'd':
         mode = command;
         aim = Serial.parseInt();
         if (aim > 1000) {
           aim = 1000;
         }
+        //multiply aim with ticks/mm
+        aimLeft = counterLeft + aim;
+        aimRight = counterRight + aim;
         break;
-      case o:
+      case 'o':
         mode = command;
-        aim = Serial.parseInt()%144;
+        aim = Serial.parseInt()%FULL_ROTATION;
         break;
-      case s:
+      case 's':
         mode = command;
-        motorLeft.writeMicroseconds(FULL_BRAKE);
-        motorRight.writeMicroseconds(FULL_BRAKE);
-      case c:
+        motorLeft.writeMicroseconds(MOTOR_BRAKE);
+        motorRight.writeMicroseconds(MOTOR_BRAKE);
+        break;
+      case 'c':
         counterLeft = 0;
         counterRight = 0;
+        mode = 's';
+        break;
     }
+  }
+}
+
+void calculateOrientation() {
+  //may need to be changed to only use positive orientations
+  orientation = (int)((counterLeft - counterRight)%FULL_ROTATION);
+  if (orientation < (-FULL_ROTATION)/2) {
+    orientation += FULL_ROTATION;
+  }
+  if (orientation > FULL_ROTATION/2) {
+    orientation -= FULL_ROTATION;
+  }
+
+  orientationToAim = aim - orientation;
+}
+
+void regulate() {
+  switch (mode) {
+    case 'f':
+      motorLeft.writeMicroseconds(MOTOR_BRAKE + aim*MOTOR_INCREMENTS);
+      motorRight.writeMicroseconds(MOTOR_BRAKE + aim*MOTOR_INCREMENTS);
+      break;
+    case 'b':
+      motorLeft.writeMicroseconds(MOTOR_BRAKE - aim*MOTOR_INCREMENTS);
+      motorRight.writeMicroseconds(MOTOR_BRAKE - aim*MOTOR_INCREMENTS);
+      break;
+    case 'l':
+      motorLeft.writeMicroseconds(MOTOR_BRAKE - aim*MOTOR_INCREMENTS);
+      motorRight.writeMicroseconds(MOTOR_BRAKE + aim*MOTOR_INCREMENTS);
+      break;
+    case 'r':
+      motorLeft.writeMicroseconds(MOTOR_BRAKE + aim*MOTOR_INCREMENTS);
+      motorRight.writeMicroseconds(MOTOR_BRAKE - aim*MOTOR_INCREMENTS);
+      break;
+    case 'd':
+      tempLeft = ((aimLeft - counterLeft)/100) + 1;
+      if (tempLeft > 5) {
+        tempLeft = 5;
+      }
+      tempRight = ((aimRight - counterRight)/100) + 1;
+      if (tempRight > 5) {
+        tempRight = 5;
+      }
+      motorLeft.writeMicroseconds(MOTOR_BRAKE + tempLeft*MOTOR_INCREMENTS);
+      motorRight.writeMicroseconds(MOTOR_BRAKE + tempRight*MOTOR_INCREMENTS);
+      break;
+    case 'o':
+      if (aim == orientation) {
+        mode = 's';
+        break;
+      }
+      motorLeft.writeMicroseconds(MOTOR_BRAKE + (((orientationToAim)/100) + 1)*MOTOR_INCREMENTS);
+      motorRight.writeMicroseconds(MOTOR_BRAKE - (((orientationToAim)/100) + 1)*MOTOR_INCREMENTS);
+      break;
   }
 }
 
@@ -126,14 +198,17 @@ void setup() {
 }
 
 void loop() {
-  //instead of delay(100), wait until exact time step
-  while (millis()%100 != 0);
-  if (bumps%5 == 0) {
+  //instead of delay(LOOP_DELAY), wait until exact time step
+  while (millis()%LOOP_DELAY != 0);
+  readInput();
+  calculateOrientation();
+  regulate();
+  if (bumps%PRINT_DELAY == 0) {
     printStatus();
   }
-  readInput();
   bumps++;
-  bumps %= 10;
+  delay(1);
+  //bumps %= 10;
 }
 
 // Interrupt functions, used for input from Quadrature Encoders
