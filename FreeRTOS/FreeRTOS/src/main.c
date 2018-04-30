@@ -78,11 +78,15 @@
 }*/
 
 
+volatile xHandlerParameters *xHandler;
+volatile xTaskHandle taskHandlerPlayer1;
+volatile xTaskHandle taskHandlerPlayer2;
+
 int main (void)
 {
 
 	//Instantiating the struct
-	xHandlerParameters* xHandler;
+	
 	xHandler = ( xHandlerParameters* ) pvPortMalloc( sizeof( xHandler ) );
 	
 	// Insert board initialization code here (board_init())
@@ -126,21 +130,40 @@ int main (void)
 	vSemaphoreCreateBinary(xSemaphorePlayer1 );
 	vSemaphoreCreateBinary(xSemaphorePlayer2 );
 	
-	//Semaphores are taken and bot available
-	xSemaphoreTake(xSemaphorePlayer1, 0);
-	xSemaphoreTake(xSemaphorePlayer2, 0);
+	//Semaphores are configured, task1 will be resumed in task_control.c
+	xSemaphoreGive(xSemaphorePlayer1); // value 1, available
+	xSemaphoreTake(xSemaphorePlayer2, 0); //value 0
 
 	printf("Creating task handler...\n");
-	xTaskHandle taskHandlerPlayer1;
-	xTaskHandle taskHandlerPlayer2;
-
-	printf("Creating tasks...\n");
-	xTaskCreate(task_player1, (const signed char * const) "player1", TASK_PLAYER1_STACK_SIZE, NULL, TASK_PLAYER1_PRIORITY, &taskHandlerPlayer1);                     
-	xTaskCreate(task_player2, (const signed char * const) "player2", TASK_PLAYER2_STACK_SIZE, NULL, TASK_PLAYER2_PRIORITY, &taskHandlerPlayer2);
 	
+
+	bool xReturned = false;
+	printf("Creating tasks...\n");
+	xReturned = xTaskCreate(task_player1, (const signed char * const) "player1", TASK_PLAYER1_STACK_SIZE, NULL, TASK_PLAYER1_PRIORITY, &taskHandlerPlayer1);                     
+	if( xReturned == pdPASS )
+	{
+		printf("task_player1 created...\n");
+		
+	}
+	xReturned = xTaskCreate(task_player2, (const signed char * const) "player2", TASK_PLAYER2_STACK_SIZE, NULL, TASK_PLAYER2_PRIORITY, &taskHandlerPlayer2);
+	if( xReturned == pdPASS )
+	{
+		printf("task_player2 created...\n");
+		
+	}
 	printf("Task handler stored in struct xHandlerParameter.h...\n");
 	xHandler->taskplayer1 = &taskHandlerPlayer1;
 	xHandler->taskplayer2 = &taskHandlerPlayer2;
+	
+	//Suspend all tasks
+	vTaskSuspend(*(xHandler->taskplayer1));
+	vTaskSuspend(*(xHandler->taskplayer2));
+	printf("Address stored in &xHandler: %x\n", &xHandler );
+	printf("Address stored in xHandler: %x\n", xHandler );
+	printf("Address stored in &xHandler->taskplayer1: %x\n", &xHandler->taskplayer1 );
+	printf("Address stored in &xHandler->taskplayer2: %x\n", &xHandler->taskplayer2 );
+	printf("Address stored in xHandler->taskplayer1: %x\n", xHandler->taskplayer1 );
+	printf("Address stored in xHandler->taskplayer2: %x\n", xHandler->taskplayer2 );
 	
 	// Start the FreeRTOS scheduler running all tasks indefinitely
 	printf("Starting scheduler...\n");

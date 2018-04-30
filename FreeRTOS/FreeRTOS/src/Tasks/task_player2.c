@@ -12,10 +12,12 @@
 
 void task_player2(void *pvParamters)
 {
-	printf("P2\n");
-	while(1){
+	int work = 300;
 	portTickType xLastWakeTime;
-	portTickType xTimeIncrement = 200/portTICK_RATE_MS;
+	portTickType xTimeIncrement = 1000/portTICK_RATE_MS;
+	//printf("P2\n");
+	while(1){
+	
 	xLastWakeTime = xTaskGetTickCount();
 	//printf("task_player2\n");
 
@@ -27,21 +29,23 @@ void task_player2(void *pvParamters)
 	
 		
 		
-	ioport_set_pin_level(PIO_PB27_IDX, LOW);
-	printf("PB14 level: ");
-	if(ioport_get_pin_level(PIO_PB14_IDX) != HIGH)
-		printf("PB14 is LOW");
+	//ioport_set_pin_level(PIO_PB27_IDX, LOW);
+	//printf("PB14 level: ");
+	//if(ioport_get_pin_level(PIO_PB14_IDX) != HIGH)
+	//	printf("PB14 is LOW");
 	
-	printf("P2, pinLevelsSet");
-	for (int i=0; i<300; i++) /* The delay counter */
+	//printf("P2, pinLevelsSet");
+	for (int i=0; i<work; i++) /* The delay counter */
 	{
 		j++; /* some easy predictable operation */
 		
 		
 	}
 	ioport_set_pin_level(PIO_PB26_IDX, LOW);
-	vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
 	printf("give xSemaphorePlayer2\n");
 	xSemaphoreGive(xSemaphorePlayer2);
+	vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+
+	
 	}
 }
