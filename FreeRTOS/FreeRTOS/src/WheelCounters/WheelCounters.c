@@ -18,29 +18,29 @@ void initSensors()
 	NVIC_EnableIRQ(PIOC_IRQn);
 	pio_enable_interrupt(PIOC, MASK_SENSORS);
 	#else
-	//configure hardware quadrature decoder
+	// TODO: configure hardware quadrature decoder
 	#endif
 	
-	//test counters with own motor speeds
+	// test counters with own motor speeds
 	//setMotorSpeed(1100, 1600);
 }
 
 void PIOC_Handler()
 {
-	//PIO_ISR is cleared when read, so save interrupt state
+	// PIO_ISR is cleared when read, so save interrupt state
 	uint32_t mask = PIOC->PIO_ISR & PIOC->PIO_IMR;
 	
-	//read current status of quadrature pins
+	// read current status of quadrature pins
 	uint32_t status = PIOC->PIO_PDSR & MASK_SENSORS;
 	
-	//compare to previous status, then update
+	// compare to previous status, then update
 	//uint32_t pinChange = status ^ previousStatus;
 	//previousStatus = status;
 	
-	//there should be no need to disable and re-enable interrupts
+	// there should be no need to disable and re-enable interrupts
 	//cpu_irq_disable();
 	
-	//test interrupt call
+	// methods of testing interrupt call
 	//pio_set_output(PIOB, 1<<27, 0, 0, 0);
 	//pio_toggle_pin(IOPORT_CREATE_PIN(PIOB, 27));
 	//pio_set_pin_high(IOPORT_CREATE_PIN(PIOB, 27));
