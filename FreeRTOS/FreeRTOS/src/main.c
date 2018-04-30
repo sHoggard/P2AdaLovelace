@@ -50,37 +50,37 @@
 #include "xHandlerParameters.h"
 // From module: TC - Timer Counter
 #include "Utilities/TimerCounter/TimerCounter.h"
-//#include "PioInterrupt/PioInterrupt.h"
+#include "Utilities/PioInterrupt/PioInterrupt.h"
 
 #include "conf_board.h"
 #include "conf_clock.h"
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
 
-int main (void)
+/*int main (void)
 {
 	
-	/* Initialize the SAM system */
+	// Initialize the SAM system 
 	sysclk_init();
 	board_init();
 	init_timer();
 	delayInit();
 	//initMotors();
 	
-	/* Configure the console uart for debug information */
+	// Configure the console uart for debug information 
 	configureConsole();
 
 	initMotors();
 	initSensors();
-	/* Infinite loop */
+	// Infinite loop 
 	while (1) {
 	}
-}
+}*/
 
 
-/*int main (void)
+int main (void)
 {
-/*
+
 	//Instantiating the struct
 	xHandlerParameters* xHandler;
 	xHandler = ( xHandlerParameters* ) pvPortMalloc( sizeof( xHandler ) );
@@ -142,13 +142,13 @@ int main (void)
 	xHandler->taskplayer1 = &taskHandlerPlayer1;
 	xHandler->taskplayer2 = &taskHandlerPlayer2;
 	
-	/* Start the FreeRTOS scheduler running all tasks indefinitely*/    
-/*	printf("Starting scheduler...\n");
+	// Start the FreeRTOS scheduler running all tasks indefinitely
+	printf("Starting scheduler...\n");
 	xTaskCreate(task_control, (const signed char * const) "control", TASK_CONTROL_STACK_SIZE, (void *) xHandler, TASK_CONTROL_PRIORITY, NULL);	
 	vTaskStartScheduler();
-	*/
-	//while(1);
+	
+	while(1);
 	
 	
 	
-/*}*/
+}
