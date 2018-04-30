@@ -83,8 +83,8 @@ void initMotors()
 	delay_ms(20);
 	
 	// test settings
-	pwm_channel_update_duty(PWM, &pwm_motorLeft, 1800);
-	pwm_channel_update_duty(PWM, &pwm_motorRight, 1200);
+	//pwm_channel_update_duty(PWM, &pwm_motorLeft, 1800);
+	//pwm_channel_update_duty(PWM, &pwm_motorRight, 1200);
 }
 
 void setMotorSpeed(uint16_t speedLeft, uint16_t speedRight)

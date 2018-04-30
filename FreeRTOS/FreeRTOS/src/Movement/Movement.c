@@ -26,7 +26,7 @@ static uint16_t targetOrientation;
  */
 uint16_t orientation()
 {
-	uint16_t orientation = (counterLeft - counterRight)%FULL_ROTATION;
+	int32_t orientation = (counterLeft - counterRight)%FULL_ROTATION;
 	if (orientation < 0)
 	{
 		orientation += FULL_ROTATION;
@@ -83,5 +83,53 @@ void rotate(int16_t speed, uint16_t orientation)
 	{
 		f_auto = true;
 		targetOrientation = orientation;
+	}
+}
+
+/**
+ * Makes ARLO stop immediately. 
+ */
+void stop()
+{
+	mode = 's';
+	f_auto = false;
+	setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
+}
+
+void task_movement(void *pvParameters)
+{
+	while (1)
+	{
+		switch (mode)
+		{
+			case 'd':
+				setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE + regulated_speed.target);
+				break;
+			case 'r':
+				setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE - regulated_speed.target);
+				break;
+			case 's':
+				setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
+				break;
+		}
+	}
+}
+
+/**
+ * For testing if speeds are updated after calling drive() or rotate(). 
+ */
+void test_movement()
+{
+	switch (mode)
+	{
+		case 'd':
+		setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE + regulated_speed.target);
+		break;
+		case 'r':
+		setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE - regulated_speed.target);
+		break;
+		case 's':
+		setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
+		break;
 	}
 }
