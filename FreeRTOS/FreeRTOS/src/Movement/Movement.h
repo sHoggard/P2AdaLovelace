@@ -10,10 +10,12 @@
 #define MOVEMENT_H_
 
 #define FULL_ROTATION 731
+#define HUMAN_FULL_ROTATION 360			// perhaps 720, for half-degrees?
 #define ROTATION_PRECISION 2
 #define MOTOR_BRAKE PULSE_WIDTH_BRAKE
 #define MOTOR_THRESHOLD 50
 #define MAX_SPEED 500
+#define HUMAN_MAX_SPEED 300
 
 xSemaphoreHandle xSemaphoreMovement;
 

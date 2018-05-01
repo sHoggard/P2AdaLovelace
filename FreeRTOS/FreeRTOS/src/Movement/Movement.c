@@ -16,10 +16,14 @@
 #include <stdbool.h>
 
 static bool f_auto = false;
-static int32_t startDistance;
+static int32_t humanTargetDistance;
 static int32_t targetDistance;
 //static uint16_t orientation;
+static uint16_t humanTargetOrientation;
 static uint16_t targetOrientation;
+
+void updateTargetSpeed(void);
+void applyRegulatedSpeeds(void);
 
 /**
  * Calculates current orientation, and returns it. 
@@ -35,7 +39,7 @@ uint16_t orientation()
 }
 
 /**
- * Makes ARLO move forward or backward (negative speed) at given speed (mm/s). 
+ * Makes Arlo move forward or backward (negative speed) at given speed (mm/s). 
  * If distance is 0, it will keep moving indefinitely. 
  * If distance is not 0, it will stop at given distance. 
  */
@@ -43,9 +47,9 @@ void drive(int16_t speed, uint32_t distance)
 {
 	mode = 'd';
 	// TODO: convert mm/s to target pulse
-	if (speed > MAX_SPEED)
+	if (speed > HUMAN_MAX_SPEED)
 	{
-		speed = MAX_SPEED;
+		speed = HUMAN_MAX_SPEED;
 	}
 	regulated_speed.target = speed;
 	if (distance == 0)
@@ -55,26 +59,28 @@ void drive(int16_t speed, uint32_t distance)
 	else
 	{
 		f_auto = true;
-		distance *= 200;		// both wheels are counted together
-		distance /= 338;		// 3,38mm per pulse
-		startDistance = counterLeft + counterRight;
+		humanTargetDistance = distance;
+		distance *= 200;				// both wheels are counted together
+		distance /= 338;				// 3,38mm per pulse
+		int32_t startDistance = counterLeft + counterRight;
 		targetDistance = startDistance + distance;
 	}
 }
 
 /**
- * Makes ARLO rotate clockwise or counter-clockwise (negative speed) at given speed (degrees/s). 
+ * Makes Arlo rotate clockwise or counter-clockwise (negative speed) at given speed (degrees/s). 
  * If orientation is 0, it will keep rotating indefinitely. 
- * If orientation is not 0, it will stop at given orientation. 
+ * If orientation is not 0, it will stop at given orientation (degrees). 
  */
 void rotate(int16_t speed, uint16_t orientation)
 {
 	mode = 'r';
 	// TODO: convert degrees/s to target pulse
-	if (speed > MAX_SPEED)
+	if (speed > HUMAN_MAX_SPEED)
 	{
-		speed = MAX_SPEED;
+		speed = HUMAN_MAX_SPEED;
 	}
+	orientation %= HUMAN_FULL_ROTATION;
 	if (orientation == 0)
 	{
 		f_auto = false;
@@ -82,12 +88,15 @@ void rotate(int16_t speed, uint16_t orientation)
 	else
 	{
 		f_auto = true;
+		humanTargetOrientation = orientation;
+		orientation *= FULL_ROTATION;
+		orientation /= HUMAN_FULL_ROTATION;
 		targetOrientation = orientation;
 	}
 }
 
 /**
- * Makes ARLO stop immediately. 
+ * Makes Arlo stop immediately. 
  */
 void stop()
 {
@@ -96,17 +105,73 @@ void stop()
 	setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
 }
 
+/**
+ * FreeRTOS task, running continuously when needed, for updating motor speeds to follow commands. 
+ * Calculates appropriate speed in mm/s. Sends regulated motor speeds to MotorControl. 
+ */
 void task_movement(void *pvParameters)
 {
 	while (1)
 	{
+		// update target speed?
+		if (f_auto)
+		{
+			int16_t targetSpeed;
+			int32_t remaining_distance;
+			// calculate remaining distance
+			if (mode == 'd')
+			{
+				remaining_distance = counterLeft + counterRight - targetDistance;
+			}
+			else if (mode == 'r')
+			{
+				remaining_distance = orientation() - targetOrientation;
+				// shortest path
+				if (remaining_distance > FULL_ROTATION/2)
+				{
+					remaining_distance -= FULL_ROTATION;
+				}
+				if (remaining_distance < (-FULL_ROTATION/2))
+				{
+					remaining_distance += FULL_ROTATION;
+				}
+			}
+			// calculate target speed
+			if (remaining_distance == 0)
+			{
+				mode = 's';
+				regulated_speed.target = 0;
+				//setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
+				//delay_ms(10);
+				// precise adjustments
+			}
+			else if (remaining_distance > 0)
+			{
+				targetSpeed = targetDistance/50;
+				if (targetSpeed > HUMAN_MAX_SPEED)
+				{
+					targetSpeed = HUMAN_MAX_SPEED;
+				}
+			}
+			else if (remaining_distance < 0)
+			{
+				targetSpeed = targetDistance/50;
+				if (targetSpeed < HUMAN_MAX_SPEED)
+				{
+					targetSpeed = -HUMAN_MAX_SPEED;
+				}
+			}
+			// send to regulator
+			regulated_speed.target = targetSpeed;
+		}
+		// apply regulated motor speeds
 		switch (mode)
 		{
 			case 'd':
-				setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE + regulated_speed.target);
+				setMotorSpeed(MOTOR_BRAKE + regulated_speed.left, MOTOR_BRAKE + regulated_speed.right);
 				break;
 			case 'r':
-				setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE - regulated_speed.target);
+				setMotorSpeed(MOTOR_BRAKE + regulated_speed.left, MOTOR_BRAKE - regulated_speed.right);
 				break;
 			case 's':
 				setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
@@ -120,6 +185,7 @@ void task_movement(void *pvParameters)
  */
 void test_movement()
 {
+	task_regulate(0);
 	switch (mode)
 	{
 		case 'd':

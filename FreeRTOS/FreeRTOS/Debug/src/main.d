@@ -164,7 +164,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
  ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
  c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- ../src/TimeTick/time_tick.h \
+ ../src/Movement/Movement.h ../src/TimeTick/time_tick.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h
 
 ../src/asf.h:
@@ -512,6 +512,8 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 ../src/WheelCounters/WheelCounters.h:
 
 c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+../src/Movement/Movement.h:
 
 ../src/TimeTick/time_tick.h:
 

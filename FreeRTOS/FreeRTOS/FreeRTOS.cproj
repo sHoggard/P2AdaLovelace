@@ -625,6 +625,7 @@
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\" />
     <Folder Include="src\config\" />
     <Folder Include="src\MotorControl" />
+    <Folder Include="src\Movement" />
     <Folder Include="src\TimeTick\" />
     <Folder Include="src\Utilities" />
     <Folder Include="src\Utilities\ConsoleFunctions\" />
@@ -662,10 +663,25 @@
     <Compile Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\config\conf_AdaLovelace.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\MotorControl\MotorControl.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\MotorControl\MotorControl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Movement\Movement.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Movement\Movement.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Movement\NoRegulation.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Movement\__vars.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Tasks\task_control.c">

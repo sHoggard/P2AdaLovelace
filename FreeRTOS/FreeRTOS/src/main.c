@@ -32,6 +32,7 @@
 #include <asf.h>
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
+#include "Movement/Movement.h"
 #include "TimeTick/time_tick.h"
 #include "Utilities/ConsoleFunctions/consoleFunctions.h"
 
@@ -51,13 +52,24 @@ int main (void)
 	
 	char buffer[20];
 	
+	int speed = 80;
+	
 	while (1)
 	{
 		if (time_tick_get()%500 == 0)
 		{
 			puts(itoa(counterLeft, buffer, 10));
 			puts(itoa(counterRight, buffer, 10));
+			puts(itoa(orientation(), buffer, 10));
+			puts(itoa(speed, buffer, 10));
+			drive(speed, 0);
+			test_movement();
+			if (speed < 500)
+			{
+				speed++;
+			}
 			puts("\n");
+			delay_ms(1);
 		}
 	}
 }

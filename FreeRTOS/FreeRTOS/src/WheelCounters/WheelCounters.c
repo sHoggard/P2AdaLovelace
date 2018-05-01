@@ -21,7 +21,7 @@ void initSensors()
 	// TODO: configure hardware quadrature decoder
 	#endif
 	
-	// test counters with own motor speeds
+	// test counters with custom motor speeds
 	//setMotorSpeed(1100, 1600);
 }
 
