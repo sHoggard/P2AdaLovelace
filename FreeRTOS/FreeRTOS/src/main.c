@@ -61,7 +61,7 @@ int main (void)
 	{
 		if (time_tick_get()%500 == 0)
 		{
-			puts(clrCom);
+			fputs(clrCom, stdout);
 			puts(itoa(counterLeft, buffer, 10));
 			puts(itoa(counterRight, buffer, 10));
 			puts(itoa(orientation(), buffer, 10));
@@ -72,7 +72,6 @@ int main (void)
 			{
 				speed++;
 			}
-			puts("\n");
 			delay_ms(1);
 		}
 	}

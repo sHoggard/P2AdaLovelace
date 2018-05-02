@@ -11,6 +11,8 @@
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
 
+char mode = 's';
+
 static bool f_auto = false;
 static int32_t humanTargetDistance;
 static int32_t targetDistance;
