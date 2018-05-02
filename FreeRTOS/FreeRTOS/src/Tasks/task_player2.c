@@ -8,16 +8,17 @@
 
 #include "task_player2.h"
 
-
+#define xBlockTime 5
 
 void task_player2(void *pvParamters)
 {
-	int work = 300;
+	int work = 10000;
 	portTickType xLastWakeTime;
-	portTickType xTimeIncrement = 1000/portTICK_RATE_MS;
-	//printf("P2\n");
+	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
+	printf("P2\n");
 	while(1){
-	
+		vTaskDelay(xBlockTime);
+	printf("P2\n");
 	xLastWakeTime = xTaskGetTickCount();
 	//printf("task_player2\n");
 
@@ -38,13 +39,13 @@ void task_player2(void *pvParamters)
 	for (int i=0; i<work; i++) /* The delay counter */
 	{
 		j++; /* some easy predictable operation */
-		
+		//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
 		
 	}
 	ioport_set_pin_level(PIO_PB26_IDX, LOW);
-	printf("give xSemaphorePlayer2\n");
+	printf("give2\n");
 	xSemaphoreGive(xSemaphorePlayer2);
-	vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+	vTaskSuspend(NULL);
 
 	
 	}

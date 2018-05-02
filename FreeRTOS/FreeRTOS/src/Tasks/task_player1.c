@@ -8,17 +8,18 @@
 
 #include "task_player1.h"
 
-
+#define xBlockTime 5
 
 
 void task_player1(void *pvParamters)
 {
-	//printf("P1\n");
-	int work = 100;
+	printf("P1\n");
+	int work = 150000;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	while(1){
-	
+		vTaskDelay(xBlockTime);
+	printf("P1\n");
 	xLastWakeTime = xTaskGetTickCount();
 	//printf("task_player1\n");
 	
@@ -38,9 +39,11 @@ void task_player1(void *pvParamters)
 		
 	}
 	ioport_set_pin_level(PIO_PA15_IDX, LOW);
-	printf("give xSemaphorePlayer1\n");
+	printf("give1\n");
 	xSemaphoreGive(xSemaphorePlayer1);
-	vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+	//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+	vTaskSuspend(NULL);
+	
 	
 	}
 }

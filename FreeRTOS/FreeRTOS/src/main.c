@@ -107,7 +107,6 @@ int main (void)
 	pmc_enable_periph_clk(ID_TRNG);
 	trng_enable(TRNG);
 	
-	
 	//analogInit(0);
 	
 	delayMicroseconds(100000);
