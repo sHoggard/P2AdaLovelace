@@ -17,6 +17,7 @@ void configPioInterrupt(){
 	pio_handler_set(PIOB, ID_PIOB, PIO_PB14, PIO_IT_FALL_EDGE, myISR);
 	pio_enable_interrupt(PIOB, PIO_PB14);
 	NVIC_EnableIRQ(PIOB_IRQn);
+	NVIC_EnableIRQ(PIOA_IRQn);
 	ioport_set_pin_dir(PIO_PB27_IDX,IOPORT_DIR_OUTPUT);
 	printf("setting D13 pin to LOW...");
 	ioport_set_pin_level(PIO_PB27_IDX,LOW);
@@ -27,11 +28,15 @@ void configPioInterrupt(){
 
 void myISR(uint32_t id, uint32_t mask){
 
+	ioport_set_pin_level(PIO_PA15_IDX, LOW);
+	ioport_set_pin_level(PIO_PB27_IDX, HIGH);
+	
 	quadratureCounter++;
 	printf("myISR\n");
 	printf("D13 pin to HIGH\n");
-	ioport_set_pin_level(PIO_PB27_IDX,HIGH);
+	
 	printf("quadratureCounter: ");
 	printf("%" PRIu32 "\n",quadratureCounter);
-	
+	ioport_set_pin_level(PIO_PB27_IDX,LOW);
+	ioport_set_pin_level(PIO_PA15_IDX, HIGH);
 }

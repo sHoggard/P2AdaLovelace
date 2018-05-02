@@ -100,7 +100,7 @@ int main (void)
 	// Insert application code here, after the board has been initialized.
 	//init_timer();
 	ioport_init();
-	configPioInterrupt();	
+		
 	//Check pin for the TC-handler
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);
 	//Configuring board settings
@@ -117,9 +117,11 @@ int main (void)
 	ioport_set_pin_dir(PIO_PA15_IDX, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_level(PIO_PA15_IDX, HIGH);
 	ioport_set_pin_dir(PIO_PC1_IDX, IOPORT_DIR_OUTPUT);
-	ioport_set_pin_level(PIO_PA15_IDX, HIGH);
-	ioport_set_pin_dir(PIO_PC1_IDX, IOPORT_DIR_OUTPUT);
-	ioport_set_pin_level(PIO_PB21_IDX, HIGH);
+	ioport_set_pin_level(PIO_PC1_IDX, HIGH);
+	ioport_set_pin_dir(PIO_PC19_IDX, IOPORT_DIR_OUTPUT);
+	ioport_set_pin_level(PIO_PC19_IDX, HIGH);
+	
+	configPioInterrupt();
 	
 	//Creating semaphores and tasks
 	xSemaphorePlayer1 = 0;
