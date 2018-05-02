@@ -175,8 +175,8 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/Utilities/DelayFunctions/delayFunctions.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
  ../src/xHandlerParameters.h ../src/Utilities/TimerCounter/TimerCounter.h \
- ../src/config/conf_board.h ../src/MotorControl/MotorControl.h \
- ../src/WheelCounters/WheelCounters.h
+ ../src/Utilities/PioInterrupt/PioInterrupt.h ../src/config/conf_board.h \
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h
 
 ../src/asf.h:
 
@@ -549,6 +549,8 @@ c:\program\ files\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi
 ../src/xHandlerParameters.h:
 
 ../src/Utilities/TimerCounter/TimerCounter.h:
+
+../src/Utilities/PioInterrupt/PioInterrupt.h:
 
 ../src/config/conf_board.h:
 

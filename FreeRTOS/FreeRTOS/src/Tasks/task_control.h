@@ -10,13 +10,12 @@
 #define TASK_CONTROL_H_
 
 #define TASK_CONTROL_STACK_SIZE (2048/ sizeof(portSTACK_TYPE)) 
-#define TASK_CONTROL_PRIORITY   (2)
+#define TASK_CONTROL_PRIORITY   (4)
 
 
 xSemaphoreHandle xSemaphorePlayer1;
 xSemaphoreHandle xSemaphorePlayer2;
 
 void task_control(void *pvParamters);
-uint8_t getRandomNumber();
 
 #endif /* TASK_PLAYER1_H_ */
