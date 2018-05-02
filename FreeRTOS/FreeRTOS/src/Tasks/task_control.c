@@ -14,7 +14,7 @@
 #include "semphr.h"
 
 
-#define xBlockTime 0
+#define xBlockTime 5
 portTickType xTimeStampTicks;
 portTickType timeStart;
 
@@ -23,7 +23,7 @@ void task_control(void *pvParamters)
 
 	xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
-	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
+	//portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	//task_control
 	// PIO_PC1_IDX, = Digital Pin 33
 	
@@ -36,7 +36,7 @@ void task_control(void *pvParamters)
 	while(1)
 	{	
 		ioport_set_pin_level(PIO_PC1_IDX, HIGH);
-		
+
 		//printf("task_control\n");
 		xLastWakeTime = xTaskGetTickCount();
 		if(xSemaphoreTake(xSemaphorePlayer1, 0) == pdTRUE){

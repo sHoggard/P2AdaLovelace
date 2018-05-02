@@ -8,13 +8,13 @@
 
 #include "task_player1.h"
 
-#define xBlockTime 5
+#define xBlockTime 1
 
 
 void task_player1(void *pvParamters)
 {
 	printf("P1\n");
-	int work = 150000;
+	int work = 500;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	while(1){

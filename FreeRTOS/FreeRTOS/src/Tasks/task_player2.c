@@ -8,7 +8,7 @@
 
 #include "task_player2.h"
 
-#define xBlockTime 5
+#define xBlockTime 1
 
 void task_player2(void *pvParamters)
 {
