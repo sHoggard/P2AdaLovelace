@@ -9,6 +9,12 @@
 #ifndef MOVEMENT_H_
 #define MOVEMENT_H_
 
+#include <inttypes.h>
+#include "__vars.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "xHandlerParameters.h"
+
 #define FULL_ROTATION 731
 #define HUMAN_FULL_ROTATION 360			// perhaps 720, for half-degrees?
 #define ROTATION_PRECISION 2
@@ -17,7 +23,7 @@
 #define MAX_SPEED 500
 #define HUMAN_MAX_SPEED 300
 
-xSemaphoreHandle xSemaphoreMovement;
+//xSemaphoreHandle xSemaphoreMovement;
 
 uint16_t orientation(void);
 void drive(int16_t speed, uint32_t distance);

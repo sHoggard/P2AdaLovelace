@@ -9,12 +9,14 @@
 #ifndef __VARS_H_
 #define __VARS_H_
 
+#include <inttypes.h>
+
 char mode = 's';
 
 struct s_speed {
 	int16_t target;
 	int16_t left;
-	int32_t right;
+	int16_t right;
 } regulated_speed;
 
 #endif /* __VARS_H_ */

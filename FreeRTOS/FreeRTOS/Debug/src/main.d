@@ -162,9 +162,11 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
- ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/config/conf_AdaLovelace.h ../src/MotorControl/MotorControl.h \
+ ../src/WheelCounters/WheelCounters.h \
  c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- ../src/Movement/Movement.h ../src/TimeTick/time_tick.h \
+ ../src/Movement/Movement.h ../src/Movement/__vars.h \
+ ../src/xHandlerParameters.h ../src/TimeTick/time_tick.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h
 
 ../src/asf.h:
@@ -507,6 +509,8 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
+../src/config/conf_AdaLovelace.h:
+
 ../src/MotorControl/MotorControl.h:
 
 ../src/WheelCounters/WheelCounters.h:
@@ -514,6 +518,10 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
 
 ../src/Movement/Movement.h:
+
+../src/Movement/__vars.h:
+
+../src/xHandlerParameters.h:
 
 ../src/TimeTick/time_tick.h:
 

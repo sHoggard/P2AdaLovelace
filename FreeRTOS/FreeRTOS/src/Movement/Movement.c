@@ -6,14 +6,10 @@
  */ 
 
 #include <asf.h>
+#include <stdbool.h>
 #include "Movement.h"
-#include "__vars.h"
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
-#include "FreeRTOS.h"
-#include "task.h"
-#include "xHandlerParameters.h"
-#include <stdbool.h>
 
 static bool f_auto = false;
 static int32_t humanTargetDistance;
@@ -51,6 +47,10 @@ void drive(int16_t speed, uint32_t distance)
 	{
 		speed = HUMAN_MAX_SPEED;
 	}
+	else if (speed < (-HUMAN_MAX_SPEED))
+	{
+		speed = (-HUMAN_MAX_SPEED);
+	}
 	regulated_speed.target = speed;
 	if (distance == 0)
 	{
@@ -79,6 +79,10 @@ void rotate(int16_t speed, uint16_t orientation)
 	if (speed > HUMAN_MAX_SPEED)
 	{
 		speed = HUMAN_MAX_SPEED;
+	}
+	else if (speed < (-HUMAN_MAX_SPEED))
+	{
+		speed = (-HUMAN_MAX_SPEED);
 	}
 	orientation %= HUMAN_FULL_ROTATION;
 	if (orientation == 0)
@@ -116,67 +120,10 @@ void task_movement(void *pvParameters)
 		// update target speed?
 		if (f_auto)
 		{
-			int16_t targetSpeed;
-			int32_t remaining_distance;
-			// calculate remaining distance
-			if (mode == 'd')
-			{
-				remaining_distance = counterLeft + counterRight - targetDistance;
-			}
-			else if (mode == 'r')
-			{
-				remaining_distance = orientation() - targetOrientation;
-				// shortest path
-				if (remaining_distance > FULL_ROTATION/2)
-				{
-					remaining_distance -= FULL_ROTATION;
-				}
-				if (remaining_distance < (-FULL_ROTATION/2))
-				{
-					remaining_distance += FULL_ROTATION;
-				}
-			}
-			// calculate target speed
-			if (remaining_distance == 0)
-			{
-				mode = 's';
-				regulated_speed.target = 0;
-				//setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
-				//delay_ms(10);
-				// precise adjustments
-			}
-			else if (remaining_distance > 0)
-			{
-				targetSpeed = targetDistance/50;
-				if (targetSpeed > HUMAN_MAX_SPEED)
-				{
-					targetSpeed = HUMAN_MAX_SPEED;
-				}
-			}
-			else if (remaining_distance < 0)
-			{
-				targetSpeed = targetDistance/50;
-				if (targetSpeed < HUMAN_MAX_SPEED)
-				{
-					targetSpeed = -HUMAN_MAX_SPEED;
-				}
-			}
-			// send to regulator
-			regulated_speed.target = targetSpeed;
+			updateTargetSpeed();
 		}
 		// apply regulated motor speeds
-		switch (mode)
-		{
-			case 'd':
-				setMotorSpeed(MOTOR_BRAKE + regulated_speed.left, MOTOR_BRAKE + regulated_speed.right);
-				break;
-			case 'r':
-				setMotorSpeed(MOTOR_BRAKE + regulated_speed.left, MOTOR_BRAKE - regulated_speed.right);
-				break;
-			case 's':
-				setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
-				break;
-		}
+
 	}
 }
 
@@ -193,6 +140,73 @@ void test_movement()
 		break;
 		case 'r':
 		setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE - regulated_speed.target);
+		break;
+		case 's':
+		setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
+		break;
+	}
+}
+
+void updateTargetSpeed()
+{
+	int16_t targetSpeed = 0;
+	int32_t remaining_distance = 0;
+	// calculate remaining distance
+	if (mode == 'd')
+	{
+		remaining_distance = counterLeft + counterRight - targetDistance;
+	}
+	else if (mode == 'r')
+	{
+		remaining_distance = orientation() - targetOrientation;
+		// shortest path
+		if (remaining_distance > FULL_ROTATION/2)
+		{
+			remaining_distance -= FULL_ROTATION;
+		}
+		if (remaining_distance < (-FULL_ROTATION/2))
+		{
+			remaining_distance += FULL_ROTATION;
+		}
+	}
+	// calculate target speed
+	if (remaining_distance == 0)
+	{
+		mode = 's';
+		regulated_speed.target = 0;
+		//setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
+		//delay_ms(10);
+		// precise adjustments
+	}
+	else if (remaining_distance > 0)
+	{
+		targetSpeed = targetDistance/50;
+		if (targetSpeed > HUMAN_MAX_SPEED)
+		{
+			targetSpeed = HUMAN_MAX_SPEED;
+		}
+	}
+	else if (remaining_distance < 0)
+	{
+		targetSpeed = targetDistance/50;
+		if (targetSpeed < HUMAN_MAX_SPEED)
+		{
+			targetSpeed = -HUMAN_MAX_SPEED;
+		}
+	}
+	// send to regulator
+	regulated_speed.target = targetSpeed;
+}
+
+void applyRegulatedSpeeds()
+{
+	switch (mode)
+	{
+		case 'd':
+		setMotorSpeed(MOTOR_BRAKE + regulated_speed.left, MOTOR_BRAKE + regulated_speed.right);
+		break;
+		case 'r':
+		setMotorSpeed(MOTOR_BRAKE + regulated_speed.left, MOTOR_BRAKE - regulated_speed.right);
 		break;
 		case 's':
 		setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);

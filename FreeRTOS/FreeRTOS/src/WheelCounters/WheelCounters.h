@@ -7,7 +7,7 @@
 
 
 #include <asf.h>
-#include "inttypes.h"
+#include <inttypes.h>
 
 #ifndef WHEELCOUNTERS_H_
 #define WHEELCOUNTERS_H_

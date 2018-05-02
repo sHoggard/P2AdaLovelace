@@ -30,11 +30,14 @@
  */
  
 #include <asf.h>
+#include "config/conf_AdaLovelace.h"
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
 #include "Movement/Movement.h"
 #include "TimeTick/time_tick.h"
 #include "Utilities/ConsoleFunctions/consoleFunctions.h"
+
+char clrCom[] = {27, '[', '2', 'J', '\0'};
 
 int main (void)
 {
@@ -58,6 +61,7 @@ int main (void)
 	{
 		if (time_tick_get()%500 == 0)
 		{
+			puts(clrCom);
 			puts(itoa(counterLeft, buffer, 10));
 			puts(itoa(counterRight, buffer, 10));
 			puts(itoa(orientation(), buffer, 10));
