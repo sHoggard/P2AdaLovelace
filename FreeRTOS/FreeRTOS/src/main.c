@@ -57,9 +57,11 @@
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
 
+int i = 0;
+
 int main (void)
 {
-	
+	i++;
 	/* Initialize the SAM system */
 	sysclk_init();
 	board_init();
@@ -67,13 +69,31 @@ int main (void)
 	delayInit();
 	//initMotors();
 	
+	//char buffer [34];
+	//itoa(sysclk_get_cpu_hz(), buffer, 10);
+	//puts(buffer);
+	
 	/* Configure the console uart for debug information */
 	configureConsole();
 
 	initMotors();
 	initSensors();
+	
 	/* Infinite loop */
-	while (1) {
+	while (1) 
+	{
+		printf("hejsan");
+		//char c = (char) i;
+		//printf((int)i);
+		printf("\n");
+		delayMicroseconds(100000);
+			//char buffer [34];
+			
+			//itoa(i, buffer, 10); 
+			// sysclk_get_cpu_hz() ger klockfrekvensen
+			i++;
+			printInt(i);
+		delayMicroseconds(100000);
 	}
 }
 

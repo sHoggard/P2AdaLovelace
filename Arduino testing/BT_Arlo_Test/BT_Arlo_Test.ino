@@ -60,15 +60,17 @@ void loop() {
   if(Serial1.available())  // If the PC sent any characters
   { 
     command = (int)Serial1.parseInt();
-  Serial1.print((char)Serial1.read()); // Receives the string from PC and prints it back.
+    Serial1.print(command); // Receives the string from PC and prints it back.
   delay(50);
   }
   
   uL = command;
   uR = command;
-  
-  motorLeft.writeMicroseconds(uL);
-  motorRight.writeMicroseconds(uR);
+  if(command>=1000 && command<=2000)
+  {
+    motorLeft.writeMicroseconds(uL);
+    motorRight.writeMicroseconds(uR);
+  }
   delay(1);
 }
 

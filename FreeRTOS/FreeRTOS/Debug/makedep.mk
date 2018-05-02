@@ -12,6 +12,8 @@ src\ASF\sam\drivers\pwm\pwm.c
 
 src\ASF\sam\drivers\tc\tc.c
 
+src\ASF\sam\drivers\twi\twi.c
+
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
 src\MotorControl\MotorControl.c

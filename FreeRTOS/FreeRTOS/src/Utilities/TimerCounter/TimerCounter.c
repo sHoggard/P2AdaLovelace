@@ -58,7 +58,7 @@ uint32_t sinx[16] = {1768, 2089, 2360, 2541, 2605, 2541, 2360, 2089, 1768, 1447,
 	
 void TC3_Handler(void) 
 {
-	printf("TC3_Handler");
+	// printf("TC3_Handler");
 	ioport_set_pin_level(CHECK_PIN, HIGH);
 	
 	if(k==16)

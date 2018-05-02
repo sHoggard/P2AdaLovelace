@@ -118,7 +118,9 @@ void readInput() {
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial1.println("U,9600,N"); 
+  Serial1.begin(9600);
+  Serial = Serial1;
   Serial.println("setup");
   motorSetup();
   sensorSetup();
