@@ -100,17 +100,14 @@ int main (void)
 	// Insert application code here, after the board has been initialized.
 	//init_timer();
 	ioport_init();
-		
+
 	//Check pin for the TC-handler
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);
 	//Configuring board settings
 	pmc_enable_periph_clk(ID_TRNG);
 	trng_enable(TRNG);
-	
-	//analogInit(0);
-	
 	delayMicroseconds(100000);
-
+	while(1);
 	// Initiating board pins
 	ioport_set_pin_dir(PIO_PB26_IDX, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_level(PIO_PB26_IDX, HIGH);
