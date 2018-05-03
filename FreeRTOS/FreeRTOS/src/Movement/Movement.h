@@ -24,6 +24,8 @@
 
 //xSemaphoreHandle xSemaphoreMovement;
 
+void initMovement(void);
+
 uint16_t orientation(void);
 void drive(int16_t speed, uint32_t distance);
 void rotate(int16_t speed, uint16_t orientation);

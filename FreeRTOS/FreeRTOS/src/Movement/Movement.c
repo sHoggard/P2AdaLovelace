@@ -24,6 +24,17 @@ static uint16_t targetOrientation;
 void updateTargetSpeed(void);
 void applyRegulatedSpeeds(void);
 
+void initMovement()
+{
+	initMotors();
+	initSensors();
+	
+	mode = 's';
+	regulated_speed.left = 0;
+	regulated_speed.right = 0;
+	regulated_speed.target = 0;
+}
+
 /**
  * Calculates current orientation, and returns it. 
  */
