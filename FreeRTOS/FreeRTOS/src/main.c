@@ -167,10 +167,11 @@ int main (void)
 	printf("Address stored in xHandler->taskplayer2: %x\n", xHandler->taskplayer2 );
 	
 	// Start the FreeRTOS scheduler running all tasks indefinitely
-	printf("Starting scheduler...\n");
-	xTaskCreate(task_control, (const signed char * const) "control", TASK_CONTROL_STACK_SIZE, (void *) xHandler, TASK_CONTROL_PRIORITY, NULL);	
-	vTaskStartScheduler();
 	
+	xTaskCreate(task_control, (const signed char * const) "control", TASK_CONTROL_STACK_SIZE, (void *) xHandler, TASK_CONTROL_PRIORITY, NULL);	
+	//printf("Starting scheduler...\n");
+	//vTaskStartScheduler();
+	printf("EoL(main)");
 	while(1);
 	
 	
