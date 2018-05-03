@@ -8,6 +8,7 @@
 #include <asf.h>
 #include <stdbool.h>
 #include "Movement.h"
+#include "__vars.h"
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
 

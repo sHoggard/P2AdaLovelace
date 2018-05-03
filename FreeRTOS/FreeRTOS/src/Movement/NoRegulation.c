@@ -7,6 +7,7 @@
 
 #include "conf_AdaLovelace.h"
 #include "Movement.h"
+#include "__vars.h"
 
 #ifdef NO_REGULATION
 /**

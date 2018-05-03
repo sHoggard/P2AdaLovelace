@@ -681,6 +681,9 @@
     <Compile Include="src\Movement\NoRegulation.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\Movement\Regulate.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\Movement\__vars.h">
       <SubType>compile</SubType>
     </Compile>

@@ -37,6 +37,8 @@
 #include "TimeTick/time_tick.h"
 #include "Utilities/ConsoleFunctions/consoleFunctions.h"
 
+#include "Movement/__vars.h"
+
 char clrCom[] = {27, '[', '2', 'J', '\0'};
 
 int main (void)
@@ -55,7 +57,8 @@ int main (void)
 	
 	char buffer[20];
 	
-	int speed = 80;
+	int speed = 250;
+	drive(speed, 0);
 	
 	while (1)
 	{
@@ -65,8 +68,10 @@ int main (void)
 			puts(itoa(counterLeft, buffer, 10));
 			puts(itoa(counterRight, buffer, 10));
 			puts(itoa(orientation(), buffer, 10));
-			puts(itoa(speed, buffer, 10));
-			drive(speed, 0);
+			puts(itoa(regulated_speed.left, buffer, 10));
+			puts(itoa(regulated_speed.right, buffer, 10));
+			puts(itoa(regulated_speed.target, buffer, 10));
+			//drive(speed, 0);
 			test_movement();
 			if (speed < 500)
 			{
