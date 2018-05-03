@@ -16,7 +16,6 @@
  */
 void task_regulate(void *pvParameters)
 {
-	// move duplicate code here?
 	int16_t targetSpeed = regulated_speed.target;
 	targetSpeed += MOTOR_THRESHOLD;
 	if (targetSpeed > MAX_SPEED)

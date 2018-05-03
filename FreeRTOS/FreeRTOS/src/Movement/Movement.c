@@ -26,6 +26,11 @@ void applyRegulatedSpeeds(void);
 
 void initMovement()
 {
+	puts("initMovement");
+	#ifdef NO_REGULATION
+	puts("No regulation");
+	#endif
+	
 	initMotors();
 	initSensors();
 	
@@ -147,18 +152,7 @@ void task_movement(void *pvParameters)
 void test_movement()
 {
 	task_regulate(0);
-	switch (mode)
-	{
-		case 'd':
-		setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE + regulated_speed.target);
-		break;
-		case 'r':
-		setMotorSpeed(MOTOR_BRAKE + regulated_speed.target, MOTOR_BRAKE - regulated_speed.target);
-		break;
-		case 's':
-		setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
-		break;
-	}
+	applyRegulatedSpeeds();
 }
 
 void updateTargetSpeed()

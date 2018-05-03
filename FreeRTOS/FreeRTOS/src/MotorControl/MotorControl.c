@@ -11,6 +11,8 @@
 
 void initMotors()
 {
+	puts("initMotors");
+	
 	// first, set as inputs
 	pio_set_input(PIOC, PIN_BOTH_MOTORS, PIO_DEFAULT);
 	//pio_set_input(PIOC, PIN_MOTOR_RIGHT, PIO_DEFAULT);

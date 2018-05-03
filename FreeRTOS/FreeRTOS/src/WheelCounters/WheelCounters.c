@@ -11,13 +11,16 @@
 
 void initSensors()
 {
+	puts("initSensors");
+	
 	#ifdef SOFTDEC
 	pio_set_input(PIOC, MASK_SENSORS, PIO_PULLUP);
 	
 	pio_configure_interrupt(PIOC, MASK_SENSORS, PIO_IT_EDGE);
 	NVIC_EnableIRQ(PIOC_IRQn);
 	pio_enable_interrupt(PIOC, MASK_SENSORS);
-	#else
+	#endif
+	#ifdef HARDDEC
 	// TODO: configure hardware quadrature decoder
 	#endif
 	

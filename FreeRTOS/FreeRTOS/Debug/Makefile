@@ -124,6 +124,7 @@ C_SRCS +=  \
 ../src/MotorControl/MotorControl.c \
 ../src/Movement/Movement.c \
 ../src/Movement/NoRegulation.c \
+../src/Movement/Regulate.c \
 ../src/Tasks/task_control.c \
 ../src/Tasks/task_player1.c \
 ../src/Tasks/task_player2.c \
@@ -176,6 +177,7 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
 src/MotorControl/MotorControl.o \
 src/Movement/Movement.o \
 src/Movement/NoRegulation.o \
+src/Movement/Regulate.o \
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -221,6 +223,7 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
 src/MotorControl/MotorControl.o \
 src/Movement/Movement.o \
 src/Movement/NoRegulation.o \
+src/Movement/Regulate.o \
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -266,6 +269,7 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
 src/MotorControl/MotorControl.d \
 src/Movement/Movement.d \
 src/Movement/NoRegulation.d \
+src/Movement/Regulate.d \
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -311,6 +315,7 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
 src/MotorControl/MotorControl.d \
 src/Movement/Movement.d \
 src/Movement/NoRegulation.d \
+src/Movement/Regulate.d \
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -361,6 +366,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

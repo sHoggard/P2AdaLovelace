@@ -1,7 +1,28 @@
-src/Movement/Movement.d src/Movement/Movement.o: \
- ../src/Movement/Movement.c ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
- ../src/ASF/sam/utils/compiler.h \
+src/Movement/Regulate.d src/Movement/Regulate.o: \
+ ../src/Movement/Regulate.c ../src/Movement/Movement.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_newlib_version.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\config.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\ieeefp.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\features.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_intsup.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_default_types.h \
+ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_stdint.h \
  c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h \
+ ../src/config/FreeRTOSConfig.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/portmacro.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h \
+ ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h \
+ ../src/xHandlerParameters.h ../src/Movement/__vars.h \
+ ../src/WheelCounters/WheelCounters.h ../src/asf.h \
+ ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
  ../src/ASF/sam/utils/preprocessor/tpaste.h \
@@ -11,13 +32,6 @@ src/Movement/Movement.d src/Movement/Movement.o: \
  ../src/ASF/sam/utils/header_files/io.h \
  ../src/ASF/sam/utils/cmsis/sam3x/include/sam3xa.h \
  ../src/ASF/sam/utils/cmsis/sam3x/include/sam3x8e.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_default_types.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\features.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_newlib_version.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_intsup.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_stdint.h \
  ../src/ASF/thirdparty/CMSIS/Include/core_cm3.h \
  ../src/ASF/thirdparty/CMSIS/Include/core_cmInstr.h \
  ../src/ASF/thirdparty/CMSIS/Include/core_cmFunc.h \
@@ -91,9 +105,6 @@ src/Movement/Movement.d src/Movement/Movement.o: \
  ../src/ASF/sam/utils/cmsis/sam3x/include/pio/pio_sam3x8e.h \
  c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdio.h \
  c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\config.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\ieeefp.h \
  c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\cdefs.h \
  c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdarg.h \
  c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\reent.h \
@@ -130,16 +141,9 @@ src/Movement/Movement.d src/Movement/Movement.o: \
  ../src/ASF/sam/drivers/pmc/pmc.h ../src/ASF/common/services/clock/pll.h \
  ../src/ASF/common/services/clock/sam3x/pll.h \
  ../src/ASF/common/services/delay/sam/cycle_counter.h \
- ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h \
- ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h \
- ../src/config/FreeRTOSConfig.h \
- ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h \
- ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/portmacro.h \
- ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS_CLI.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/StackMacros.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/croutine.h \
- ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h \
@@ -147,7 +151,6 @@ src/Movement/Movement.d src/Movement/Movement.o: \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/queue.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/semphr.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/queue.h \
- ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/timers.h \
  ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h \
  ../src/ASF/common/services/gpio/gpio.h \
@@ -162,18 +165,61 @@ src/Movement/Movement.d src/Movement/Movement.o: \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/trng/trng.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Movement/Movement.h \
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- ../src/xHandlerParameters.h ../src/Movement/__vars.h \
- ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h
+
+../src/Movement/Movement.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_newlib_version.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\config.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\ieeefp.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\features.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_intsup.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_default_types.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_stdint.h:
+
+c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h:
+
+../src/config/FreeRTOSConfig.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/portmacro.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h:
+
+../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h:
+
+../src/xHandlerParameters.h:
+
+../src/Movement/__vars.h:
+
+../src/WheelCounters/WheelCounters.h:
 
 ../src/asf.h:
 
 ../src/ASF/sam/drivers/adc/adc.h:
 
 ../src/ASF/sam/utils/compiler.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h:
 
 ../src/ASF/common/utils/parts.h:
 
@@ -192,20 +238,6 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\l
 ../src/ASF/sam/utils/cmsis/sam3x/include/sam3xa.h:
 
 ../src/ASF/sam/utils/cmsis/sam3x/include/sam3x8e.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_default_types.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\features.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_newlib_version.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_intsup.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_stdint.h:
 
 ../src/ASF/thirdparty/CMSIS/Include/core_cm3.h:
 
@@ -353,12 +385,6 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 
 c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h:
 
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\config.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\ieeefp.h:
-
 c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\cdefs.h:
 
 c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdarg.h:
@@ -435,25 +461,11 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 
 ../src/ASF/common/services/delay/sam/cycle_counter.h:
 
-../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS.h:
-
-../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/projdefs.h:
-
-../src/config/FreeRTOSConfig.h:
-
-../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/portable.h:
-
-../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/portmacro.h:
-
-../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/mpu_wrappers.h:
-
 ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/FreeRTOS_CLI.h:
 
 ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/StackMacros.h:
 
 ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/croutine.h:
-
-../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h:
 
 ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/list.h:
 
@@ -468,8 +480,6 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/semphr.h:
 
 ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/queue.h:
-
-../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/task.h:
 
 ../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include/timers.h:
 
@@ -506,15 +516,3 @@ c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\a
 ../src/ASF/sam/drivers/trng/trng.h:
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
-
-../src/Movement/Movement.h:
-
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
-
-../src/xHandlerParameters.h:
-
-../src/Movement/__vars.h:
-
-../src/MotorControl/MotorControl.h:
-
-../src/WheelCounters/WheelCounters.h:

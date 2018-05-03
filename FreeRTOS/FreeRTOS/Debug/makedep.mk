@@ -20,6 +20,8 @@ src\Movement\Movement.c
 
 src\Movement\NoRegulation.c
 
+src\Movement\Regulate.c
+
 src\Tasks\task_control.c
 
 src\Tasks\task_player1.c

@@ -39,7 +39,7 @@
 
 #include "Movement/__vars.h"
 
-char clrCom[] = {27, '[', '2', 'J', '\0'};
+char clrCom[] = {27, '[', '2', 'J', 27, '[', 'H', '\0'};
 
 int main (void)
 {
@@ -56,7 +56,7 @@ int main (void)
 	
 	char buffer[20];
 	
-	int speed = 250;
+	int speed = 100;
 	drive(speed, 0);
 	
 	while (1)

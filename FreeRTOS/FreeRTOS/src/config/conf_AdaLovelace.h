@@ -12,7 +12,7 @@
 #define SOFTDEC
 //#define HARDDEC
 
-//#define REGULATION
-#define NO_REGULATION
+#define REGULATION
+//#define NO_REGULATION
 
 #endif /* CONF_ADALOVELACE_H_ */

@@ -20,7 +20,7 @@
  double P=0;					// P-regulator
  double I=0;					// I-regulator
  double D=0;					// D-regulator
- double kp=2;
+ double kp=0.001;
  double Td=0;
  double Ti=0;
  double dT=0;
@@ -28,11 +28,11 @@
  double u;						// nya styrvärdet
 
  double N =144;					// pulser per rotation
- double t =1;					// samplingstid
+ double t =500;					// samplingstid
  double uV =0;					// hastighet för vänsterhjul
  double uH =0;					// hastighet för högerhjul
  double pi =3.14159265359;
- double omkrets=49;
+ double omkrets=486.9468613;
 
  double lastLeft = 0;
  double lastRight = 0;
@@ -45,12 +45,12 @@
 
  void task_regulate(void *pvParameters) 
 {
-	uL = regulated_speed.target;
-	uR = regulated_speed.target;
-	
 	currentRight = counterRight;
 	currentLeft = counterLeft;
 
+	uL = regulated_speed.target;
+	uR = regulated_speed.target;
+	
 		 //move history upwards
 		for (int index = HISTORY_SIZE; index > 1; index--) {
 			  historyLeft[index - 1] = historyLeft[index - 2];
@@ -58,11 +58,11 @@
 		}
   
 		//new history
-		historyRight[0] = currentRight;
 		historyLeft[0] = currentLeft;
+		historyRight[0] = currentRight;
   
-		uV = (((2*pi*(historyLeft[0] - historyLeft[4]))/(N/t))/(2*pi))*omkrets;
-		uH = (((2*pi*(historyRight[0] - historyRight[4]))/(N/t))/(2*pi))*omkrets;
+		uV = (((2*pi*(historyLeft[0] - historyLeft[1]))/(N/t))/(2*pi))*omkrets;
+		uH = (((2*pi*(historyRight[0] - historyRight[1]))/(N/t))/(2*pi))*omkrets;
   
 		//PID reglering
 
@@ -75,16 +75,8 @@
 
 		u = P + I + D;
   
-		if ( error > bv)
-		{
-			uL = (uL + u);
-			uR = (uR - u);
-		}
-		else if( error < bv)
-		{
-			uL = (uL - u);
-			uR = (uR + u);
-		}
+		uL = (uL - u);
+		uR = (uR + u);
 
 		regulated_speed.left = uL;
 		regulated_speed.right = uR;
