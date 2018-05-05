@@ -40,7 +40,7 @@ signed long tempLeft;
 signed long tempRight;
 String printString;
 
-char clrCom[] = {27, '[', '2', 'J', '\0'};
+char clrCom[] = {27, '[', '2', 'J', 27, '[', 'H', '\0'};
 
 void sensorLeft1Event(void);
 void sensorLeft2Event(void);
@@ -104,8 +104,7 @@ void printStatus() {
   printString.concat(orientationToAim);
   printString.concat("\nAim: ");
   printString.concat(aim);
-  printString.concat("\n");
-  //Serial.write(clrCom);
+  Serial.write(clrCom);
   Serial.println(printString);
 }
 
@@ -228,7 +227,10 @@ void regulate() {
 }
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
+  //Serial1.println("U,9600,N");
+  //Serial1.begin(9600);
+  //Serial = Serial1;
   Serial.println("setup");
   motorSetup();
   sensorSetup();
