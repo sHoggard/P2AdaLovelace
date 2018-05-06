@@ -20,7 +20,7 @@
  double P=0;					// P-regulator
  double I=0;					// I-regulator
  double D=0;					// D-regulator
- double kp=0.001;
+ double kp=0.1;
  double Td=0;
  double Ti=0;
  double dT=0;
