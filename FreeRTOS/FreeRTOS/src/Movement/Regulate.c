@@ -45,11 +45,11 @@
 
  void task_regulate(void *pvParameters) 
 {
-	currentRight = counterRight;
-	currentLeft = counterLeft;
-
 	uL = regulated_speed.target;
 	uR = regulated_speed.target;
+
+	currentRight = counterRight;
+	currentLeft = counterLeft;
 	
 		 //move history upwards
 		for (int index = HISTORY_SIZE; index > 1; index--) {
