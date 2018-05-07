@@ -12,8 +12,6 @@
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
 
-char mode = 's';
-
 static bool f_auto = false;
 static int32_t humanTargetDistance;
 static int32_t targetDistance;
@@ -34,7 +32,7 @@ void initMovement()
 	initMotors();
 	initSensors();
 	
-	mode = 's';
+	mode_movement = 's';
 	regulated_speed.left = 0;
 	regulated_speed.right = 0;
 	regulated_speed.target = 0;
@@ -60,7 +58,7 @@ uint16_t orientation()
  */
 void drive(int16_t speed, uint32_t distance)
 {
-	mode = 'd';
+	mode_movement = 'd';
 	// TODO: convert mm/s to target pulse
 	if (speed > HUMAN_MAX_SPEED)
 	{
@@ -93,7 +91,7 @@ void drive(int16_t speed, uint32_t distance)
  */
 void rotate(int16_t speed, uint16_t orientation)
 {
-	mode = 'r';
+	mode_movement = 'r';
 	// TODO: convert degrees/s to target pulse
 	if (speed > HUMAN_MAX_SPEED)
 	{
@@ -123,7 +121,7 @@ void rotate(int16_t speed, uint16_t orientation)
  */
 void stop()
 {
-	mode = 's';
+	mode_movement = 's';
 	f_auto = false;
 	setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
 }
@@ -160,11 +158,11 @@ void updateTargetSpeed()
 	int16_t targetSpeed = 0;
 	int32_t remaining_distance = 0;
 	// calculate remaining distance
-	if (mode == 'd')
+	if (mode_movement == 'd')
 	{
 		remaining_distance = counterLeft + counterRight - targetDistance;
 	}
-	else if (mode == 'r')
+	else if (mode_movement == 'r')
 	{
 		remaining_distance = orientation() - targetOrientation;
 		// shortest path
@@ -180,7 +178,7 @@ void updateTargetSpeed()
 	// calculate target speed
 	if (remaining_distance == 0)
 	{
-		mode = 's';
+		mode_movement = 's';
 		regulated_speed.target = 0;
 		//setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
 		//delay_ms(10);
@@ -208,7 +206,7 @@ void updateTargetSpeed()
 
 void applyRegulatedSpeeds()
 {
-	switch (mode)
+	switch (mode_movement)
 	{
 		case 'd':
 		setMotorSpeed(MOTOR_BRAKE + regulated_speed.left, MOTOR_BRAKE + regulated_speed.right);

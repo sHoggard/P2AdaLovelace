@@ -57,26 +57,36 @@ int main (void)
 	char buffer[20];
 	
 	int speed = 100;
+	
+	scanf("%i", &speed);
+	
 	drive(speed, 0);
+	
+	printf("speed: %i\n\n", speed);
+	
+	int counter = 0;
 	
 	while (1)
 	{
-		if (time_tick_get()%500 == 0)
+		if (time_tick_get()%100 == 0)
 		{
-			fputs(clrCom, stdout);
-			puts(itoa(counterLeft, buffer, 10));
-			puts(itoa(counterRight, buffer, 10));
-			puts(itoa(orientation(), buffer, 10));
-			puts(itoa(regulated_speed.left, buffer, 10));
-			puts(itoa(regulated_speed.right, buffer, 10));
-			puts(itoa(regulated_speed.target, buffer, 10));
-			//drive(speed, 0);
+			//fputs(clrCom, stdout);
+			//puts(itoa(counterLeft, buffer, 10));
+			//puts(itoa(counterRight, buffer, 10));
+			//puts(itoa(orientation(), buffer, 10));
+			//puts(itoa(regulated_speed.left, buffer, 10));
+			//puts(itoa(regulated_speed.right, buffer, 10));
+			//puts(itoa(regulated_speed.target, buffer, 10));
+			////drive(speed, 0);
+			//test_movement();
+			//if (speed < 500)
+			//{
+				//speed++;
+			//}
+			//delay_ms(1);
+			printf("%i: \n", counter++);
 			test_movement();
-			if (speed < 500)
-			{
-				speed++;
-			}
-			delay_ms(1);
+			printf("\n");
 		}
 	}
 }

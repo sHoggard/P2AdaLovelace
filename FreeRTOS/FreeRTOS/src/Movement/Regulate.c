@@ -14,25 +14,26 @@
  double uL;
  double uR;
  
- double error=0;				// felvärde
- double prevError=0;			// förgående felvärde
- double bv = 0;					// börvärde
+ double error=0;				// felvï¿½rde
+ double prevError=0;			// fï¿½rgï¿½ende felvï¿½rde
+ double bv = 0;					// bï¿½rvï¿½rde
  double P=0;					// P-regulator
  double I=0;					// I-regulator
  double D=0;					// D-regulator
- double kp=0.1;
+ double kp=0.01;
  double Td=0;
  double Ti=0;
  double dT=0;
- double sum=0;					// summan av flera felvärden
- double u;						// nya styrvärdet
+ double sum=0;					// summan av flera felvï¿½rden
+ double u;						// nya styrvï¿½rdet
 
  double N =144;					// pulser per rotation
- double t =500;					// samplingstid
- double uV =0;					// hastighet för vänsterhjul
- double uH =0;					// hastighet för högerhjul
+ double t =100;					// samplingstid
+ double uV =0;					// hastighet fï¿½r vï¿½nsterhjul
+ double uH =0;					// hastighet fï¿½r hï¿½gerhjul
  double pi =3.14159265359;
- double omkrets=486.9468613;
+ double omkretsV=486.9468613;
+ double omkretsH=497.7379275;
 
  double lastLeft = 0;
  double lastRight = 0;
@@ -45,6 +46,11 @@
 
  void task_regulate(void *pvParameters) 
 {
+	currentRight = counterRight;
+	currentLeft = counterLeft;
+	
+	printf("counterLeft: %i\ncounterRight: %i\n", (int)counterLeft, (int)counterRight);
+
 	uL = regulated_speed.target;
 	uR = regulated_speed.target;
 
@@ -61,14 +67,18 @@
 		historyLeft[0] = currentLeft;
 		historyRight[0] = currentRight;
   
-		uV = (((2*pi*(historyLeft[0] - historyLeft[1]))/(N/t))/(2*pi))*omkrets;
-		uH = (((2*pi*(historyRight[0] - historyRight[1]))/(N/t))/(2*pi))*omkrets;
+		uV = (((2*pi*(historyLeft[0] - historyLeft[1]))/(N/t))/(2*pi))*omkretsV;
+		uH = (((2*pi*(historyRight[0] - historyRight[1]))/(N/t))/(2*pi))*omkretsH;
+		
+		printf("uV*M: %i\nuH*M: %i\n", (int)(uV*1000000), (int)(uH*1000000));
   
 		//PID reglering
 
 		error = uV - uH;
+		printf("error*M: %i\n", (int)(error*1000000));
 		//sum = sum + error;
 		P = kp*error;
+		printf("P*M: %i\n", (int)(P*1000000));
 		// I = (sum*(dT/Ti));
 		// D = ((error-prevError)*(Td/dT));
 		//prevError = error;
@@ -80,5 +90,7 @@
 
 		regulated_speed.left = uL;
 		regulated_speed.right = uR;
+		
+		printf("left: %i\nright: %i\n", regulated_speed.left, regulated_speed.right);
   }
 	 

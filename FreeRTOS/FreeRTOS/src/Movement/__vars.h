@@ -11,7 +11,7 @@
 
 #include <inttypes.h>
 
-char mode;
+char mode_movement;
 
 struct s_speed {
 	int16_t target;
