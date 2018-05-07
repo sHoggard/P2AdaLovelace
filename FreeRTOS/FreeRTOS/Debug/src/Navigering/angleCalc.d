@@ -1,5 +1,5 @@
-src/Tasks/task_player2.d src/Tasks/task_player2.o: \
- ../src/Tasks/task_player2.c ../src/Tasks/task_player2.h ../src/asf.h \
+src/Navigering/angleCalc.d src/Navigering/angleCalc.o: \
+ ../src/Navigering/angleCalc.c ../src/Navigering/angleCalc.h ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\5.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -166,9 +166,13 @@ src/Tasks/task_player2.d src/Tasks/task_player2.o: \
  ../src/ASF/common/services/twi/sam_twi/twi_master.h \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Tasks/task_control.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h \
+ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/config/conf_board.h \
+ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h
 
-../src/Tasks/task_player2.h:
+../src/Navigering/angleCalc.h:
 
 ../src/asf.h:
 
@@ -518,4 +522,12 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/Tasks/task_control.h:
+c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+../src/config/conf_board.h:
+
+c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
+
+../src/MotorControl/MotorControl.h:
+
+../src/WheelCounters/WheelCounters.h:
