@@ -14,7 +14,7 @@
 #include "semphr.h"
 
 
-#define xBlockTime 5
+#define xBlockTime 1000
 portTickType xTimeStampTicks;
 portTickType timeStart;
 

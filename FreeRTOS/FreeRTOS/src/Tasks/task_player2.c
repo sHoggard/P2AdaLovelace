@@ -33,7 +33,6 @@ void task_player2(void *pvParamters)
 		printf("give2\n");
 		printf("EoL(task2)");
 		xSemaphoreGive(xSemaphorePlayer2);
-		while(1);
 		vTaskSuspend(NULL);
 	}
 }

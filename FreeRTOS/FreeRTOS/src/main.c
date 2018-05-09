@@ -107,7 +107,7 @@ int main (void)
 	pmc_enable_periph_clk(ID_TRNG);
 	trng_enable(TRNG);
 	delayMicroseconds(100000);
-	while(1);
+	//while(1);
 	// Initiating board pins
 	ioport_set_pin_dir(PIO_PB26_IDX, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_level(PIO_PB26_IDX, HIGH);
@@ -166,9 +166,10 @@ int main (void)
 	// Start the FreeRTOS scheduler running all tasks indefinitely
 	
 	xTaskCreate(task_control, (const signed char * const) "control", TASK_CONTROL_STACK_SIZE, (void *) xHandler, TASK_CONTROL_PRIORITY, NULL);	
-	//printf("Starting scheduler...\n");
-	//vTaskStartScheduler();
-	printf("EoL(main)");
+	printf("Starting scheduler...\n");
+	printf("EoL(main)\n");
+	vTaskStartScheduler();
+	
 	while(1);
 	
 	
