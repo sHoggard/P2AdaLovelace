@@ -9,14 +9,18 @@
 #include "WheelCounters.h"
 #include "MotorControl/MotorControl.h"
 
-void initSensors()
+void initDecoders()
 {
-	puts("initSensors");
+	puts("initDecoders");
 	
 	#ifdef SOFTDEC
 	pio_set_input(PIOC, MASK_SENSORS, PIO_PULLUP);
 	
+	#ifdef ISR_OVERRIDE
 	pio_configure_interrupt(PIOC, MASK_SENSORS, PIO_IT_EDGE);
+	#else
+	pio_handler_set(PIOC, ID_PIOC, MASK_SENSORS, PIO_IT_EDGE, decoder_ISR);
+	#endif
 	NVIC_EnableIRQ(PIOC_IRQn);
 	pio_enable_interrupt(PIOC, MASK_SENSORS);
 	#endif
@@ -28,17 +32,25 @@ void initSensors()
 	//setMotorSpeed(1100, 1600);
 }
 
+#ifdef ISR_OVERRIDE
 void PIOC_Handler()
+#else
+void decoder_ISR(uint32_t id, uint32_t mask)
+#endif
 {
+	#ifdef ISR_OVERRIDE
 	// PIO_ISR is cleared when read, so save interrupt state
-	uint32_t mask = PIOC->PIO_ISR & PIOC->PIO_IMR;
+	uint32_t pinChange = PIOC->PIO_ISR & PIOC->PIO_IMR;
+	#endif
 	
 	// read current status of quadrature pins
 	uint32_t status = PIOC->PIO_PDSR & MASK_SENSORS;
 	
+	#ifndef ISR_OVERRIDE
 	// compare to previous status, then update
-	//uint32_t pinChange = status ^ previousStatus;
-	//previousStatus = status;
+	uint32_t pinChange = status ^ previousStatus;
+	previousStatus = status;
+	#endif
 	
 	// there should be no need to disable and re-enable interrupts
 	//cpu_irq_disable();
@@ -49,7 +61,7 @@ void PIOC_Handler()
 	//pio_set_pin_high(IOPORT_CREATE_PIN(PIOB, 27));
 	//ioport_set_pin_level(PIO_PB27_IDX, HIGH);
 	
-	if (mask & PIN_SENSOR_L1)
+	if (pinChange & PIN_SENSOR_L1)
 	{
 		if (status & PIN_SENSOR_L1)
 		{
@@ -74,7 +86,7 @@ void PIOC_Handler()
 			}
 		}
 	}
-	if (mask & PIN_SENSOR_L2)
+	if (pinChange & PIN_SENSOR_L2)
 	{
 		if (status & PIN_SENSOR_L2)
 		{
@@ -99,7 +111,7 @@ void PIOC_Handler()
 			}
 		}
 	}
-	if (mask & PIN_SENSOR_R1)
+	if (pinChange & PIN_SENSOR_R1)
 	{
 		if (status & PIN_SENSOR_R1)
 		{
@@ -124,7 +136,7 @@ void PIOC_Handler()
 			}
 		}
 	}
-	if (mask & PIN_SENSOR_R2)
+	if (pinChange & PIN_SENSOR_R2)
 	{
 		if (status & PIN_SENSOR_R2)
 		{

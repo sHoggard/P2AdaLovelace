@@ -8,6 +8,7 @@
 
 #include <asf.h>
 #include <inttypes.h>
+#include "config/conf_AdaLovelace.h"
 
 #ifndef WHEELCOUNTERS_H_
 #define WHEELCOUNTERS_H_
@@ -38,10 +39,14 @@
 int32_t counterLeft;
 int32_t counterRight;
 
-//uint32_t previousStatus;
+#ifndef ISR_OVERRIDE
+uint32_t previousStatus;
+#endif
 
-void initSensors(void);
-//void counter_ISR(uint32_t id, uint32_t mask);
+void initDecoders(void);
+#ifndef ISR_OVERRIDE
+void decoder_ISR(uint32_t id, uint32_t mask);
+#endif
 #ifdef HARDDEC
 void readFromHardDec(void);
 #endif

@@ -20,7 +20,7 @@
  double P=0;					// P-regulator
  double I=0;					// I-regulator
  double D=0;					// D-regulator
- double kp=0.01;
+ double kp=100;					// kp=t verkar fungera bra med Arduino-kod
  double Td=0;
  double Ti=0;
  double dT=0;
@@ -32,8 +32,8 @@
  double uV =0;					// hastighet f�r v�nsterhjul
  double uH =0;					// hastighet f�r h�gerhjul
  double pi =3.14159265359;
- double omkretsV=486.9468613;
- double omkretsH=497.7379275;
+ double omkretsV=486;
+ double omkretsH=488.5;
 
  double lastLeft = 0;
  double lastRight = 0;
@@ -46,16 +46,13 @@
 
  void task_regulate(void *pvParameters) 
 {
-	currentRight = counterRight;
 	currentLeft = counterLeft;
+	currentRight = counterRight;
 	
 	printf("counterLeft: %i\ncounterRight: %i\n", (int)counterLeft, (int)counterRight);
 
-	uL = regulated_speed.target;
-	uR = regulated_speed.target;
-
-	currentRight = counterRight;
-	currentLeft = counterLeft;
+	//uL = regulated_speed.target;
+	//uR = regulated_speed.target;
 	
 		 //move history upwards
 		for (int index = HISTORY_SIZE; index > 1; index--) {
@@ -67,8 +64,11 @@
 		historyLeft[0] = currentLeft;
 		historyRight[0] = currentRight;
   
-		uV = (((2*pi*(historyLeft[0] - historyLeft[1]))/(N/t))/(2*pi))*omkretsV;
-		uH = (((2*pi*(historyRight[0] - historyRight[1]))/(N/t))/(2*pi))*omkretsH;
+		//uV = (((2*pi*(historyLeft[0] - historyLeft[1]))/(N/t))/(2*pi))*omkretsV;
+		//uH = (((2*pi*(historyRight[0] - historyRight[1]))/(N/t))/(2*pi))*omkretsH;
+		
+		uV = ((historyLeft[0] - historyLeft[1])*omkretsV/(N*t));
+		uH = ((historyRight[0] - historyRight[1])*omkretsH/(N*t));
 		
 		printf("uV*M: %i\nuH*M: %i\n", (int)(uV*1000000), (int)(uH*1000000));
   
@@ -88,8 +88,8 @@
 		uL = (uL - u);
 		uR = (uR + u);
 
-		regulated_speed.left = uL;
-		regulated_speed.right = uR;
+		regulated_speed.left = regulated_speed.target + uL;
+		regulated_speed.right = regulated_speed.target + uR;
 		
 		printf("left: %i\nright: %i\n", regulated_speed.left, regulated_speed.right);
   }

@@ -9,6 +9,9 @@
 #include "MotorControl.h"
 #include "delay.h"
 
+/**
+ * Initiates the motors. This function will not return until the motor controllers have been powered. 
+ */
 void initMotors()
 {
 	puts("initMotors");
@@ -91,6 +94,22 @@ void initMotors()
 
 void setMotorSpeed(uint16_t speedLeft, uint16_t speedRight)
 {
+	if (speedLeft < 800)
+	{
+		speedLeft = 800;
+	}
+	else if (speedLeft > 2200)
+	{
+		speedLeft = 2200;
+	}
+	if (speedRight < 800)
+	{
+		speedRight = 800;
+	}
+	else if (speedRight > 2200)
+	{
+		speedRight = 2200;
+	}
 	pwm_channel_update_duty(PWM, &pwm_motorLeft, speedLeft);
 	pwm_channel_update_duty(PWM, &pwm_motorRight, speedRight);
 }

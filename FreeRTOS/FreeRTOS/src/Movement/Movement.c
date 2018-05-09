@@ -22,6 +22,9 @@ static uint16_t targetOrientation;
 void updateTargetSpeed(void);
 void applyRegulatedSpeeds(void);
 
+/**
+ * Initiates everything needed to start sending movement commands and using the regulator task. 
+ */
 void initMovement()
 {
 	puts("initMovement");
@@ -30,7 +33,7 @@ void initMovement()
 	#endif
 	
 	initMotors();
-	initSensors();
+	initDecoders();
 	
 	mode_movement = 's';
 	regulated_speed.left = 0;
@@ -69,6 +72,8 @@ void drive(int16_t speed, uint32_t distance)
 		speed = (-HUMAN_MAX_SPEED);
 	}
 	regulated_speed.target = speed;
+	regulated_speed.left = speed;					// preferrably unnecessary, with double regulation
+	regulated_speed.right = speed;
 	if (distance == 0)
 	{
 		f_auto = false;
@@ -101,6 +106,9 @@ void rotate(int16_t speed, uint16_t orientation)
 	{
 		speed = (-HUMAN_MAX_SPEED);
 	}
+	regulated_speed.target = speed;
+	regulated_speed.left = speed;					// preferrably unnecessary, with double regulation
+	regulated_speed.right = (-speed);
 	orientation %= HUMAN_FULL_ROTATION;
 	if (orientation == 0)
 	{
@@ -182,7 +190,7 @@ void updateTargetSpeed()
 		regulated_speed.target = 0;
 		//setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
 		//delay_ms(10);
-		// precise adjustments
+		// TODO: precise adjustments
 	}
 	else if (remaining_distance > 0)
 	{

@@ -12,6 +12,8 @@
 #define SOFTDEC
 //#define HARDDEC
 
+//#define ISR_OVERRIDE
+
 #define REGULATION
 //#define NO_REGULATION
 
