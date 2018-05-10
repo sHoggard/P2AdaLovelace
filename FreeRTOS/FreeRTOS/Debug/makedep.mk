@@ -18,6 +18,8 @@ src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
 src\MotorControl\MotorControl.c
 
+src\Navigering\angleCalculation.c
+
 src\Tasks\task_control.c
 
 src\Tasks\task_player1.c

@@ -56,6 +56,7 @@
 #include "conf_clock.h"
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
+#include "Navigering/angleCalculation.h"
 
 
 
@@ -102,6 +103,7 @@ int main (void)
 	ioport_set_pin_dir(PIO_PC19_IDX, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_level(PIO_PC19_IDX, HIGH);
 	
+	int test = 1;
 	configPioInterrupt();
 	
 	//Creating semaphores and tasks
@@ -159,8 +161,8 @@ int main (void)
 }
 
 
-//ctrk+k, ctrl+c för att kommentera bort kod
-//ctrk+k, ctrl+u för att avkommentera
+//ctrk+k, ctrl+c fï¿½r att kommentera bort kod
+//ctrk+k, ctrl+u fï¿½r att avkommentera
 
 ////2018-05-10
 //int i = 0;

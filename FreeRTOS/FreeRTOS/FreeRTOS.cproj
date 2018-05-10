@@ -261,7 +261,7 @@
         <documentation help="http://asf.atmel.com/docs/3.35.1/common.applications.user_application.arduino_due_x/html/index.html" />
         <offline-documentation help="" />
         <dependencies>
-          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.35.1" />
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.28.1" />
         </dependencies>
         <project id="common.applications.user_application.arduino_due_x" value="Add" config="" content-id="Atmel.ASF" />
         <board id="board.arduino_due_x" value="Add" config="" content-id="Atmel.ASF" />
@@ -649,6 +649,7 @@
     <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\" />
     <Folder Include="src\config\" />
     <Folder Include="src\MotorControl" />
+    <Folder Include="src\Navigering" />
     <Folder Include="src\Utilities" />
     <Folder Include="src\Utilities\ConsoleFunctions\" />
     <Folder Include="src\Utilities\DelayFunctions\" />
@@ -713,6 +714,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\MotorControl\MotorControl.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Navigering\angleCalculation.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Navigering\angleCalculation.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Tasks\task_control.c">
