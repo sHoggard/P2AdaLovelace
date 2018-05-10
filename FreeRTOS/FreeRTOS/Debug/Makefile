@@ -126,7 +126,7 @@ C_SRCS +=  \
 ../src/ASF/sam/drivers/twi/twi.c \
 ../src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.c \
 ../src/MotorControl/MotorControl.c \
-../src/Navigering/angleCalc.c \
+../src/Navigering/angleCalculation.c \
 ../src/Tasks/task_control.c \
 ../src/Tasks/task_player1.c \
 ../src/Tasks/task_player2.c \
@@ -177,7 +177,7 @@ src/ASF/sam/drivers/tc/tc.o \
 src/ASF/sam/drivers/twi/twi.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
 src/MotorControl/MotorControl.o \
-src/Navigering/angleCalc.o \
+src/Navigering/angleCalculation.o \
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -221,7 +221,7 @@ src/ASF/sam/drivers/tc/tc.o \
 src/ASF/sam/drivers/twi/twi.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
 src/MotorControl/MotorControl.o \
-src/Navigering/angleCalc.o \
+src/Navigering/angleCalculation.o \
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -265,7 +265,7 @@ src/ASF/sam/drivers/tc/tc.d \
 src/ASF/sam/drivers/twi/twi.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
 src/MotorControl/MotorControl.d \
-src/Navigering/angleCalc.d \
+src/Navigering/angleCalculation.d \
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -309,7 +309,7 @@ src/ASF/sam/drivers/tc/tc.d \
 src/ASF/sam/drivers/twi/twi.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
 src/MotorControl/MotorControl.d \
-src/Navigering/angleCalc.d \
+src/Navigering/angleCalculation.d \
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \

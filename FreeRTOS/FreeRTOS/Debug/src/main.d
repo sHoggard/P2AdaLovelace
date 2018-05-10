@@ -173,7 +173,11 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
  ../src/xHandlerParameters.h ../src/Utilities/TimerCounter/TimerCounter.h \
  ../src/Utilities/PioInterrupt/PioInterrupt.h ../src/config/conf_board.h \
- ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/Navigering/angleCalculation.h \
+ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.h
 
 ../src/asf.h:
 
@@ -548,3 +552,13 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 ../src/MotorControl/MotorControl.h:
 
 ../src/WheelCounters/WheelCounters.h:
+
+../src/Navigering/angleCalculation.h:
+
+c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
+
+../src/MotorControl/MotorControl.h:
+
+../src/WheelCounters/WheelCounters.h:
+
+../src/Utilities/ConsoleFunctions/consoleFunctions.h:

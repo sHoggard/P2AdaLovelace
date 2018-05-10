@@ -1,13 +1,14 @@
 /*
- * angleCalc.h
+ * angleCalculation.h
  *
- * Created: 2018-05-07 11:29:12
+ * Created: 2018-05-08 14:16:23
  *  Author: Jelena
  */ 
 
 
-#ifndef ANGLECALC_H_
-#define ANGLECALC_H_
+#ifndef ANGLECALCULATION_H_
+#define ANGLECALCULATION_H_
+
 #include <asf.h>
 #include <inttypes.h>
 #include <stdio_serial.h>
@@ -20,12 +21,19 @@
 
 #define PI 3.14159265
 
+
+#include "Utilities/ConsoleFunctions/consoleFunctions.h"
+
+
+
 double correctionAngleCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot, double oldAngle);
 
 double degreeCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot);
 
 double distanceCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot);
 
+//double currentCourseCalculation(uint8_t xRobot, uint8_t xPreviousRobotPosition, uint8_t yRobot, uint8_t yPreviousRobotPosition);
+
 double rad2deg(double radianValue);
 
-#endif /* ANGLECALC_H_ */
+#endif /* ANGLECALCULATION_H_ */

@@ -1,5 +1,6 @@
-src/Navigering/angleCalc.d src/Navigering/angleCalc.o: \
- ../src/Navigering/angleCalc.c ../src/Navigering/angleCalc.h ../src/asf.h \
+src/Navigering/angleCalculation.d src/Navigering/angleCalculation.o: \
+ ../src/Navigering/angleCalculation.c \
+ ../src/Navigering/angleCalculation.h ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\5.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -170,9 +171,10 @@ src/Navigering/angleCalc.d src/Navigering/angleCalc.o: \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
  ../src/config/conf_board.h \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
- ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.h
 
-../src/Navigering/angleCalc.h:
+../src/Navigering/angleCalculation.h:
 
 ../src/asf.h:
 
@@ -531,3 +533,5 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 ../src/MotorControl/MotorControl.h:
 
 ../src/WheelCounters/WheelCounters.h:
+
+../src/Utilities/ConsoleFunctions/consoleFunctions.h:
