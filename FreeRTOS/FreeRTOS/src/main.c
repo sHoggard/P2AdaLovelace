@@ -1,74 +1,39 @@
 /**
- *  Author: George Albert Florea
- *	Author: Benjamin Sejdic
- *
- * \file
- *
- * \brief Empty user application template
- *
+ *  Author: Ada Lovelace,
  */
 
-/**
- * \mainpage User Application template doxygen documentation
- *
- * \par Empty user application template
- *
- * Bare minimum empty user application template
- *
- * \par Content
- *
- * -# Include the ASF header files (through asf.h)
- * -# "Insert system clock initialization code here" comment
- * -# Minimal main function that starts with a call to board_init()
- * -# "Insert application code here" comment
- *
- */
-
-/*
- * Include header files for all drivers that have been imported from
- * Atmel Software Framework (ASF).
- */
-/*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
- */
 #include <asf.h>
 #include <inttypes.h>
 #include <stdio_serial.h>
+//Utilities
+#include "Utilities/DelayFunctions/delayFunctions.h"
+#include "Utilities/ConsoleFunctions/consoleFunctions.h"
+#include "Utilities/TimerCounter/TimerCounter.h" //From module: TC - Timer Counter
+#include "Utilities/PioInterrupt/PioInterrupt.h"
+//FreeRTOS, Semaphores
+#include "FreeRTOS.h"
+#include "semphr.h"
+//Struct
+#include "xHandlerParameters.h"
+//board
+#include "conf_board.h"
+#include "conf_clock.h"
 //Tasks
 #include "Tasks/task_player1.h"
 #include "Tasks/task_player2.h"
 #include "Tasks/task_control.h"
-//Delay
-#include "Utilities/DelayFunctions/delayFunctions.h"
-//Console Data Visualizer
-#include "Utilities/ConsoleFunctions/consoleFunctions.h"
-//FreeRTOS
-#include "FreeRTOS.h"
-//Semaphores
-#include "semphr.h"
-//Struct
-#include "xHandlerParameters.h"
-// From module: TC - Timer Counter
-#include "Utilities/TimerCounter/TimerCounter.h"
-#include "Utilities/PioInterrupt/PioInterrupt.h"
-
-#include "conf_board.h"
-#include "conf_clock.h"
+//System modules
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
 #include "Navigering/angleCalculation.h"
 
 
-
 volatile xHandlerParameters *xHandler;
 volatile xTaskHandle taskHandlerPlayer1;
 volatile xTaskHandle taskHandlerPlayer2;
-
 int main (void)
 {
-
 	//Instantiating the struct
-	
 	xHandler = ( xHandlerParameters* ) pvPortMalloc( sizeof( xHandler ) );
 	
 	// Insert board initialization code here (board_init())
@@ -88,8 +53,6 @@ int main (void)
 	//Configuring board settings
 	pmc_enable_periph_clk(ID_TRNG);
 	trng_enable(TRNG);
-	
-	//analogInit(0);
 	
 	delayMicroseconds(100000);
 
@@ -153,11 +116,7 @@ int main (void)
 	printf("Starting scheduler...\n");
 	xTaskCreate(task_control, (const signed char * const) "control", TASK_CONTROL_STACK_SIZE, (void *) xHandler, TASK_CONTROL_PRIORITY, NULL);
 	vTaskStartScheduler();
-	
-	while(1);
-	
-	
-	
+	while(1);	
 }
 
 
