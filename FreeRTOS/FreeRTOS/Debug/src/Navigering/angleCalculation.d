@@ -175,6 +175,7 @@ src/Navigering/angleCalculation.d src/Navigering/angleCalculation.o: \
  ../src/config/conf_board.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
  ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/config/conf_AdaLovelace.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h
 
 ../src/Navigering/angleCalculation.h:
@@ -542,5 +543,7 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/MotorControl/MotorControl.h:
 
 ../src/WheelCounters/WheelCounters.h:
+
+../src/config/conf_AdaLovelace.h:
 
 ../src/Utilities/ConsoleFunctions/consoleFunctions.h:

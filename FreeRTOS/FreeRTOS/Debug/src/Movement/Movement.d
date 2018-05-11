@@ -172,7 +172,8 @@ src/Movement/Movement.d src/Movement/Movement.o: \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Movement/Movement.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
  ../src/xHandlerParameters.h ../src/Movement/__vars.h \
- ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/config/conf_AdaLovelace.h
 
 ../src/asf.h:
 
@@ -539,3 +540,5 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/MotorControl/MotorControl.h:
 
 ../src/WheelCounters/WheelCounters.h:
+
+../src/config/conf_AdaLovelace.h:

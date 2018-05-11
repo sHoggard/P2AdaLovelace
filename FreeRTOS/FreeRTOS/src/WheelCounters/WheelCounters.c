@@ -7,37 +7,65 @@
 
 
 #include "WheelCounters.h"
+#include "MotorControl/MotorControl.h"
 
-void initSensors()
+void initDecoders()
 {
-	//pio_get_pin_group(PIOC_BASE_ADDRESS);
-	//pio_set_input
-	//pio_enable_pin_interrupt
-	//pio_configure_interrupt
+	puts("initDecoders");
 	
-	pio_set_input(PIOC, PINS_SENSORS, PIO_PULLUP);
+	#ifdef SOFTDEC
+	pio_set_input(PIOC, MASK_SENSORS, PIO_PULLUP);
 	
-	pio_handler_set(PIOC, ID_PIOC, PINS_SENSORS, PIO_IT_EDGE, counter_ISR);
+	#ifdef ISR_OVERRIDE
+	pio_configure_interrupt(PIOC, MASK_SENSORS, PIO_IT_EDGE);
+	#else
+	pio_handler_set(PIOC, ID_PIOC, MASK_SENSORS, PIO_IT_EDGE, decoder_ISR);
+	#endif
 	NVIC_EnableIRQ(PIOC_IRQn);
-	pio_enable_interrupt(PIOC, PINS_SENSORS);
+	pio_enable_interrupt(PIOC, MASK_SENSORS);
+	#endif
+	#ifdef HARDDEC
+	// TODO: configure hardware quadrature decoder
+	#endif
+	
+	// test counters with custom motor speeds
+	//setMotorSpeed(1100, 1600);
 }
 
-void counter_ISR(uint32_t id, uint32_t mask)
+#ifdef ISR_OVERRIDE
+void PIOC_Handler()
+#else
+void decoder_ISR(uint32_t id, uint32_t mask)
+#endif
 {
-	//there should be no need to disable interrupts
+	#ifdef ISR_OVERRIDE
+	// PIO_ISR is cleared when read, so save interrupt state
+	uint32_t pinChange = PIOC->PIO_ISR & PIOC->PIO_IMR;
+	#endif
+	
+	// read current status of quadrature pins
+	uint32_t status = PIOC->PIO_PDSR & MASK_SENSORS;
+	
+	#ifndef ISR_OVERRIDE
+	// compare to previous status, then update
+	uint32_t pinChange = status ^ previousStatus;
+	previousStatus = status;
+	#endif
+	
+	// there should be no need to disable and re-enable interrupts
 	//cpu_irq_disable();
 	
-	//test interrupt call
+	// methods of testing interrupt call
 	//pio_set_output(PIOB, 1<<27, 0, 0, 0);
 	//pio_toggle_pin(IOPORT_CREATE_PIN(PIOB, 27));
 	//pio_set_pin_high(IOPORT_CREATE_PIN(PIOB, 27));
 	//ioport_set_pin_level(PIO_PB27_IDX, HIGH);
 	
-	if (mask & PIN_SENSOR_L1)
+	if (pinChange & PIN_SENSOR_L1)
 	{
-		if (STATUS_SENSOR_L1)
+		if (status & PIN_SENSOR_L1)
 		{
-			if (!STATUS_SENSOR_L2)
+			if (!(status & PIN_SENSOR_L2))
 			{
 				counterLeft++;
 			}
@@ -48,7 +76,7 @@ void counter_ISR(uint32_t id, uint32_t mask)
 		}
 		else
 		{
-			if (STATUS_SENSOR_L2)
+			if (status & PIN_SENSOR_L2)
 			{
 				counterLeft++;
 			}
@@ -58,11 +86,11 @@ void counter_ISR(uint32_t id, uint32_t mask)
 			}
 		}
 	}
-	if (mask & PIN_SENSOR_L2)
+	if (pinChange & PIN_SENSOR_L2)
 	{
-		if (STATUS_SENSOR_L2)
+		if (status & PIN_SENSOR_L2)
 		{
-			if (STATUS_SENSOR_L1)
+			if (status & PIN_SENSOR_L1)
 			{
 				counterLeft++;
 			}
@@ -73,7 +101,7 @@ void counter_ISR(uint32_t id, uint32_t mask)
 		}
 		else
 		{
-			if (!STATUS_SENSOR_L1)
+			if (!(status & PIN_SENSOR_L1))
 			{
 				counterLeft++;
 			}
@@ -83,104 +111,61 @@ void counter_ISR(uint32_t id, uint32_t mask)
 			}
 		}
 	}
-	if (mask & PIN_SENSOR_R1)
+	if (pinChange & PIN_SENSOR_R1)
 	{
-		if (STATUS_SENSOR_R1)
+		if (status & PIN_SENSOR_R1)
 		{
-			if (!STATUS_SENSOR_R2)
+			if (!(status & PIN_SENSOR_R2))
 			{
-				counterLeft++;
+				counterRight++;
 			}
 			else
 			{
-				counterLeft--;
+				counterRight--;
 			}
 		}
 		else
 		{
-			if (STATUS_SENSOR_R2)
+			if (status & PIN_SENSOR_R2)
 			{
-				counterLeft++;
+				counterRight++;
 			}
 			else
 			{
-				counterLeft--;
+				counterRight--;
 			}
 		}
 	}
-	if (mask & PIN_SENSOR_R2)
+	if (pinChange & PIN_SENSOR_R2)
 	{
-		if (STATUS_SENSOR_R2)
+		if (status & PIN_SENSOR_R2)
 		{
-			if (STATUS_SENSOR_R1)
+			if (status & PIN_SENSOR_R1)
 			{
-				counterLeft++;
+				counterRight++;
 			}
 			else
 			{
-				counterLeft--;
+				counterRight--;
 			}
 		}
 		else
 		{
-			if (!STATUS_SENSOR_R1)
+			if (!(status & PIN_SENSOR_R1))
 			{
-				counterLeft++;
+				counterRight++;
 			}
 			else
 			{
-				counterLeft--;
+				counterRight--;
 			}
 		}
 	}
 }
 
-//void sensorLeft1Event(Pio* p_pio, uint32_t ul_id) {
-	//sensorLeft1 = digitalRead(pin_sensorLeft1);
-	//if (sensorLeft1 == HIGH) {
-		//if (sensorLeft2 == LOW) counterLeft++;
-		//if (sensorLeft2 == HIGH) counterLeft--;
-	//}
-	//if (sensorLeft1 == LOW) {
-		//if (sensorLeft2 == HIGH) counterLeft++;
-		//if (sensorLeft2 == LOW) counterLeft--;
-	//}
-//}
-//
-//void sensorLeft2Event() {
-	//sensorLeft2 = digitalRead(pin_sensorLeft2);
-	//if (sensorLeft2 == HIGH) {
-		//if (sensorLeft1 == HIGH) counterLeft++;
-		//if (sensorLeft1 == LOW) counterLeft--;
-	//}
-	//if (sensorLeft2 == LOW) {
-		//if (sensorLeft1 == LOW) counterLeft++;
-		//if (sensorLeft1 == HIGH) counterLeft--;
-	//}
-//}
-//
-//void sensorRight1Event()
-//{
-	//sensorRight1 = digitalRead(pin_sensorRight1);
-	//if (sensorRight1 == HIGH) {
-		//if (sensorRight2 == LOW) counterRight++;
-		//if (sensorRight2 == HIGH) counterRight--;
-	//}
-	//if (sensorRight1 == LOW) {
-		//if (sensorRight2 == HIGH) counterRight++;
-		//if (sensorRight2 == LOW) counterRight--;
-	//}
-//}
-//
-//void sensorRight2Event()
-//{
-	//sensorRight2 = digitalRead(pin_sensorRight2);
-	//if (sensorRight2 == HIGH) {
-		//if (sensorRight1 == HIGH) counterRight++;
-		//if (sensorRight1 == LOW) counterRight--;
-	//}
-	//if (sensorRight2 == LOW) {
-		//if (sensorRight1 == LOW) counterRight++;
-		//if (sensorRight1 == HIGH) counterRight--;
-	//}
-//}
+#ifdef HARDDEC
+void readFromHardDec()
+{
+	//ATOMICALLY read from both registers into counter variables
+}
+#endif
