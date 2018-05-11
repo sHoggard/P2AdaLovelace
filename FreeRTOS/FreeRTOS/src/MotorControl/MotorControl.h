@@ -8,7 +8,6 @@
 
 #include <asf.h>
 
-
 #ifndef MOTORCONTROL_H_
 #define MOTORCONTROL_H_
 

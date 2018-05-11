@@ -18,6 +18,12 @@ src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
 src\MotorControl\MotorControl.c
 
+src\Movement\Movement.c
+
+src\Movement\NoRegulation.c
+
+src\Movement\Regulate.c
+
 src\Navigering\angleCalculation.c
 
 src\Tasks\task_control.c
