@@ -20,7 +20,7 @@
  double P=0;					// P-regulator
  double I=0;					// I-regulator
  double D=0;					// D-regulator
- double kp=100;					// kp=t verkar fungera bra med Arduino-kod
+ double kp=0.100;				// kp = t/1000 verkar fungera bra med Arduino-kod
  double Td=0;
  double Ti=0;
  double dT=0;
@@ -67,18 +67,18 @@
 		//uV = (((2*pi*(historyLeft[0] - historyLeft[1]))/(N/t))/(2*pi))*omkretsV;
 		//uH = (((2*pi*(historyRight[0] - historyRight[1]))/(N/t))/(2*pi))*omkretsH;
 		
-		uV = ((historyLeft[0] - historyLeft[1])*omkretsV/(N*t));
-		uH = ((historyRight[0] - historyRight[1])*omkretsH/(N*t));
+		uV = ((historyLeft[0] - historyLeft[1])*omkretsV*1000/(N*t));
+		uH = ((historyRight[0] - historyRight[1])*omkretsH*1000/(N*t));
 		
-		printf("uV*M: %i\nuH*M: %i\n", (int)(uV*1000000), (int)(uH*1000000));
+		printf("uV*K: %i\nuH*K: %i\n", (int)(uV*1000), (int)(uH*1000));
   
 		//PID reglering
 
 		error = uV - uH;
-		printf("error*M: %i\n", (int)(error*1000000));
+		printf("error*K: %i\n", (int)(error*1000));
 		//sum = sum + error;
 		P = kp*error;
-		printf("P*M: %i\n", (int)(P*1000000));
+		printf("P*K: %i\n", (int)(P*1000));
 		// I = (sum*(dT/Ti));
 		// D = ((error-prevError)*(Td/dT));
 		//prevError = error;

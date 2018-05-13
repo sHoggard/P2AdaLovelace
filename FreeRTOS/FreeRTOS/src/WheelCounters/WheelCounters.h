@@ -50,5 +50,6 @@ void decoder_ISR(uint32_t id, uint32_t mask);
 #ifdef HARDDEC
 void readFromHardDec(void);
 #endif
+void clearWheelCounters(void);
 
 #endif /* WHEELCOUNTERS_H_ */

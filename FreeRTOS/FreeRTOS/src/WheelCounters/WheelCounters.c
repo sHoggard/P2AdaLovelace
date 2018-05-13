@@ -169,3 +169,9 @@ void readFromHardDec()
 	//ATOMICALLY read from both registers into counter variables
 }
 #endif
+
+void clearWheelCounters()
+{
+	counterLeft = 0;
+	counterRight = 0;
+}
