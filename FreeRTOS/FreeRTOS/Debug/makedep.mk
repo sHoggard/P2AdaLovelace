@@ -24,11 +24,8 @@ src\Movement\NoRegulation.c
 
 src\Movement\Regulate.c
 
-<<<<<<< HEAD
 src\Navigering\angleCalculation.c
 
-=======
->>>>>>> PWM2
 src\Tasks\task_control.c
 
 src\Tasks\task_player1.c

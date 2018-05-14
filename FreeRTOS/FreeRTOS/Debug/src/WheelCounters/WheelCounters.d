@@ -171,13 +171,8 @@ src/WheelCounters/WheelCounters.d src/WheelCounters/WheelCounters.o: \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
-<<<<<<< HEAD
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
  ../src/config/conf_AdaLovelace.h ../src/MotorControl/MotorControl.h
-=======
- c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- ../src/MotorControl/MotorControl.h
->>>>>>> PWM2
 
 ../src/WheelCounters/WheelCounters.h:
 
@@ -535,12 +530,8 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-<<<<<<< HEAD
 c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
 
 ../src/config/conf_AdaLovelace.h:
-=======
-c:\program\ files\ (x86)\atmel\studio\ 7.0\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
->>>>>>> PWM2
 
 ../src/MotorControl/MotorControl.h:

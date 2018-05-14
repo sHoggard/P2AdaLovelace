@@ -30,13 +30,11 @@
 #include "WheelCounters/WheelCounters.h"
 #include "Movement/Movement.h"
 #include "TimeTick/time_tick.h"
-//Config file
+#include "Utilities/ConsoleFunctions/consoleFunctions.h"
+
 #include "Movement/__vars.h"
 
-//PWM2 MAIN
-//2018-05-10
 char clrCom[] = {27, '[', '2', 'J', 27, '[', 'H', '\0'};
-
 
 int main (void)
 {
@@ -49,17 +47,29 @@ int main (void)
 	
 	initMovement();
 	
+	// testing new wheelcounter strategy
+	//while (true)
+	//{
+	//printf("counterLeft: %i\ncounterRight: %i\n\n", (int)counterLeft, (int)counterRight);
+	//delay_ms(2000);
+	//}
+	
 	time_tick_init();
 	
 	char buffer[20];
 	
 	int speed = 100;
 	
-	scanf("%i", &speed);
+	//scanf("%i", &speed);
 	
-	drive(speed, 0);
+	// test actual speed
+	uint32_t start = time_tick_get();
+	
+	drive(speed, 5000);
 	
 	printf("speed: %i\n\n", speed);
+	
+	//setMotorSpeed(MOTOR_BRAKE + speed, MOTOR_BRAKE + speed);
 	
 	int counter = 0;
 	
@@ -80,11 +90,20 @@ int main (void)
 			//{
 			//speed++;
 			//}
-			//delay_ms(1);
 			printf("%i: \n", counter++);
 			test_movement();
 			printf("\n");
+			delay_ms(1);
 		}
+		
+		// test accuracy of distance measurement
+		//if (time_tick_get() > start + 10000)
+		//{
+		//printf("distance travelled after 10 seconds: %i\n", (int)(distanceLeft + distanceRight)/2);
+		//drive(0, 0);
+		//test_movement();
+		//delay_ms(5000);
+		//}
 	}
 }
 

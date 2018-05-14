@@ -106,14 +106,9 @@ SUBDIRS :=  \
 ../src/ASF/thirdparty/wireless/addons/sio2host/uart/ \
 ../src/config/ \
 ../src/MotorControl \
-<<<<<<< HEAD
 ../src/Navigering \
 ../src/Movement \
 ../src/TimeTick \
-=======
-../src/Movement \
-../src/TimeTick/ \
->>>>>>> PWM2
 ../src/Utilities \
 ../src/Utilities/ConsoleFunctions/ \
 ../src/Utilities/DelayFunctions/ \
@@ -136,10 +131,7 @@ C_SRCS +=  \
 ../src/Movement/Movement.c \
 ../src/Movement/NoRegulation.c \
 ../src/Movement/Regulate.c \
-<<<<<<< HEAD
 ../src/Navigering/angleCalculation.c \
-=======
->>>>>>> PWM2
 ../src/Tasks/task_control.c \
 ../src/Tasks/task_player1.c \
 ../src/Tasks/task_player2.c \
@@ -194,10 +186,7 @@ src/MotorControl/MotorControl.o \
 src/Movement/Movement.o \
 src/Movement/NoRegulation.o \
 src/Movement/Regulate.o \
-<<<<<<< HEAD
 src/Navigering/angleCalculation.o \
-=======
->>>>>>> PWM2
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -245,10 +234,7 @@ src/MotorControl/MotorControl.o \
 src/Movement/Movement.o \
 src/Movement/NoRegulation.o \
 src/Movement/Regulate.o \
-<<<<<<< HEAD
 src/Navigering/angleCalculation.o \
-=======
->>>>>>> PWM2
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -296,10 +282,7 @@ src/MotorControl/MotorControl.d \
 src/Movement/Movement.d \
 src/Movement/NoRegulation.d \
 src/Movement/Regulate.d \
-<<<<<<< HEAD
 src/Navigering/angleCalculation.d \
-=======
->>>>>>> PWM2
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -347,10 +330,7 @@ src/MotorControl/MotorControl.d \
 src/Movement/Movement.d \
 src/Movement/NoRegulation.d \
 src/Movement/Regulate.d \
-<<<<<<< HEAD
 src/Navigering/angleCalculation.d \
-=======
->>>>>>> PWM2
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -490,13 +470,10 @@ LINKER_SCRIPT_DEP+=  \
 
 
 
-<<<<<<< HEAD
 
 
 
 
-=======
->>>>>>> PWM2
 src/ASF/common/services/delay/sam/%.o: ../src/ASF/common/services/delay/sam/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
@@ -567,13 +544,6 @@ src/Navigering/%.o: ../src/Navigering/%.c
 	@echo Finished building: $<
 	
 
-src/Movement/%.o: ../src/Movement/%.c
-	@echo Building file: $<
-	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio 7.0\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG -DBOARD=ARDUINO_DUE_X -Dscanf=iscanf -DARM_MATH_CM3=true -Dprintf=iprintf -D__SAM3X8E__ -D__FREERTOS__  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam3x/source/templates" -I"../src/ASF/sam/utils/cmsis/sam3x/include" -I"../src/ASF/sam/boards" -I"../src/ASF/sam/boards/arduino_due_x" -I"../src/ASF/common/services/gpio" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/clock" -I"../src/ASF/sam/drivers/pmc" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/uart" -I"../src/ASF/common/services/serial/sam_uart" -I"../src/ASF/common/services/serial" -I"../src/ASF/common/utils/stdio/stdio_serial" -I"../src/ASF/sam/drivers/usart" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam" -I"../src/ASF/sam/drivers/trng" -I"../src/ASF/sam/drivers/adc" -I"../src/ASF/sam/drivers/tc" -I"../src/ASF/thirdparty/wireless/addons/sio2host/uart" -I"../src/ASF/sam/drivers/pwm" -I"../src/ASF/common/services/delay"  -O1 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
 src/Tasks/%.o: ../src/Tasks/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
@@ -585,13 +555,6 @@ src/TimeTick/%.o: ../src/TimeTick/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
 	$(QUOTE)C:\Verktyg\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG -DBOARD=ARDUINO_DUE_X -Dscanf=iscanf -DARM_MATH_CM3=true -Dprintf=iprintf -D__SAM3X8E__ -D__FREERTOS__  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam3x/source/templates" -I"../src/ASF/sam/utils/cmsis/sam3x/include" -I"../src/ASF/sam/boards" -I"../src/ASF/sam/boards/arduino_due_x" -I"../src/ASF/common/services/gpio" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/clock" -I"../src/ASF/sam/drivers/pmc" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/uart" -I"../src/ASF/common/services/serial/sam_uart" -I"../src/ASF/common/services/serial" -I"../src/ASF/common/utils/stdio/stdio_serial" -I"../src/ASF/sam/drivers/usart" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam" -I"../src/ASF/sam/drivers/trng" -I"../src/ASF/sam/drivers/adc" -I"../src/ASF/thirdparty/wireless/addons/sio2host/uart" -I"../src/ASF/sam/drivers/pwm" -I"../src/ASF/sam/drivers/tc" -I"../src/ASF/common/services/delay" -I"../src/ASF/common/services/twi" -I"../src/ASF/sam/drivers/twi"  -O1 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-src/TimeTick/%.o: ../src/TimeTick/%.c
-	@echo Building file: $<
-	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio 7.0\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG -DBOARD=ARDUINO_DUE_X -Dscanf=iscanf -DARM_MATH_CM3=true -Dprintf=iprintf -D__SAM3X8E__ -D__FREERTOS__  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam3x/source/templates" -I"../src/ASF/sam/utils/cmsis/sam3x/include" -I"../src/ASF/sam/boards" -I"../src/ASF/sam/boards/arduino_due_x" -I"../src/ASF/common/services/gpio" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/clock" -I"../src/ASF/sam/drivers/pmc" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/uart" -I"../src/ASF/common/services/serial/sam_uart" -I"../src/ASF/common/services/serial" -I"../src/ASF/common/utils/stdio/stdio_serial" -I"../src/ASF/sam/drivers/usart" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam" -I"../src/ASF/sam/drivers/trng" -I"../src/ASF/sam/drivers/adc" -I"../src/ASF/sam/drivers/tc" -I"../src/ASF/thirdparty/wireless/addons/sio2host/uart" -I"../src/ASF/sam/drivers/pwm" -I"../src/ASF/common/services/delay"  -O1 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
