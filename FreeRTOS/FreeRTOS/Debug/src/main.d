@@ -1,5 +1,4 @@
-src/TimeTick/time_tick_sam.d src/TimeTick/time_tick_sam.o: \
- ../src/TimeTick/time_tick_sam.c ../src/asf.h \
+src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -169,7 +168,22 @@ src/TimeTick/time_tick_sam.d src/TimeTick/time_tick_sam.o: \
  ../src/ASF/common/services/twi/sam_twi/twi_master.h \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/TimeTick/time_tick.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h \
+ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/Utilities/DelayFunctions/delayFunctions.h \
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
+ ../src/Utilities/TimerCounter/TimerCounter.h \
+ ../src/Utilities/PioInterrupt/PioInterrupt.h ../src/xHandlerParameters.h \
+ ../src/config/conf_board.h ../src/Tasks/task_player1.h \
+ ../src/Tasks/task_control.h ../src/Tasks/task_player2.h \
+ ../src/Tasks/task_control.h ../src/WheelCounters/WheelCounters.h \
+ ../src/config/conf_AdaLovelace.h ../src/Navigering/angleCalculation.h \
+ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
+ ../src/config/conf_AdaLovelace.h ../src/MotorControl/MotorControl.h \
+ ../src/Movement/Movement.h ../src/xHandlerParameters.h \
+ ../src/TimeTick/time_tick.h ../src/Movement/__vars.h
 
 ../src/asf.h:
 
@@ -525,4 +539,50 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
+c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+../src/Utilities/DelayFunctions/delayFunctions.h:
+
+../src/Utilities/ConsoleFunctions/consoleFunctions.h:
+
+../src/Utilities/TimerCounter/TimerCounter.h:
+
+../src/Utilities/PioInterrupt/PioInterrupt.h:
+
+../src/xHandlerParameters.h:
+
+../src/config/conf_board.h:
+
+../src/Tasks/task_player1.h:
+
+../src/Tasks/task_control.h:
+
+../src/Tasks/task_player2.h:
+
+../src/Tasks/task_control.h:
+
+../src/WheelCounters/WheelCounters.h:
+
+../src/config/conf_AdaLovelace.h:
+
+../src/Navigering/angleCalculation.h:
+
+c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
+
+../src/MotorControl/MotorControl.h:
+
+../src/WheelCounters/WheelCounters.h:
+
+../src/Utilities/ConsoleFunctions/consoleFunctions.h:
+
+../src/config/conf_AdaLovelace.h:
+
+../src/MotorControl/MotorControl.h:
+
+../src/Movement/Movement.h:
+
+../src/xHandlerParameters.h:
+
 ../src/TimeTick/time_tick.h:
+
+../src/Movement/__vars.h:

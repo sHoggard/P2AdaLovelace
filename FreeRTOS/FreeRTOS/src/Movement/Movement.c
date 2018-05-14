@@ -13,6 +13,7 @@
 #include "WheelCounters/WheelCounters.h"
 
 static bool f_auto = false;
+static int16_t humanTargetSpeed;
 static int32_t humanTargetDistance;
 static int32_t targetDistance;
 //static uint16_t orientation;
@@ -46,7 +47,7 @@ void initMovement()
  */
 uint16_t orientation()
 {
-	int32_t orientation = (counterLeft - counterRight)%FULL_ROTATION;
+	int32_t orientation = (int)(distanceLeft - distanceRight)%FULL_ROTATION;
 	if (orientation < 0)
 	{
 		orientation += FULL_ROTATION;
@@ -55,14 +56,13 @@ uint16_t orientation()
 }
 
 /**
- * Makes Arlo move forward or backward (negative speed) at given speed (mm/s). 
+ * Makes Arlo move forwards or backwards (negative speed) at given speed (mm/s). 
  * If distance is 0, it will keep moving indefinitely. 
  * If distance is not 0, it will stop at given distance. 
  */
 void drive(int16_t speed, uint32_t distance)
 {
 	mode_movement = 'd';
-	// TODO: convert mm/s to target pulse
 	if (speed > HUMAN_MAX_SPEED)
 	{
 		speed = HUMAN_MAX_SPEED;
@@ -71,9 +71,16 @@ void drive(int16_t speed, uint32_t distance)
 	{
 		speed = (-HUMAN_MAX_SPEED);
 	}
+	humanTargetSpeed = speed;
 	regulated_speed.target = speed;
-	regulated_speed.left = speed;					// preferrably unnecessary, with double regulation
+	#ifndef DOUBLE_REGULATION
+	// TODO: convert mm/s to target pulse
+	regulated_speed.left = speed;
 	regulated_speed.right = speed;
+	#endif	//DOUBLE_REGULATION
+	printf("Moving straight %s at %i mm/s\n", (speed >= 0 ? "forwards" : "backwards"), abs(speed));
+	
+	// calculate target distance
 	if (distance == 0)
 	{
 		f_auto = false;
@@ -82,10 +89,12 @@ void drive(int16_t speed, uint32_t distance)
 	{
 		f_auto = true;
 		humanTargetDistance = distance;
-		distance *= 200;				// both wheels are counted together
-		distance /= 338;				// 3,38mm per pulse
-		int32_t startDistance = counterLeft + counterRight;
+		distance *= 2;
+		//distance *= 200;				// both wheels are counted together
+		//distance /= 338;				// 3,38mm per pulse
+		int32_t startDistance = distanceLeft + distanceRight;
 		targetDistance = startDistance + distance;
+		printf("Will stop after %i mm\n", abs(distance));
 	}
 }
 
@@ -97,7 +106,6 @@ void drive(int16_t speed, uint32_t distance)
 void rotate(int16_t speed, uint16_t orientation)
 {
 	mode_movement = 'r';
-	// TODO: convert degrees/s to target pulse
 	if (speed > HUMAN_MAX_SPEED)
 	{
 		speed = HUMAN_MAX_SPEED;
@@ -106,9 +114,16 @@ void rotate(int16_t speed, uint16_t orientation)
 	{
 		speed = (-HUMAN_MAX_SPEED);
 	}
+	humanTargetSpeed = speed;
 	regulated_speed.target = speed;
-	regulated_speed.left = speed;					// preferrably unnecessary, with double regulation
+	#ifndef DOUBLE_REGULATION
+	// TODO: convert degrees/s to target pulse
+	regulated_speed.left = speed;
 	regulated_speed.right = (-speed);
+	#endif	//DOUBLE_REGULATION
+	printf("Rotating %s at %i degrees/s\n", (speed >= 0 ? "clockwise" : "counter-clockwise"), abs(speed));
+	
+	// calculate target orientation
 	orientation %= HUMAN_FULL_ROTATION;
 	if (orientation == 0)
 	{
@@ -131,7 +146,15 @@ void stop()
 {
 	mode_movement = 's';
 	f_auto = false;
-	setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
+	stopMotors();
+}
+
+/**
+ * Clears all counters, meaning angles and distances travelled are counted from after this call. 
+ */
+void clearCounters()
+{
+	clearWheelCounters();
 }
 
 /**
@@ -147,8 +170,8 @@ void task_movement(void *pvParameters)
 		{
 			updateTargetSpeed();
 		}
-		// apply regulated motor speeds
-
+		
+		applyRegulatedSpeeds();
 	}
 }
 
@@ -157,57 +180,78 @@ void task_movement(void *pvParameters)
  */
 void test_movement()
 {
+	if (f_auto)
+	{
+		updateTargetSpeed();
+	}
 	task_regulate(0);
 	applyRegulatedSpeeds();
 }
 
-void updateTargetSpeed()
+void updateTargetSpeed()		// should only revise speeds downwards
 {
 	int16_t targetSpeed = 0;
 	int32_t remaining_distance = 0;
+	
 	// calculate remaining distance
-	if (mode_movement == 'd')
+	switch (mode_movement)
 	{
-		remaining_distance = counterLeft + counterRight - targetDistance;
+		case 'd':
+			remaining_distance = targetDistance - (distanceLeft + distanceRight);
+			break;
+		case 'r':
+			remaining_distance = orientation() - targetOrientation;
+			// shortest path
+			if (remaining_distance > FULL_ROTATION/2)
+			{
+				remaining_distance -= FULL_ROTATION;
+			}
+			if (remaining_distance < (-FULL_ROTATION/2))
+			{
+				remaining_distance += FULL_ROTATION;
+			}
+			break;
+		case 's':
+			return;
 	}
-	else if (mode_movement == 'r')
-	{
-		remaining_distance = orientation() - targetOrientation;
-		// shortest path
-		if (remaining_distance > FULL_ROTATION/2)
-		{
-			remaining_distance -= FULL_ROTATION;
-		}
-		if (remaining_distance < (-FULL_ROTATION/2))
-		{
-			remaining_distance += FULL_ROTATION;
-		}
-	}
+	printf("remaining_distance: %i\n", (int)remaining_distance);
+	
 	// calculate target speed
-	if (remaining_distance == 0)
+	switch (mode_movement)
 	{
-		mode_movement = 's';
-		regulated_speed.target = 0;
-		//setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
-		//delay_ms(10);
-		// TODO: precise adjustments
+		case 'd':
+			if (abs(remaining_distance) < DISTANCE_PRECISION)
+			{
+				stop();
+				regulated_speed.target = 0;
+				//delay_ms(10);
+				// TODO: precise adjustments
+			}
+			else if (remaining_distance > 0)
+			{
+				targetSpeed = (remaining_distance/50)*MOTOR_INCREMENTS + MOTOR_THRESHOLD;
+				if (targetSpeed > humanTargetSpeed)
+				{
+					targetSpeed = humanTargetSpeed;
+				}
+			}
+			else if (remaining_distance < 0)
+			{
+				targetSpeed = (remaining_distance/50)*MOTOR_INCREMENTS - MOTOR_THRESHOLD;
+				if (targetSpeed < humanTargetSpeed)
+				{
+					targetSpeed = -humanTargetSpeed;
+				}
+			}
+			break;
+		case 'r':
+			break;
+		case 's':
+			targetSpeed = 0;
+			break;
 	}
-	else if (remaining_distance > 0)
-	{
-		targetSpeed = targetDistance/50;
-		if (targetSpeed > HUMAN_MAX_SPEED)
-		{
-			targetSpeed = HUMAN_MAX_SPEED;
-		}
-	}
-	else if (remaining_distance < 0)
-	{
-		targetSpeed = targetDistance/50;
-		if (targetSpeed < HUMAN_MAX_SPEED)
-		{
-			targetSpeed = -HUMAN_MAX_SPEED;
-		}
-	}
+	printf("targetSpeed: %i\n", (int)targetSpeed);
+	
 	// send to regulator
 	regulated_speed.target = targetSpeed;
 }
@@ -223,7 +267,7 @@ void applyRegulatedSpeeds()
 		setMotorSpeed(MOTOR_BRAKE + regulated_speed.left, MOTOR_BRAKE - regulated_speed.right);
 		break;
 		case 's':
-		setMotorSpeed(MOTOR_BRAKE, MOTOR_BRAKE);
+		stopMotors();
 		break;
 	}
 }

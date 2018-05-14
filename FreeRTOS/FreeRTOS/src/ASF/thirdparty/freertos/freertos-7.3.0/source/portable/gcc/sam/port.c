@@ -356,7 +356,7 @@ __attribute__(( naked )) void PendSV_Handler( void )
 	//}
 	//portCLEAR_INTERRUPT_MASK_FROM_ISR( 0 );
 //}
-///*-----------------------------------------------------------*/
+/*-----------------------------------------------------------*/
 
 #if configUSE_TICKLESS_IDLE == 1
 

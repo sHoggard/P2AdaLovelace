@@ -127,7 +127,7 @@ int main (void)
 				//NAVIGERING - TEST	
 	//--------------------------------------------------------------------------------------*/
 	//
-	////----------Test för att kontrollera så att grad-beräkning från radianer funkar----------
+	////----------Test fï¿½r att kontrollera sï¿½ att grad-berï¿½kning frï¿½n radianer funkar----------
 	///*float degrees = 0.0;
 	//float radians [] = {(PI/6), (PI/4), (PI/3), (PI/2), (PI), ((3*PI)/2), (2*PI)};
 	//char rads [7][9] = {"PI/6 = ", "PI/4 = ", "PI/3 = ", "PI/2 = ", "PI = ", "3PI/2 = ", "2PI = "};
@@ -138,23 +138,23 @@ int main (void)
 	//}*/
 	//
 	//
-	////----------Test för avståndsberäkningar----------
+	////----------Test fï¿½r avstï¿½ndsberï¿½kningar----------
 	///*float distance = 0.0;
-	//distance = distanceCalculation(2,2,2,5); //3 längdenheter
-	//printf("Roboten i (2,5) har följande avstånd till objektet i (2,2) : ");
+	//distance = distanceCalculation(2,2,2,5); //3 lï¿½ngdenheter
+	//printf("Roboten i (2,5) har fï¿½ljande avstï¿½nd till objektet i (2,2) : ");
 	//printInt(distance);
-	//distance = distanceCalculation(2,4,2,2); //2 längdenheter
-	//printf("\nRoboten i (4,2) har följande avstånd till objektet i (2,2) : ");
+	//distance = distanceCalculation(2,4,2,2); //2 lï¿½ngdenheter
+	//printf("\nRoboten i (4,2) har fï¿½ljande avstï¿½nd till objektet i (2,2) : ");
 	//printInt(distance);
-	//distance = distanceCalculation(2,2,2,2); //0 längdenheter
-	//printf("\nRoboten i (2,2) har följande avstånd till objektet i (2,2) : ");
+	//distance = distanceCalculation(2,2,2,2); //0 lï¿½ngdenheter
+	//printf("\nRoboten i (2,2) har fï¿½ljande avstï¿½nd till objektet i (2,2) : ");
 	//printInt(distance);
-	//distance = distanceCalculation(2,10,2,2); //8 längdenheter
-	//printf("\nRoboten i (10,2) har följande avstånd till objektet i (2,2) : ");
+	//distance = distanceCalculation(2,10,2,2); //8 lï¿½ngdenheter
+	//printf("\nRoboten i (10,2) har fï¿½ljande avstï¿½nd till objektet i (2,2) : ");
 	//printInt(distance);*/
 	//
 	//
-	////----------Test för 1a kvadranten----------
+	////----------Test fï¿½r 1a kvadranten----------
 	///*goalAngle = degreeCalculation(2,1,2,2); //0 grader
 	//printInt(goalAngle);
 	//goalAngle = degreeCalculation(2,1,2,1);	//45 grader
@@ -165,7 +165,7 @@ int main (void)
 	//printInt(goalAngle);*/
 	//
 	//
-	////----------Test för 2a kvadranten----------
+	////----------Test fï¿½r 2a kvadranten----------
 	///*goalAngle = degreeCalculation(2,4,2,2);	//180 grader
 	//printInt(goalAngle);
 	//goalAngle = degreeCalculation(2,3,2,1);	//135 grader
@@ -176,7 +176,7 @@ int main (void)
 	//printInt(goalAngle);*/
 	//
 	//
-	////----------Test för 3e kvadranten----------
+	////----------Test fï¿½r 3e kvadranten----------
 	///*goalAngle = degreeCalculation(2,4,2,3);	//243 grader
 	//printInt(goalAngle);
 	//goalAngle = degreeCalculation(2,2,2,5);	//270 grader
@@ -187,7 +187,7 @@ int main (void)
 	//printInt(goalAngle);*/
 	//
 	//
-	////----------Test för 4e kvadranten----------
+	////----------Test fï¿½r 4e kvadranten----------
 	///*goalAngle = degreeCalculation(2,1,1,3);	//296 grader
 	//printInt(goalAngle);
 	//goalAngle = degreeCalculation(2,2,2,5);	//270 grader
@@ -198,7 +198,7 @@ int main (void)
 	//printInt(goalAngle);*/
 	//
 	//
-	////----------Test för beräkning av korrigeringsvinkel----------
+	////----------Test fï¿½r berï¿½kning av korrigeringsvinkel----------
 	///*printf("\n----- TEST: ROTERA TILL 180 -----\n");
 	//newAngle = correctionAngleCalculation(2,4,2,2,oldAngle);
 	//angle = oldAngle + newAngle;

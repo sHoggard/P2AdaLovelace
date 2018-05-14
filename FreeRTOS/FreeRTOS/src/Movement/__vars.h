@@ -11,6 +11,11 @@
 
 #include <inttypes.h>
 
+#define CIRCUMFERENCE_LEFT ((double)486)
+#define CIRCUMFERENCE_RIGHT ((double)488.5)
+#define distanceLeft (counterLeft*CIRCUMFERENCE_LEFT/144)
+#define distanceRight (counterRight*CIRCUMFERENCE_RIGHT/144)
+
 char mode_movement;
 
 struct s_speed {
