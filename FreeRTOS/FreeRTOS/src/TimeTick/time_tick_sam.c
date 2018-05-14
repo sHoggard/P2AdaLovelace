@@ -57,10 +57,10 @@ volatile uint32_t g_ms_ticks = 0;
  * Process System Tick Event
  * Increments the g_ms_ticks counter.
  */
-void SysTick_Handler(void)
+/*void SysTick_Handler(void)
 {
 	g_ms_ticks++;
-}
+}*/
 
 void time_tick_init(void)
 {

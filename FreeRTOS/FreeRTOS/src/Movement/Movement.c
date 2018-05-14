@@ -180,12 +180,14 @@ void task_movement(void *pvParameters)
  */
 void test_movement()
 {
+	printf("test_movement");
 	if (f_auto)
 	{
 		updateTargetSpeed();
 	}
 	task_regulate(0);
 	applyRegulatedSpeeds();
+	printf("test_movement END");
 }
 
 void updateTargetSpeed()		// should only revise speeds downwards

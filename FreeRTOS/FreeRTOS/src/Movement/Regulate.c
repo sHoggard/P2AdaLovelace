@@ -49,6 +49,8 @@
 	currentLeft = counterLeft;
 	currentRight = counterRight;
 	
+	printf("mode_movement: %c\n", mode_movement);
+	
 	printf("counterLeft: %i\ncounterRight: %i\n", (int)counterLeft, (int)counterRight);
 
 	//uL = regulated_speed.target;

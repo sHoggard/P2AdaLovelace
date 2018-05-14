@@ -1,14 +1,10 @@
 /*
- * task_player2.h
+ * task_tickMovement.h
  *
- * Created: 2018-02-01 11:29:09
- *  Author: Spellabbet
+ * Created: 2018-05-14 12:19:32
+ *  Author: George
  */ 
 
-
-#include <asf.h>
-#include "semphr.h"
-#include "task_control.h"
 //System modules
 #include "../WheelCounters/WheelCounters.h"
 #include "../Navigering/angleCalculation.h"
@@ -21,13 +17,14 @@
 
 #include "../Movement/__vars.h"
 
-#ifndef TASK_PLAYER2_H_
-#define TASK_PLAYER2_H_
+#ifndef TASK_TICKMOVEMENT_H_
+#define TASK_TICKMOVEMENT_H_
 
-#define TASK_PLAYER2_STACK_SIZE (2048/ sizeof(portSTACK_TYPE))
-#define TASK_PLAYER2_PRIORITY   (2)
+#define TASK_TICKMOVEMENT_STACK_SIZE (2048/ sizeof(portSTACK_TYPE))
+#define TASK_TICKMOVEMENT_PRIORITY   (3)
 
-void task_player2(void *pvParamters);
+void task_tickMovement(void *pvParamters);
 
 
-#endif /* TASK_PLAYER2_H_ */
+
+#endif /* TASK_TICKMOVEMENT_H_ */

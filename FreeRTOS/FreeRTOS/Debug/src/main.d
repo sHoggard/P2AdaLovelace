@@ -175,15 +175,21 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/Utilities/TimerCounter/TimerCounter.h \
  ../src/Utilities/PioInterrupt/PioInterrupt.h ../src/xHandlerParameters.h \
  ../src/config/conf_board.h ../src/Tasks/task_player1.h \
- ../src/Tasks/task_control.h ../src/Tasks/task_player2.h \
- ../src/Tasks/task_control.h ../src/WheelCounters/WheelCounters.h \
- ../src/config/conf_AdaLovelace.h ../src/Navigering/angleCalculation.h \
+ ../src/Tasks/task_control.h \
+ ../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h \
+ ../src/Tasks/../Navigering/angleCalculation.h \
  c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
  ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/config/conf_AdaLovelace.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
- ../src/config/conf_AdaLovelace.h ../src/MotorControl/MotorControl.h \
- ../src/Movement/Movement.h ../src/xHandlerParameters.h \
- ../src/TimeTick/time_tick.h ../src/Movement/__vars.h
+ ../src/Tasks/task_player2.h \
+ ../src/Tasks/../WheelCounters/WheelCounters.h \
+ ../src/Tasks/../config/conf_AdaLovelace.h \
+ ../src/Tasks/../MotorControl/MotorControl.h \
+ ../src/Tasks/../Movement/Movement.h ../src/xHandlerParameters.h \
+ ../src/Tasks/../TimeTick/time_tick.h ../src/Tasks/../Movement/__vars.h \
+ ../src/Tasks/task_tickMovement.h ../src/Tasks/task_control.h \
+ ../src/Movement/Movement.h
 
 ../src/asf.h:
 
@@ -557,15 +563,9 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/Tasks/task_control.h:
 
-../src/Tasks/task_player2.h:
+../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h:
 
-../src/Tasks/task_control.h:
-
-../src/WheelCounters/WheelCounters.h:
-
-../src/config/conf_AdaLovelace.h:
-
-../src/Navigering/angleCalculation.h:
+../src/Tasks/../Navigering/angleCalculation.h:
 
 c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
 
@@ -573,16 +573,28 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 
 ../src/WheelCounters/WheelCounters.h:
 
-../src/Utilities/ConsoleFunctions/consoleFunctions.h:
-
 ../src/config/conf_AdaLovelace.h:
 
-../src/MotorControl/MotorControl.h:
+../src/Utilities/ConsoleFunctions/consoleFunctions.h:
 
-../src/Movement/Movement.h:
+../src/Tasks/task_player2.h:
+
+../src/Tasks/../WheelCounters/WheelCounters.h:
+
+../src/Tasks/../config/conf_AdaLovelace.h:
+
+../src/Tasks/../MotorControl/MotorControl.h:
+
+../src/Tasks/../Movement/Movement.h:
 
 ../src/xHandlerParameters.h:
 
-../src/TimeTick/time_tick.h:
+../src/Tasks/../TimeTick/time_tick.h:
 
-../src/Movement/__vars.h:
+../src/Tasks/../Movement/__vars.h:
+
+../src/Tasks/task_tickMovement.h:
+
+../src/Tasks/task_control.h:
+
+../src/Movement/Movement.h:

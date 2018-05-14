@@ -26,6 +26,8 @@ src\Movement\Regulate.c
 
 src\Navigering\angleCalculation.c
 
+src\Tasks\task_tickMovement.c
+
 src\Tasks\task_control.c
 
 src\Tasks\task_player1.c

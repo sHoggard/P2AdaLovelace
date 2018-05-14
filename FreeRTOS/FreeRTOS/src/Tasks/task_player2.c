@@ -12,28 +12,39 @@
 
 void task_player2(void *pvParamters)
 {
-	int work = 100000;
+	xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	printf("P2\n");
 	while(1){
 		vTaskDelay(xBlockTime);
-	printf("P2\n");
-	xLastWakeTime = xTaskGetTickCount();
-	//task_player2
-	//PIO_PB26_IDX = Digital Pin 22
-	volatile int j=0; /* makes sure j doesn't overflow */
-	ioport_set_pin_level(PIO_PB26_IDX, HIGH);
-	
-	for (int i=0; i<work; i++) /* The delay counter */
-	{
-		j++; /* some easy predictable operation */
-	}
-	ioport_set_pin_level(PIO_PB26_IDX, LOW);
-	printf("give2\n");
-	xSemaphoreGive(xSemaphorePlayer2);
-	vTaskSuspend(NULL);
+		printf("P2\n");
+		xLastWakeTime = xTaskGetTickCount();
 
-	
-	}
+		volatile int j=0; /* makes sure j doesn't overflow */
+		ioport_set_pin_level(PIO_PB26_IDX, HIGH);
+
+		char clrCom[] = {27, '[', '2', 'J', 27, '[', 'H', '\0'};
+
+		char buffer[20];
+		int speed = 200;
+		uint32_t start = time_tick_get();		
+		drive(speed, 1000);		
+		printf("speed: %i\n\n", speed);
+
+		counter = 0;
+		check = 1;
+		vTaskResume(*(taskHandler->taskTickMovement));
+		while(check)
+		{
+			vTaskDelay(1/portTICK_RATE_MS);
+		}	
+		printf("delay%i\n", 2000/portTICK_RATE_MS);
+		vTaskDelay(2000/portTICK_RATE_MS);
+		
+		ioport_set_pin_level(PIO_PB26_IDX, LOW);
+		printf("give2\n");
+		xSemaphoreGive(xSemaphorePlayer2);
+		vTaskSuspend(NULL);	
+		}
 }

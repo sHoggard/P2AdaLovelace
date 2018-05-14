@@ -132,6 +132,7 @@ C_SRCS +=  \
 ../src/Movement/NoRegulation.c \
 ../src/Movement/Regulate.c \
 ../src/Navigering/angleCalculation.c \
+../src/Tasks/task_tickMovement.c \
 ../src/Tasks/task_control.c \
 ../src/Tasks/task_player1.c \
 ../src/Tasks/task_player2.c \
@@ -187,6 +188,7 @@ src/Movement/Movement.o \
 src/Movement/NoRegulation.o \
 src/Movement/Regulate.o \
 src/Navigering/angleCalculation.o \
+src/Tasks/task_tickMovement.o \
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -235,6 +237,7 @@ src/Movement/Movement.o \
 src/Movement/NoRegulation.o \
 src/Movement/Regulate.o \
 src/Navigering/angleCalculation.o \
+src/Tasks/task_tickMovement.o \
 src/Tasks/task_control.o \
 src/Tasks/task_player1.o \
 src/Tasks/task_player2.o \
@@ -283,6 +286,7 @@ src/Movement/Movement.d \
 src/Movement/NoRegulation.d \
 src/Movement/Regulate.d \
 src/Navigering/angleCalculation.d \
+src/Tasks/task_tickMovement.d \
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -331,6 +335,7 @@ src/Movement/Movement.d \
 src/Movement/NoRegulation.d \
 src/Movement/Regulate.d \
 src/Navigering/angleCalculation.d \
+src/Tasks/task_tickMovement.d \
 src/Tasks/task_control.d \
 src/Tasks/task_player1.d \
 src/Tasks/task_player2.d \
@@ -381,6 +386,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

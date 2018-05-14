@@ -13,6 +13,8 @@ typedef struct TASKHANDLER_PARAM
 {
 	xTaskHandle* taskplayer1;
 	xTaskHandle* taskplayer2;
+	xTaskHandle* taskTickMovement;
+	int* check;
 } xHandlerParameters;
 
 
