@@ -169,7 +169,15 @@ src/Tasks/task_player1.d src/Tasks/task_player1.o: \
  ../src/ASF/common/services/twi/sam_twi/twi_master.h \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Tasks/task_control.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Tasks/task_control.h \
+ ../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h \
+ ../src/Tasks/../Navigering/angleCalculation.h \
+ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/config/conf_board.h \
+ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/config/conf_AdaLovelace.h \
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.h
 
 ../src/Tasks/task_player1.h:
 
@@ -528,3 +536,21 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 ../src/Tasks/task_control.h:
+
+../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h:
+
+../src/Tasks/../Navigering/angleCalculation.h:
+
+c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+../src/config/conf_board.h:
+
+c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
+
+../src/MotorControl/MotorControl.h:
+
+../src/WheelCounters/WheelCounters.h:
+
+../src/config/conf_AdaLovelace.h:
+
+../src/Utilities/ConsoleFunctions/consoleFunctions.h:

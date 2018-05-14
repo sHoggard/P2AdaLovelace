@@ -10,7 +10,7 @@
 #define TASK_CONTROL_H_
 
 #define TASK_CONTROL_STACK_SIZE (2048/ sizeof(portSTACK_TYPE)) 
-#define TASK_CONTROL_PRIORITY   (4)
+#define TASK_CONTROL_PRIORITY   (2)
 
 
 xSemaphoreHandle xSemaphorePlayer1;

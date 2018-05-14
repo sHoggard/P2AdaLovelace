@@ -42,13 +42,13 @@ void task_control(void *pvParamters)
 		if(xSemaphoreTake(xSemaphorePlayer1, 0) == pdTRUE){
 			printf("-\n");
 			//printf("- xSemaphorePlayer1\n");
-			vTaskSuspend(*(taskHandler->taskplayer1));	
+			//vTaskSuspend(*(taskHandler->taskplayer1));	
 			vTaskResume(*(taskHandler->taskplayer2));		
 			printf("- - - -\n");					
 		}
 		if(xSemaphoreTake(xSemaphorePlayer2, 0) == pdTRUE){
 			printf("- -\n");
-			vTaskSuspend(*(taskHandler->taskplayer2));
+			//vTaskSuspend(*(taskHandler->taskplayer2));
 			vTaskResume(*(taskHandler->taskplayer1));	
 			printf("- - - -\n");		
 		}
