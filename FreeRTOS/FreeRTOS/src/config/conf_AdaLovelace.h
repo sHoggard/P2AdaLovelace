@@ -17,6 +17,6 @@
 #define REGULATION
 //#define NO_REGULATION
 
-//#define DOUBLE_REGULATION
+#define DOUBLE_REGULATION
 
 #endif /* CONF_ADALOVELACE_H_ */

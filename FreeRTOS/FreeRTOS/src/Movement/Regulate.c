@@ -11,16 +11,20 @@
  
  #define HISTORY_SIZE 10
 
- double uL;
- double uR;
+ double leftCorrection;
+ double rightCorrection;
+ double speedCorrection;
  
  double error=0;				// felv�rde
+ double errorSpeed=0;
  double prevError=0;			// f�rg�ende felv�rde
  double bv = 0;					// b�rv�rde
  double P=0;					// P-regulator
+ double Pspeed=0;
  double I=0;					// I-regulator
  double D=0;					// D-regulator
  double kp=0.100;				// kp = t/1000 verkar fungera bra med Arduino-kod
+ double kpSpeed =0.1;
  double Td=0;
  double Ti=0;
  double dT=0;
@@ -29,11 +33,12 @@
 
  double N =144;					// pulser per rotation
  double t =100;					// samplingstid
- double uV =0;					// hastighet f�r v�nsterhjul
- double uH =0;					// hastighet f�r h�gerhjul
+ double leftSpeed =0;					// hastighet f�r v�nsterhjul
+ double rightSpeed =0;					// hastighet f�r h�gerhjul
+ double totSpeed=0;
  double pi =3.14159265359;
- double omkretsV=486;
- double omkretsH=488.5;
+ //double omkretsV=486;
+ //double omkretsH=488.5;
 
  double lastLeft = 0;
  double lastRight = 0;
@@ -50,9 +55,6 @@
 	currentRight = counterRight;
 	
 	printf("counterLeft: %i\ncounterRight: %i\n", (int)counterLeft, (int)counterRight);
-
-	//uL = regulated_speed.target;
-	//uR = regulated_speed.target;
 	
 		 //move history upwards
 		for (int index = HISTORY_SIZE; index > 1; index--) {
@@ -67,29 +69,61 @@
 		//uV = (((2*pi*(historyLeft[0] - historyLeft[1]))/(N/t))/(2*pi))*omkretsV;
 		//uH = (((2*pi*(historyRight[0] - historyRight[1]))/(N/t))/(2*pi))*omkretsH;
 		
-		uV = ((historyLeft[0] - historyLeft[1])*omkretsV*1000/(N*t));
-		uH = ((historyRight[0] - historyRight[1])*omkretsH*1000/(N*t));
+		leftSpeed = ((historyLeft[0] - historyLeft[1])*CIRCUMFERENCE_LEFT*1000/(N*t));
+		rightSpeed = ((historyRight[0] - historyRight[1])*CIRCUMFERENCE_RIGHT*1000/(N*t));
+		totSpeed = (leftSpeed+rightSpeed)/2;
 		
-		printf("uV*K: %i\nuH*K: %i\n", (int)(uV*1000), (int)(uH*1000));
+		printf("uV*K: %i\nuH*K: %i\n", (int)(leftSpeed*1000), (int)(rightSpeed*1000));
+		printf("totSpeed*K: %i\n", (int)(totSpeed*1000));
   
 		//PID reglering
 
-		error = uV - uH;
+		if (mode_movement == 'r')
+		{
+			rightSpeed *= (-1);
+		}
+		error = leftSpeed - rightSpeed;
+		errorSpeed = regulated_speed.target - totSpeed;
 		printf("error*K: %i\n", (int)(error*1000));
+		printf("errorSpeed*K: %i\n", (int)(errorSpeed*1000));
 		//sum = sum + error;
 		P = kp*error;
+		Pspeed = errorSpeed*kpSpeed;
+		if (errorSpeed > 200)
+		{
+			Pspeed *= 3;
+		}
+		else if (errorSpeed > 50)
+		{
+			Pspeed *= 2;
+		}
 		printf("P*K: %i\n", (int)(P*1000));
+		printf("Pspeed*K: %i\n", (int)(Pspeed*1000));
 		// I = (sum*(dT/Ti));
 		// D = ((error-prevError)*(Td/dT));
 		//prevError = error;
 
 		u = P + I + D;
   
-		uL = (uL - u);
-		uR = (uR + u);
 
-		regulated_speed.left = regulated_speed.target + uL;
-		regulated_speed.right = regulated_speed.target + uR;
+		leftCorrection = leftCorrection - u;
+		rightCorrection = rightCorrection + u;
+		speedCorrection += Pspeed;
+
+		regulated_speed.left = leftCorrection + speedCorrection;
+		regulated_speed.right = rightCorrection + speedCorrection;
+
+		//switch (mode_movement)
+		//{
+			//case 'd':
+				//break;
+			//case 'r':
+				//leftCorrection = (leftCorrection - u + Pspeed);
+				//rightCorrection = (rightCorrection - u + Pspeed);
+				//regulated_speed.left = regulated_speed.target + leftCorrection;
+				//regulated_speed.right = -(regulated_speed.target + rightCorrection);
+				//break;
+		//}
 		
 		printf("left: %i\nright: %i\n", regulated_speed.left, regulated_speed.right);
   }
