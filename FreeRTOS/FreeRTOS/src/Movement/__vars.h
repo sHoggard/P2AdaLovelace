@@ -17,6 +17,8 @@
 #define distanceRight (counterRight*CIRCUMFERENCE_RIGHT/144)
 
 char mode_movement;
+int counter;
+int check;
 
 struct s_speed {
 	int16_t target;

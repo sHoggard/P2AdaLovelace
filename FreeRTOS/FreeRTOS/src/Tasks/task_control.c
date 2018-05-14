@@ -53,7 +53,7 @@ void task_control(void *pvParamters)
 			printf("- - - -\n");		
 		}
 
-		printf("end task_control\n");
+		//printf("end task_control\n");
 		ioport_set_pin_level(PIO_PC1_IDX, LOW);
 		vTaskDelay(xBlockTime);
 		//vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	
