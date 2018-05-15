@@ -58,7 +58,7 @@ uint16_t orientation()
 /**
  * Makes Arlo move forwards or backwards (negative speed) at given speed (mm/s). 
  * If distance is 0, it will keep moving indefinitely. 
- * If distance is not 0, it will stop at given distance. 
+ * If distance is not 0, it will stop after given distance. 
  */
 void drive(int16_t speed, uint32_t distance)
 {
@@ -94,7 +94,7 @@ void drive(int16_t speed, uint32_t distance)
 		//distance /= 338;				// 3,38mm per pulse
 		int32_t startDistance = distanceLeft + distanceRight;
 		targetDistance = startDistance + distance;
-		printf("Will stop after %i mm\n", abs(distance));
+		printf("Will stop after %i mm\n", abs(humanTargetDistance));
 	}
 }
 
@@ -119,7 +119,7 @@ void rotate(int16_t speed, uint16_t orientation)
 	#ifndef DOUBLE_REGULATION
 	// TODO: convert degrees/s to target pulse
 	regulated_speed.left = speed;
-	regulated_speed.right = (-speed);
+	regulated_speed.right = speed;
 	#endif	//DOUBLE_REGULATION
 	printf("Rotating %s at %i degrees/s\n", (speed >= 0 ? "clockwise" : "counter-clockwise"), abs(speed));
 	
