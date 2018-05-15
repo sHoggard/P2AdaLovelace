@@ -1,6 +1,7 @@
-src/TimeTick/time_tick_sam.d src/TimeTick/time_tick_sam.o: \
- ../src/TimeTick/time_tick_sam.c ../src/asf.h \
- ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
+src/Tasks/task_navigering.d src/Tasks/task_navigering.o: \
+ ../src/Tasks/task_navigering.c ../src/Tasks/task_navigering.h \
+ ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\5.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -166,7 +167,17 @@ src/TimeTick/time_tick_sam.d src/TimeTick/time_tick_sam.o: \
  ../src/ASF/common/services/twi/sam_twi/twi_master.h \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/TimeTick/time_tick.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Tasks/task_control.h \
+ ../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h \
+ ../src/Tasks/../Navigering/angleCalculation.h \
+ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/config/conf_board.h \
+ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
+ ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
+ ../src/config/conf_AdaLovelace.h \
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.h
+
+../src/Tasks/task_navigering.h:
 
 ../src/asf.h:
 
@@ -516,4 +527,22 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/TimeTick/time_tick.h:
+../src/Tasks/task_control.h:
+
+../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h:
+
+../src/Tasks/../Navigering/angleCalculation.h:
+
+c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+../src/config/conf_board.h:
+
+c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
+
+../src/MotorControl/MotorControl.h:
+
+../src/WheelCounters/WheelCounters.h:
+
+../src/config/conf_AdaLovelace.h:
+
+../src/Utilities/ConsoleFunctions/consoleFunctions.h:

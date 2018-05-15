@@ -19,8 +19,8 @@
 #include "conf_board.h"
 #include "conf_clock.h"
 //Tasks
-#include "Tasks/task_player1.h"
-#include "Tasks/task_player2.h"
+#include "Tasks/task_navigering.h"
+#include "Tasks/task_styrning.h"
 #include "Tasks/task_tickMovement.h"
 #include "Tasks/task_control.h"
 #include "Movement/Movement.h"
@@ -28,8 +28,8 @@
 
 
 volatile xHandlerParameters *xHandler;
-volatile xTaskHandle taskHandlerPlayer1;
-volatile xTaskHandle taskHandlerPlayer2;
+volatile xTaskHandle taskHandlerNavigering;
+volatile xTaskHandle taskHandlerStyrning;
 volatile xTaskHandle taskHandlerTickMovement;
 volatile int checkInt = 1;
 
@@ -73,28 +73,28 @@ int main (void)
 	configPioInterrupt();
 	
 	//Creating semaphores and tasks
-	xSemaphorePlayer1 = 0;
-	xSemaphorePlayer2 = 0;
+	xSemaphoreNavigering = 0;
+	xSemaphoreStyrning = 0;
 	xSemaphoreTickMovement = 0;
 	
 	printf("Creating semaphores...\n");
-	vSemaphoreCreateBinary(xSemaphorePlayer1 );
-	vSemaphoreCreateBinary(xSemaphorePlayer2 );
+	vSemaphoreCreateBinary(xSemaphoreNavigering );
+	vSemaphoreCreateBinary(xSemaphoreStyrning );
 	vSemaphoreCreateBinary(xSemaphoreTickMovement );
 	
 	//Semaphores are configured, task1 will be resumed in task_control.c
-	xSemaphoreGive(xSemaphorePlayer1); // value 1, available
-	xSemaphoreTake(xSemaphorePlayer2, 0); //value 0
+	xSemaphoreGive(xSemaphoreNavigering); // value 1, available
+	xSemaphoreTake(xSemaphoreStyrning, 0); //value 0
 
 	printf("Creating task handler...\n");
 	
 
 	bool xReturned = false;
 	printf("Creating tasks...\n");
-	xReturned = xTaskCreate(task_player1, (const signed char * const) "player1", TASK_PLAYER1_STACK_SIZE, NULL, TASK_PLAYER1_PRIORITY, &taskHandlerPlayer1);
+	xReturned = xTaskCreate(task_navigering, (const signed char * const) "navigering", TASK_NAVIGERING_STACK_SIZE, NULL, TASK_NAVIGERING_PRIORITY, &taskHandlerNavigering);
 	if( xReturned == pdPASS )
 	{
-		printf("task_player1 created...\n");
+		printf("task_navigering created...\n");
 		
 	}
 	xReturned = xTaskCreate(task_tickMovement, (const signed char * const) "tickMovement", TASK_TICKMOVEMENT_STACK_SIZE, xHandler, TASK_TICKMOVEMENT_PRIORITY, &taskHandlerTickMovement);
@@ -104,25 +104,25 @@ int main (void)
 		
 	}
 	printf("Task handler stored in struct xHandlerParameter.h...\n");
-	xHandler->taskplayer1 = &taskHandlerPlayer1;
-	xHandler->taskplayer2 = &taskHandlerPlayer2;
+	xHandler->taskNavigation = &taskHandlerNavigering;
+	xHandler->taskStyrning = &taskHandlerStyrning;
 	xHandler->taskTickMovement = &taskHandlerTickMovement;
 	
 	//Suspend all tasks
-	vTaskSuspend(*(xHandler->taskplayer1));
-	vTaskSuspend(*(xHandler->taskplayer2));
+	vTaskSuspend(*(xHandler->taskNavigation));
+	vTaskSuspend(*(xHandler->taskStyrning));
 	vTaskSuspend(*(xHandler->taskTickMovement));
 	printf("Address stored in &xHandler: %x\n", &xHandler );
 	printf("Address stored in xHandler: %x\n", xHandler );
-	printf("Address stored in &xHandler->taskplayer1: %x\n", &xHandler->taskplayer1 );
-	printf("Address stored in &xHandler->taskplayer2: %x\n", &xHandler->taskplayer2 );
-	printf("Address stored in xHandler->taskplayer1: %x\n", xHandler->taskplayer1 );
-	printf("Address stored in xHandler->taskplayer2: %x\n", xHandler->taskplayer2 );
+	printf("Address stored in &xHandler->taskplayer1: %x\n", &xHandler->taskNavigation );
+	printf("Address stored in &xHandler->taskplayer2: %x\n", &xHandler->taskStyrning );
+	printf("Address stored in xHandler->taskplayer1: %x\n", xHandler->taskNavigation );
+	printf("Address stored in xHandler->taskplayer2: %x\n", xHandler->taskStyrning );
 	
-	xReturned = xTaskCreate(task_player2, (const signed char * const) "player2", TASK_PLAYER2_STACK_SIZE, (void *) xHandler, TASK_PLAYER2_PRIORITY, &taskHandlerPlayer2);
+	xReturned = xTaskCreate(task_styrning, (const signed char * const) "styrning", TASK_STYRNING_STACK_SIZE, (void *) xHandler, TASK_STYRNING_PRIORITY, &taskHandlerStyrning);
 	if( xReturned == pdPASS )
 	{
-		printf("task_player2 created...\n");
+		printf("task_styrning created...\n");
 		
 	}
 	

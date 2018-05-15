@@ -29,27 +29,27 @@ void task_control(void *pvParamters)
 	
 	printf("Address stored in &taskHandler: %x\n", &taskHandler );
 	printf("Address stored in taskHandler: %x\n", taskHandler );
-	printf("Address stored in &taskHandler->taskplayer1: %x\n", &taskHandler->taskplayer1 );
-	printf("Address stored in &taskHandler->taskplayer2: %x\n", &taskHandler->taskplayer2 );
-	printf("Address stored in taskHandler->taskplayer1: %x\n", taskHandler->taskplayer1 );
-	printf("Address stored in taskHandler->taskplayer2: %x\n", taskHandler->taskplayer2 );
+	printf("Address stored in &taskHandler->taskNavigering: %x\n", &taskHandler->taskNavigation );
+	printf("Address stored in &taskHandler->taskStyrning: %x\n", &taskHandler->taskStyrning );
+	printf("Address stored in taskHandler->taskNavigering: %x\n", taskHandler->taskNavigation );
+	printf("Address stored in taskHandler->taskStyrning: %x\n", taskHandler->taskStyrning );
 	while(1)
 	{	
 		ioport_set_pin_level(PIO_PC1_IDX, HIGH);
 
 		//printf("task_control\n");
 		xLastWakeTime = xTaskGetTickCount();
-		if(xSemaphoreTake(xSemaphorePlayer1, 0) == pdTRUE){
+		if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
 			printf("-\n");
-			//printf("- xSemaphorePlayer1\n");
-			//vTaskSuspend(*(taskHandler->taskplayer1));	
-			vTaskResume(*(taskHandler->taskplayer2));		
+			//printf("- xSemaphoreNavigering\n");
+			//vTaskSuspend(*(taskHandler->taskNavigering));	
+			vTaskResume(*(taskHandler->taskStyrning));		
 			printf("- - - -\n");					
 		}
-		if(xSemaphoreTake(xSemaphorePlayer2, 0) == pdTRUE){
+		if(xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 			printf("- -\n");
-			//vTaskSuspend(*(taskHandler->taskplayer2));
-			vTaskResume(*(taskHandler->taskplayer1));	
+			//vTaskSuspend(*(taskHandler->taskStyrning));
+			vTaskResume(*(taskHandler->taskNavigation));	
 			printf("- - - -\n");		
 		}
 

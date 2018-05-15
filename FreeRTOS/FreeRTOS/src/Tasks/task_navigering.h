@@ -12,14 +12,14 @@
 #include "../Navigering/angleCalculation.h"
 
 
-#ifndef TASK_PLAYER1_H_
-#define TASK_PLAYER1_H_
+#ifndef TASK_NAVIGERING_H_
+#define TASK_NAVIGERING_H_
 
-#define TASK_PLAYER1_STACK_SIZE (2048/ sizeof(portSTACK_TYPE)) 
-#define TASK_PLAYER1_PRIORITY   (2)
-
-
-void task_player1(void *pvParamters);
+#define TASK_NAVIGERING_STACK_SIZE (2048/ sizeof(portSTACK_TYPE)) 
+#define TASK_NAVIGERING_PRIORITY   (2)
 
 
-#endif /* TASK_PLAYER1_H_ */
+void task_navigering(void *pvParamters);
+
+
+#endif /* TASK_NAVIGERING_H_ */

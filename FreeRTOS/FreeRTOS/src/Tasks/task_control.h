@@ -13,8 +13,8 @@
 #define TASK_CONTROL_PRIORITY   (1)
 
 
-xSemaphoreHandle xSemaphorePlayer1;
-xSemaphoreHandle xSemaphorePlayer2;
+xSemaphoreHandle xSemaphoreNavigering;
+xSemaphoreHandle xSemaphoreStyrning;
 xSemaphoreHandle xSemaphoreTickMovement;
 
 void task_control(void *pvParamters);

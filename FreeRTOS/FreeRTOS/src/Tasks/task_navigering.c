@@ -6,12 +6,12 @@
  *	Author: Benjamin Sejdic
  */ 
 
-#include "task_player1.h"
+#include "task_navigering.h"
 
 #define xBlockTime 1
 
 
-void task_player1(void *pvParamters)
+void task_navigering(void *pvParamters)
 {
 	printf("P1\n");
 	//int work = 500000;
@@ -181,7 +181,7 @@ void task_player1(void *pvParamters)
 
 	ioport_set_pin_level(PIO_PA15_IDX, LOW);
 	printf("give1\n");
-	xSemaphoreGive(xSemaphorePlayer1);
+	xSemaphoreGive(xSemaphoreNavigering);
 	//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
 	vTaskSuspend(NULL);
 	}

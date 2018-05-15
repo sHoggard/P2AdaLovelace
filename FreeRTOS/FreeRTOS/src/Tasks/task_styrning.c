@@ -6,11 +6,11 @@
 *	Author: Benjamin Sejdic
 */
 
-#include "task_player2.h"
+#include "task_styrning.h"
 
 #define xBlockTime 1
 
-void task_player2(void *pvParamters)
+void task_styrning(void *pvParamters)
 {
 	xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
@@ -33,8 +33,8 @@ void task_player2(void *pvParamters)
 		printf("speed: %i\n\n", speed);
 
 		counter = 0;
-		check = 1;
-		vTaskResume(*(taskHandler->taskTickMovement));
+		check = 0;
+		//vTaskResume(*(taskHandler->taskTickMovement));
 		while(check)
 		{
 			vTaskDelay(1/portTICK_RATE_MS);
@@ -44,7 +44,7 @@ void task_player2(void *pvParamters)
 		
 		ioport_set_pin_level(PIO_PB26_IDX, LOW);
 		printf("give2\n");
-		xSemaphoreGive(xSemaphorePlayer2);
+		xSemaphoreGive(xSemaphoreStyrning);
 		vTaskSuspend(NULL);	
 		}
 }

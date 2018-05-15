@@ -33,8 +33,8 @@ void initMovement()
 	puts("No regulation");
 	#endif
 	
-	initMotors();
-	initDecoders();
+	//initMotors();
+	//initDecoders();
 	
 	mode_movement = 's';
 	regulated_speed.left = 0;

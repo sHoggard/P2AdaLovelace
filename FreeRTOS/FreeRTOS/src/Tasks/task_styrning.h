@@ -21,13 +21,13 @@
 
 #include "../Movement/__vars.h"
 
-#ifndef TASK_PLAYER2_H_
-#define TASK_PLAYER2_H_
+#ifndef TASK_STYRNING_H_
+#define TASK_STYRNING_H_
 
 #define TASK_PLAYER2_STACK_SIZE (2048/ sizeof(portSTACK_TYPE))
 #define TASK_PLAYER2_PRIORITY   (2)
 
-void task_player2(void *pvParamters);
+void task_styrning(void *pvParamters);
 
 
-#endif /* TASK_PLAYER2_H_ */
+#endif /* TASK_STYRNING_H_ */

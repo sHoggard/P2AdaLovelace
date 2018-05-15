@@ -30,9 +30,9 @@ src\Tasks\task_tickMovement.c
 
 src\Tasks\task_control.c
 
-src\Tasks\task_player1.c
+src\Tasks\task_navigering.c
 
-src\Tasks\task_player2.c
+src\Tasks\task_styrning.c
 
 src\TimeTick\time_tick_sam.c
 
