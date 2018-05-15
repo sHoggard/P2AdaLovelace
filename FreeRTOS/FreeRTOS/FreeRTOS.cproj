@@ -651,6 +651,7 @@
     <Folder Include="src\MotorControl" />
     <Folder Include="src\Navigering" />
     <Folder Include="src\Movement" />
+    <Folder Include="src\TWI_Kommunikationen" />
     <Folder Include="src\TimeTick" />
     <Folder Include="src\Utilities" />
     <Folder Include="src\Utilities\ConsoleFunctions\" />
@@ -742,6 +743,18 @@
     <Compile Include="src\Navigering\angleCalculation.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\Tasks\task_kommunikation.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_kommunikation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_sensor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Tasks\task_sensor.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\Tasks\task_tickMovement.c">
       <SubType>compile</SubType>
     </Compile>
@@ -770,6 +783,21 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TimeTick\time_tick_sam.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\TWI_Kommunikationen\I2CFunctions.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\TWI_Kommunikationen\I2CFunctions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\TWI_Kommunikationen\main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\TWI_Kommunikationen\test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\TWI_Kommunikationen\test.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Utilities\ConsoleFunctions\consoleFunctions.c">
