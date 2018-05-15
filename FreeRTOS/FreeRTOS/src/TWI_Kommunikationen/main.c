@@ -28,7 +28,7 @@ int main (void)
 		//Lyft vinglas
 		//Case 2
 		send_package(0x23, TWI_SLAVE_ADR_PAB);
-		//Avbryt luft
+		//Avbryt lyft
 		//Case 3
 		send_package(0x24, TWI_SLAVE_ADR_PAB);
 		//Lämna av object
