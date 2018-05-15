@@ -651,6 +651,7 @@
     <Folder Include="src\MotorControl" />
     <Folder Include="src\Navigering" />
     <Folder Include="src\Movement" />
+    <Folder Include="src\Sensor" />
     <Folder Include="src\TWI_Kommunikationen" />
     <Folder Include="src\TimeTick" />
     <Folder Include="src\Utilities" />
@@ -743,6 +744,15 @@
     <Compile Include="src\Navigering\angleCalculation.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\Navigering\NAV_SENS_STYR.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Sensor\PIRmain.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Sensor\Ultraljud.main.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\Tasks\task_kommunikation.c">
       <SubType>compile</SubType>
     </Compile>
@@ -789,6 +799,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TWI_Kommunikationen\I2CFunctions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\TWI_Kommunikationen\KOM_NAV.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TWI_Kommunikationen\main.c">

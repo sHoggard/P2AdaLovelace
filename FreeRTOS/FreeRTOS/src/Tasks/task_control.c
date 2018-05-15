@@ -14,7 +14,7 @@
 #include "semphr.h"
 
 
-#define xBlockTime 5
+#define xBlockTime 5	//5ticks
 portTickType xTimeStampTicks;
 portTickType timeStart;
 
@@ -27,35 +27,37 @@ void task_control(void *pvParamters)
 	//task_control
 	// PIO_PC1_IDX, = Digital Pin 33
 	
-	printf("Address stored in &taskHandler: %x\n", &taskHandler );
-	printf("Address stored in taskHandler: %x\n", taskHandler );
-	printf("Address stored in &taskHandler->taskNavigering: %x\n", &taskHandler->taskNavigation );
-	printf("Address stored in &taskHandler->taskStyrning: %x\n", &taskHandler->taskStyrning );
-	printf("Address stored in taskHandler->taskNavigering: %x\n", taskHandler->taskNavigation );
-	printf("Address stored in taskHandler->taskStyrning: %x\n", taskHandler->taskStyrning );
+	
 	while(1)
 	{	
-		ioport_set_pin_level(PIO_PC1_IDX, HIGH);
-
 		//printf("task_control\n");
 		xLastWakeTime = xTaskGetTickCount();
+		if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){
+			printf("-\n");
+			printf("- xSemaphoreKommunikation\n");
+			vTaskResume(*(taskHandler->taskKommunikation));
+			printf("- - - -\n");
+		}
 		if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
 			printf("-\n");
-			//printf("- xSemaphoreNavigering\n");
-			//vTaskSuspend(*(taskHandler->taskNavigering));	
+			printf("- xSemaphoreNavigering\n");	
 			vTaskResume(*(taskHandler->taskStyrning));		
 			printf("- - - -\n");					
 		}
+		if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
+			printf("-\n");
+			printf("- xSemaphoreSensor\n");
+			vTaskResume(*(taskHandler->taskSensor));
+			printf("- - - -\n");
+		}
 		if(xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 			printf("- -\n");
-			//vTaskSuspend(*(taskHandler->taskStyrning));
+			printf("- xSemaphoreStyrning\n");
 			vTaskResume(*(taskHandler->taskNavigation));	
 			printf("- - - -\n");		
 		}
 
 		//printf("end task_control\n");
-		ioport_set_pin_level(PIO_PC1_IDX, LOW);
-		vTaskDelay(xBlockTime);
-		//vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	
+		vTaskDelay(xBlockTime);	
 	}
 }

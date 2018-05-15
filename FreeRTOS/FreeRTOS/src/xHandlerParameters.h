@@ -11,7 +11,9 @@
 
 typedef struct TASKHANDLER_PARAM
 {
+	xTaskHandle* taskKommunikation;
 	xTaskHandle* taskNavigation;
+	xTaskHandle* taskSensor;
 	xTaskHandle* taskStyrning;
 	xTaskHandle* taskTickMovement;
 	int* check;

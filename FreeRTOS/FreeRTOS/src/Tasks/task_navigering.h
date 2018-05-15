@@ -10,6 +10,8 @@
 #include "task_control.h"
 #include "../Utilities/ConsoleFunctions/consoleFunctions.h"
 #include "../Navigering/angleCalculation.h"
+#include "../Navigering/NAV_SENS_STYR.h"
+#include "../TWI_Kommunikation/KOM_NAV.h"
 
 
 #ifndef TASK_NAVIGERING_H_

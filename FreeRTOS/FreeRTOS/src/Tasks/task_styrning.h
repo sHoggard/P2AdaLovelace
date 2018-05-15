@@ -20,6 +20,7 @@
 #include "../Utilities/ConsoleFunctions/consoleFunctions.h"
 
 #include "../Movement/__vars.h"
+#include "../Navigering/NAV_SENS_STYR.h"
 
 #ifndef TASK_STYRNING_H_
 #define TASK_STYRNING_H_

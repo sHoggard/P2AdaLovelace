@@ -12,11 +12,12 @@
 #define TASK_CONTROL_STACK_SIZE (2048/ sizeof(portSTACK_TYPE)) 
 #define TASK_CONTROL_PRIORITY   (1)
 
-
+xSemaphoreHandle xSemaphoreKommunikation;
 xSemaphoreHandle xSemaphoreNavigering;
+xSemaphoreHandle xSemaphoreSensor;
 xSemaphoreHandle xSemaphoreStyrning;
 xSemaphoreHandle xSemaphoreTickMovement;
 
 void task_control(void *pvParamters);
 
-#endif /* TASK_PLAYER1_H_ */
+#endif /* TASK_NAVIGERING_H_ */
