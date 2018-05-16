@@ -36,6 +36,7 @@
 #include "Movement/Movement.h"
 #include "TimeTick/time_tick.h"
 #include "Utilities/ConsoleFunctions/consoleFunctions.h"
+//#include "Com/Com.h"
 
 #include "Movement/__vars.h"
 
@@ -50,7 +51,9 @@ int main (void)
 
 	// Insert application code here, after the board has been initialized.
 	
+	//membag_init();			// move to initCom()?
 	initMovement();
+	//initCom();
 	
 	// testing new wheelcounter strategy
 	//while (true)
@@ -59,7 +62,63 @@ int main (void)
 		//delay_ms(2000);
 	//}
 	
+	//test_bufferFunctions();
+	//while(1);
+	
 	time_tick_init();
+	
+	//char tempCommand = 's';
+	//int tempSpeed = 0;
+	//int tempDistance = 0;
+	//
+	//printf("setup\n");
+	//
+	//while (1)
+	//{
+		//if (time_tick_get()%100 == 0)
+		//{
+			//test_movement();
+		//}
+		//
+		//tempCommand = getchar();
+		////if (!feof(stdin))
+		////if (ftell(stdin) != 0)
+		//if (tempCommand != EOF)
+		//{
+			//printf("Reading... ");
+			////scanf("%c", &tempCommand);
+			//printf("%c\n", tempCommand);
+			//switch (tempCommand)
+			//{
+				//case 'd':
+					//scanf("%i%i", &tempSpeed, &tempDistance);
+					//printf("%i\n", tempSpeed);
+					//printf("%i\n", tempDistance);
+					//drive(tempSpeed, tempDistance);
+					//break;
+				//case 'r':
+					//scanf("%i%i", &tempSpeed, &tempDistance);
+					//printf("%i\n", tempSpeed);
+					//printf("%i\n", tempDistance);
+					//rotate(tempSpeed, tempDistance);
+					//break;
+				//case 'p':
+					//break;
+				//case 's':
+					//stop();
+					//break;
+			//}
+			////while((tempCommand = getchar()) != '\n' && tempCommand != EOF);
+			//fseek(stdin, 0, SEEK_END);
+		//}
+		//delay_ms(1);
+	//}
+	
+	//initCom();
+	//delay_ms(1000);
+	//initCom();
+	//delay_ms(1000);
+	//initCom();
 	
 	char buffer[20];
 	

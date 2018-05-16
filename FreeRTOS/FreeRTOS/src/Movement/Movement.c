@@ -15,11 +15,12 @@
 static bool f_auto = false;
 static int16_t humanTargetSpeed;
 static int32_t humanTargetDistance;
-static int32_t targetDistance;
-//static uint16_t orientation;
 static uint16_t humanTargetOrientation;
+static int32_t targetDistance;
 static uint16_t targetOrientation;
 
+uint16_t calculateOrientation(void);
+int32_t calculateRemainingDistance(void);
 void updateTargetSpeed(void);
 void applyRegulatedSpeeds(void);
 
@@ -45,14 +46,20 @@ void initMovement()
 /**
  * Calculates current orientation, and returns it. 
  */
-uint16_t orientation()
+uint16_t getOrientation()
 {
-	int32_t orientation = (int)(distanceLeft - distanceRight)%FULL_ROTATION;
-	if (orientation < 0)
-	{
-		orientation += FULL_ROTATION;
-	}
+	uint16_t orientation = calculateOrientation();
+	orientation *= HUMAN_FULL_ROTATION;
+	orientation /= FULL_ROTATION;
 	return orientation;
+}
+
+/**
+ * Calculates remaining distance, and returns it. 
+ */
+uint32_t getRemainingDistance()
+{
+	return abs(calculateRemainingDistance());
 }
 
 /**
@@ -146,6 +153,7 @@ void stop()
 {
 	mode_movement = 's';
 	f_auto = false;
+	printf("Stopping any and all motion\n");
 	stopMotors();
 }
 
@@ -188,56 +196,75 @@ void test_movement()
 	applyRegulatedSpeeds();
 }
 
-void updateTargetSpeed()		// should only revise speeds downwards
+
+
+uint16_t calculateOrientation()
 {
-	int16_t targetSpeed = 0;
-	int32_t remaining_distance = 0;
+	int16_t orientation = (int)(distanceLeft - distanceRight)%FULL_ROTATION;
+	if (orientation < 0)
+	{
+		orientation += FULL_ROTATION;
+	}
+	return orientation;
+}
+
+int32_t calculateRemainingDistance()
+{
+	int32_t remainingDistance = 0;
 	
-	// calculate remaining distance
 	switch (mode_movement)
 	{
 		case 'd':
-			remaining_distance = targetDistance - (distanceLeft + distanceRight);
+			remainingDistance = targetDistance - (distanceLeft + distanceRight);
 			break;
 		case 'r':
-			remaining_distance = orientation() - targetOrientation;
+			remainingDistance = calculateOrientation() - targetOrientation;
 			// shortest path
-			if (remaining_distance > FULL_ROTATION/2)
+			if (remainingDistance > FULL_ROTATION/2)
 			{
-				remaining_distance -= FULL_ROTATION;
+				remainingDistance -= FULL_ROTATION;
 			}
-			if (remaining_distance < (-FULL_ROTATION/2))
+			if (remainingDistance < (-FULL_ROTATION/2))
 			{
-				remaining_distance += FULL_ROTATION;
+				remainingDistance += FULL_ROTATION;
 			}
 			break;
-		case 's':
-			return;
+		case 's':		// not going to try for the last mm or half degree
+			remainingDistance = 0;
+			break;
 	}
-	printf("remaining_distance: %i\n", (int)remaining_distance);
+	return remainingDistance;
+}
+
+void updateTargetSpeed()		// should only revise speeds downwards
+{
+	int16_t targetSpeed = 0;
+	int32_t remainingDistance = calculateRemainingDistance();
+	
+	printf("remainingDistance: %i\n", (int)remainingDistance);
 	
 	// calculate target speed
 	switch (mode_movement)
 	{
 		case 'd':
-			if (abs(remaining_distance) < DISTANCE_PRECISION)
+			if (abs(remainingDistance) < DISTANCE_PRECISION)
 			{
 				stop();
 				regulated_speed.target = 0;
 				//delay_ms(10);
 				// TODO: precise adjustments
 			}
-			else if (remaining_distance > 0)
+			else if (remainingDistance > 0)
 			{
-				targetSpeed = (remaining_distance/50)*MOTOR_INCREMENTS + MOTOR_THRESHOLD;
+				targetSpeed = (remainingDistance/50)*MOTOR_INCREMENTS + MOTOR_THRESHOLD;
 				if (targetSpeed > humanTargetSpeed)
 				{
 					targetSpeed = humanTargetSpeed;
 				}
 			}
-			else if (remaining_distance < 0)
+			else if (remainingDistance < 0)
 			{
-				targetSpeed = (remaining_distance/50)*MOTOR_INCREMENTS - MOTOR_THRESHOLD;
+				targetSpeed = (remainingDistance/50)*MOTOR_INCREMENTS - MOTOR_THRESHOLD;
 				if (targetSpeed < humanTargetSpeed)
 				{
 					targetSpeed = -humanTargetSpeed;
