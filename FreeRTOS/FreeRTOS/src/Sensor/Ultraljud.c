@@ -28,7 +28,7 @@
 #include <inttypes.h>
 #include "delay.h"
 //#include "delayFunctions.h"
-#include "ConsulFunction/consoleFunctions.h"
+#include "Utilities/ConsoleFunctions/consoleFunctions.h"
 #include <stdlib.h>
 #include "stdio_serial.h"
 #include "time.h"
@@ -66,7 +66,7 @@ long PulseIn(void){
 	return duration;
 	
 }
-int main (void)
+/*int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
 
@@ -108,7 +108,7 @@ int main (void)
 		
 			 
 		 
-}
+}*/
 
 		  
   

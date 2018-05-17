@@ -9,7 +9,10 @@
 #ifndef NAV_SENS_STYR_H_
 #define NAV_SENS_STYR_H_
 
+uint16_t rotation_angle;
+uint32_t distanceToObject;
 
+double check_Dist;
 
 
 

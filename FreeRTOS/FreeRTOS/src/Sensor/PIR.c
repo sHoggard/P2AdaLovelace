@@ -38,7 +38,7 @@
 #include "time.h"
 
 
-int main (void)
+/*int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
         board_init();
@@ -60,4 +60,4 @@ int main (void)
 	
 	   ioport_set_pin_level(PIO_PB27_IDX,LOW);
 	}
-}
+}*/

@@ -148,3 +148,4 @@ uint8_t twi_read(uint8_t rec_data[], uint8_t data_length, twi_packet_t packet_re
 	else
 		return DATA_NOT_READ;
 }
+

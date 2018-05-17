@@ -12,7 +12,7 @@
 typedef struct TASKHANDLER_PARAM
 {
 	xTaskHandle* taskKommunikation;
-	xTaskHandle* taskNavigation;
+	xTaskHandle* taskNavigering;
 	xTaskHandle* taskSensor;
 	xTaskHandle* taskStyrning;
 	xTaskHandle* taskTickMovement;

@@ -16,6 +16,14 @@ src\ASF\sam\drivers\twi\twi.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
+src\IntegrationTests\KomNavTest.c
+
+src\IntegrationTests\NavSensTest.c
+
+src\IntegrationTests\NavStyrTest.c
+
+src\IntegrationTests\SensStyrTest.c
+
 src\MotorControl\MotorControl.c
 
 src\Movement\Movement.c
@@ -26,6 +34,16 @@ src\Movement\Regulate.c
 
 src\Navigering\angleCalculation.c
 
+src\Sensor\PIR.c
+
+src\Sensor\sensorCalculation.c
+
+src\Sensor\Ultraljud.c
+
+src\Tasks\task_kommunikation.c
+
+src\Tasks\task_sensor.c
+
 src\Tasks\task_tickMovement.c
 
 src\Tasks\task_control.c
@@ -35,6 +53,12 @@ src\Tasks\task_navigering.c
 src\Tasks\task_styrning.c
 
 src\TimeTick\time_tick_sam.c
+
+src\TWI_Kommunikationen\I2CFunctions.c
+
+src\TWI_Kommunikationen\main_KOM.c
+
+src\TWI_Kommunikationen\test.c
 
 src\Utilities\ConsoleFunctions\consoleFunctions.c
 

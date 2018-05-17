@@ -175,7 +175,10 @@ src/Tasks/task_navigering.d src/Tasks/task_navigering.o: \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
  ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
  ../src/config/conf_AdaLovelace.h \
- ../src/Utilities/ConsoleFunctions/consoleFunctions.h
+ ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
+ ../src/Tasks/../Navigering/NAV_SENS_STYR.h \
+ ../src/Tasks/../Movement/Movement.h ../src/xHandlerParameters.h \
+ ../src/Tasks/../TWI_Kommunikationen/KOM_NAV.h ../src/Movement/Movement.h
 
 ../src/Tasks/task_navigering.h:
 
@@ -546,3 +549,13 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 ../src/config/conf_AdaLovelace.h:
 
 ../src/Utilities/ConsoleFunctions/consoleFunctions.h:
+
+../src/Tasks/../Navigering/NAV_SENS_STYR.h:
+
+../src/Tasks/../Movement/Movement.h:
+
+../src/xHandlerParameters.h:
+
+../src/Tasks/../TWI_Kommunikationen/KOM_NAV.h:
+
+../src/Movement/Movement.h:

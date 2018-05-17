@@ -179,7 +179,8 @@ src/Tasks/task_styrning.d src/Tasks/task_styrning.o: \
  ../src/Tasks/../Movement/Movement.h ../src/xHandlerParameters.h \
  ../src/Tasks/../TimeTick/time_tick.h \
  ../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h \
- ../src/Tasks/../Movement/__vars.h
+ ../src/Tasks/../Movement/__vars.h \
+ ../src/Tasks/../Navigering/NAV_SENS_STYR.h
 
 ../src/Tasks/task_styrning.h:
 
@@ -564,3 +565,5 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 ../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h:
 
 ../src/Tasks/../Movement/__vars.h:
+
+../src/Tasks/../Navigering/NAV_SENS_STYR.h:

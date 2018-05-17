@@ -9,7 +9,7 @@
 #include "task_tickMovement.h"
 
 
-#define xBlockTime 1
+#define xBlockTime 5000
 
 void task_tickMovement(void *pvParamters)
 {

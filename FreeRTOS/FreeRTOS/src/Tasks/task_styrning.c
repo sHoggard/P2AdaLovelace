@@ -9,18 +9,26 @@
 #include "task_styrning.h"
 
 
-#define xBlockTime 1
+#define xBlockTime 5000
 
 void task_styrning(void *pvParamters)
 {
+	 
+	printf("task_styrning\n");
 	xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	printf("P2\n");
 	while(1){
-		vTaskDelay(xBlockTime);
-		printf("P2\n");
+		vTaskDelay(xBlockTime); //hänger i tasken 200 000 ticks
+		printf("Styrning\n");
 		xLastWakeTime = xTaskGetTickCount();
+
+		if(check_Dist == 0){
+			
+			//rotera nu utefter sensorerna (ej navigeringen längre - vi är för nära objektet)
+			printf("\nKör med navigering+positioneringssystem");
+		}
 
 		volatile int j=0; /* makes sure j doesn't overflow */
 		ioport_set_pin_level(PIO_PB26_IDX, HIGH);
@@ -33,6 +41,7 @@ void task_styrning(void *pvParamters)
 		drive(speed, 1000);		
 		printf("speed: %i\n\n", speed);
 
+
 		counter = 0;
 		check = 0;
 		//vTaskResume(*(taskHandler->taskTickMovement));
@@ -43,9 +52,11 @@ void task_styrning(void *pvParamters)
 		printf("delay%i\n", 2000/portTICK_RATE_MS);
 		vTaskDelay(2000/portTICK_RATE_MS);
 		
-		ioport_set_pin_level(PIO_PB26_IDX, LOW);
-		printf("give2\n");
+		//ioport_set_pin_level(PIO_PB26_IDX, LOW);
+		printf("\nStyrning out");
 		xSemaphoreGive(xSemaphoreStyrning);
+		//while(1); //+hög prio
+		//vTaskSuspendAll();
 		vTaskSuspend(NULL);	
 		}
 }

@@ -12,10 +12,11 @@
 
 
 #include "angleCalculation.h"
+#include <math.h>
 
 
-
-double correctionAngleCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot, double oldAngle){
+/*
+double correctionAngleCalculation(double xObject, double xRobot, uint8_t yObject, uint8_t yRobot, double oldAngle){
 	
 	double correctionAngle =0.0;
 	double newAngle = degreeCalculation(xObject, xRobot, yObject, yRobot);
@@ -32,8 +33,9 @@ double correctionAngleCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObje
 	
 	return correctionAngle;
 }
+*/
 
-double degreeCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot){
+double degreeCalculation(double xObject, double xRobot, double yObject, double yRobot){
 	
 	double alpha = 0.0;
 	double yDifference = yObject - yRobot;
@@ -71,8 +73,8 @@ double degreeCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8
 	return alpha;
 }
 
-double distanceCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot){
-	double s = sqrt((pow((xObject-xRobot),2)) +  (pow((yObject-yRobot),2)));
+double distanceCalculation(double xObject, double xRobot, double yObject, double yRobot){
+	double s = sqrt( pow((xObject-xRobot),2)  +  pow ( (yObject-yRobot),2) );
 	return s;
 }
 double rad2deg(double radianValue){

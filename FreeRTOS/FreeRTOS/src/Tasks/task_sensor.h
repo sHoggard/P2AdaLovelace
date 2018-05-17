@@ -4,7 +4,8 @@
  * Created: 2018-05-15 10:03:23
  *  Author: Jelena
  */ 
-
+#include <asf.h>
+#include "semphr.h"
 #include "task_control.h"
 #include "../Navigering/NAV_SENS_STYR.h"
 

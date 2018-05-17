@@ -651,6 +651,7 @@
     <Folder Include="src\MotorControl" />
     <Folder Include="src\Navigering" />
     <Folder Include="src\Movement" />
+    <Folder Include="src\IntegrationTests" />
     <Folder Include="src\Sensor" />
     <Folder Include="src\TWI_Kommunikationen" />
     <Folder Include="src\TimeTick" />
@@ -717,6 +718,30 @@
     <Compile Include="src\config\conf_AdaLovelace.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\IntegrationTests\KomNavTest.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\IntegrationTests\KomNavTest.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\IntegrationTests\NavSensTest.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\IntegrationTests\NavSensTest.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\IntegrationTests\NavStyrTest.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\IntegrationTests\NavStyrTest.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\IntegrationTests\SensStyrTest.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\IntegrationTests\SensStyrTest.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\MotorControl\MotorControl.c">
       <SubType>compile</SubType>
     </Compile>
@@ -747,10 +772,16 @@
     <Compile Include="src\Navigering\NAV_SENS_STYR.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Sensor\PIRmain.c">
+    <Compile Include="src\Sensor\PIR.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Sensor\Ultraljud.main.c">
+    <Compile Include="src\Sensor\sensorCalculation.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Sensor\sensorCalculation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Sensor\Ultraljud.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Tasks\task_kommunikation.c">
@@ -804,7 +835,7 @@
     <Compile Include="src\TWI_Kommunikationen\KOM_NAV.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\TWI_Kommunikationen\main.c">
+    <Compile Include="src\TWI_Kommunikationen\main_KOM.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TWI_Kommunikationen\test.c">

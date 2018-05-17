@@ -11,7 +11,8 @@
 #include "../Utilities/ConsoleFunctions/consoleFunctions.h"
 #include "../Navigering/angleCalculation.h"
 #include "../Navigering/NAV_SENS_STYR.h"
-#include "../TWI_Kommunikation/KOM_NAV.h"
+#include "../Movement/Movement.h"
+#include "../TWI_Kommunikationen/KOM_NAV.h"
 
 
 #ifndef TASK_NAVIGERING_H_

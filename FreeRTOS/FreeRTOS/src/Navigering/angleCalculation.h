@@ -26,11 +26,11 @@
 
 
 
-double correctionAngleCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot, double oldAngle);
+//double correctionAngleCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot, double oldAngle);
 
-double degreeCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot);
+double degreeCalculation(double  xObject, double xRobot, double yObject, double  yRobot);
 
-double distanceCalculation(uint8_t xObject, uint8_t xRobot, uint8_t yObject, uint8_t yRobot);
+double distanceCalculation(double  xObject, double  xRobot, double  yObject, double  yRobot);
 
 //double currentCourseCalculation(uint8_t xRobot, uint8_t xPreviousRobotPosition, uint8_t yRobot, uint8_t yPreviousRobotPosition);
 
