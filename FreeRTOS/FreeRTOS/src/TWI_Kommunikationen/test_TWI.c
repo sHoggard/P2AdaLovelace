@@ -13,8 +13,8 @@
 
 #define LED_ON					1
 #define LED_OFF					2
-#define SERVO_CLOCKWISE			3
-#define SERVO_ANTI_CLOCKWISE	4
+#define SERVO_ROTATE_RIGHT		3
+#define SERVO_ROTATE_LEFT		4
 #define SERVO_STOP				5
 
 
@@ -24,28 +24,33 @@
 void test_Led_On(void)
 {
 	transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
-	transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
+	delay_ms(3000);
+}
+
+void test_Led_Off(void)
+{
+	transmit_package(LED_OFF, SLAVE_ADDRESS_PABYGGNAD);
+	delay_ms(3000);
 }
 
 void test_Servo_Right(void)
 {
-	while(1)
-	{
-		transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
-		transmit_package(LED_OFF, SLAVE_ADDRESS_PABYGGNAD );
-		delay_ms(3000);
-		transmit_package(LED_OFF, SLAVE_ADDRESS_PABYGGNAD);
-		transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
-		delay_ms(3000);
-	}
+	transmit_package(SERVO_ROTATE_RIGHT, SLAVE_ADDRESS_PABYGGNAD)
+	delay_ms(3000);
 }
 
-void test_fs_3()
+void test_Servo_Left(void)
 {
-	if(transmit_package(NULL,SLAVE_ADDRESS_PABYGGNAD) == DATA_SENT)
-		printf("test_fs_3() = PASSED");
-	else
-		printf("test_fs_3() = NOT PASSED");
+	printf("Rotate to The Left");
+	transmit_package(SERVO_ROTATE_LEFT, SLAVE_ADDRESS_PABYGGNAD);
+	delay_ms(3000);
+}
+
+void test_Servo_Stop()
+{
+	printf("Rotate to The Stop");
+	transmit_package(SERVO_STOP, SLAVE_ADDRESS_PABYGGNAD);
+	delay_ms(3000);
 }
 
 void test_fs_4()
@@ -132,7 +137,7 @@ void test_s_2()
 
 void test_s_3()
 {
-	if (transmit_package(SERVO_CLOCKWISE,SLAVE_ADDRESS_PABYGGNAD)== DATA_SENT)
+	if (transmit_package(SERVO_ROTATE_RIGHT,SLAVE_ADDRESS_PABYGGNAD)== DATA_SENT)
 		printf("test_s_3() = PASSED");
 	else
 		printf("test_s_3() = NOT PASSED");
@@ -140,7 +145,7 @@ void test_s_3()
 
 void test_s_4()
 {
-	if (transmit_package(SERVO_ANTI_CLOCKWISE,SLAVE_ADDRESS_PABYGGNAD)== DATA_SENT)
+	if (transmit_package(SERVO_ROTATE_LEFT,SLAVE_ADDRESS_PABYGGNAD)== DATA_SENT)
 		printf("%s", "test_s_4() = PASSED");
 	else
 		printf("test_s_4() = NOT PASSED");
@@ -148,7 +153,7 @@ void test_s_4()
 
 void test_s_5()
 {
-	transmit_package(SERVO_CLOCKWISE,SLAVE_ADDRESS_PABYGGNAD);
+	transmit_package(SERVO_ROTATE_RIGHT,SLAVE_ADDRESS_PABYGGNAD);
 	delay_ms(3000);
 	transmit_package(SERVO_STOP,SLAVE_ADDRESS_PABYGGNAD);
 }

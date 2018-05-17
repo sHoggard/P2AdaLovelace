@@ -64,7 +64,7 @@ extern "C" {
  * \brief Return codes for TWI APIs.
  * @{
  */
-#define SUCCESS              0
+#define TWI_SUCCESS              0
 #define TWI_INVALID_ARGUMENT     1
 #define TWI_ARBITRATION_LOST     2
 #define TWI_NO_CHIP_FOUND        3
