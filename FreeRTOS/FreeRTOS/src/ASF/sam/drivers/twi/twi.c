@@ -127,7 +127,7 @@ void twi_disable_master_mode(Twi *p_twi)
  */
 uint32_t twi_master_init(Twi *p_twi, const twi_options_t *p_opt)
 {
-	uint32_t status = TWI_SUCCESS;
+	uint32_t status = SUCCESS;
 
 	/* Disable TWI interrupts */
 	p_twi->TWI_IDR = ~0UL;
@@ -347,7 +347,7 @@ uint32_t twi_master_read(Twi *p_twi, twi_packet_t *p_packet)
 
 	p_twi->TWI_SR;
 
-	return TWI_SUCCESS;
+	return SUCCESS;
 }
 
 /**
@@ -412,7 +412,7 @@ uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 	while (!(p_twi->TWI_SR & TWI_SR_TXCOMP)) {
 	}
 
-	return TWI_SUCCESS;
+	return SUCCESS;
 }
 
 /**

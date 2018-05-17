@@ -6,36 +6,43 @@
 */
 
 #include <asf.h>
-#include "test.h"
-#include "I2CFunctions.h"
+#include "test_TWI.h"
+#include "TWI_Handler.h"
 
+//uint8_t SLAVE_ADDRESS_POSITIONERING =0;
+
+#define LED_ON					1
+#define LED_OFF					2
+#define SERVO_CLOCKWISE			3
+#define SERVO_ANTI_CLOCKWISE	4
+#define SERVO_STOP				5
 
 
 /************************************************************************/
 /*							  TEST TVÅ SLAVAR                           */
 /************************************************************************/
-void test_fs_1(void)
+void test_Led_On(void)
 {
-	send_package(LED_ON,TWI_SLAVE_ADR_PAB);
-	send_package(LED_ON,TWI_SLAVE_ADR_POS);
+	transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
+	transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
 }
 
-void test_fs_2(void)
+void test_Servo_Right(void)
 {
 	while(1)
 	{
-		send_package(LED_ON, TWI_SLAVE_ADR_PAB);
-		send_package(LED_OFF, TWI_SLAVE_ADR_POS );
+		transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
+		transmit_package(LED_OFF, SLAVE_ADDRESS_PABYGGNAD );
 		delay_ms(3000);
-		send_package(LED_OFF, TWI_SLAVE_ADR_PAB);
-		send_package(LED_ON, TWI_SLAVE_ADR_POS);
+		transmit_package(LED_OFF, SLAVE_ADDRESS_PABYGGNAD);
+		transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
 		delay_ms(3000);
 	}
 }
 
 void test_fs_3()
 {
-	if(send_package(NULL,TWI_SLAVE_ADR_PAB) == DATA_SENT)
+	if(transmit_package(NULL,SLAVE_ADDRESS_PABYGGNAD) == DATA_SENT)
 		printf("test_fs_3() = PASSED");
 	else
 		printf("test_fs_3() = NOT PASSED");
@@ -43,7 +50,7 @@ void test_fs_3()
 
 void test_fs_4()
 {
-	if(send_package(NULL,TWI_SLAVE_ADR_POS) == DATA_SENT)
+	if(transmit_package(NULL,SLAVE_ADDRESS_POSITIONERING) == DATA_SENT)
 		printf("test_fs_4() = PASSED");
 	else
 		printf("test_fs_4() = NOT PASSED");
@@ -51,7 +58,7 @@ void test_fs_4()
 
 void test_fs_5()
 {
-	if(send_package(LED_ON,TWI_SLAVE_ADR_PAB) == DATA_SENT)
+	if(transmit_package(LED_ON,SLAVE_ADDRESS_PABYGGNAD) == DATA_SENT)
 		printf("test_fs_5() = NOT PASSED");
 	else
 		printf("test_fs_5() = PASSED");
@@ -59,7 +66,7 @@ void test_fs_5()
 
 void test_fs_6()
 {
-	if(send_package(LED_ON,TWI_SLAVE_ADR_POS) == DATA_SENT)
+	if(transmit_package(LED_ON,SLAVE_ADDRESS_POSITIONERING) == DATA_SENT)
 		printf("test_fs_6() = NOT PASSED");
 	else
 		printf("test_fs_6() = PASSED");
@@ -67,7 +74,7 @@ void test_fs_6()
 
 void test_fs_7()
 {
-	if(send_package(LED_ON,TWI_SLAVE_ADR_POS) == DATA_SENT)
+	if(transmit_package(LED_ON,SLAVE_ADDRESS_POSITIONERING) == DATA_SENT)
 		printf("test_fs_7() = PASSED");
 	else
 		printf("test_fs_7() = NOT PASSED");
@@ -75,7 +82,7 @@ void test_fs_7()
 
 void test_fs_8()
 {
-	if(send_package(LED_ON,TWI_SLAVE_ADR_PAB) == DATA_SENT)
+	if(transmit_package(LED_ON,SLAVE_ADDRESS_PABYGGNAD) == DATA_SENT)
 		printf("test_fs_8() = PASSED");
 	else
 		printf("test_fs_8() = NOT PASSED");
@@ -83,7 +90,7 @@ void test_fs_8()
 
 void test_fs_9()
 {
-	if (read_package(TWI_SLAVE_ADR_PAB) && read_package(TWI_SLAVE_ADR_POS))
+	if (receive_package(SLAVE_ADDRESS_PABYGGNAD) && receive_package(SLAVE_ADDRESS_POSITIONERING))
 		printf("test_fs_9() = PASSED");
 	else
 		printf("test_fs_8() = NOT PASSED");
@@ -93,7 +100,7 @@ void test_fs_10(){
 	uint8_t counter =0;
 	while(counter<20)
 	{
-		send_package(data_01,TWI_SLAVE_ADR_POS);
+		transmit_package(data_01,SLAVE_ADDRESS_POSITIONERING);
 		counter++;
 	}
 }
@@ -104,7 +111,7 @@ void test_fs_10(){
 /************************************************************************/
 void test_s_1()
 {
-	if (send_package(LED_ON,TWI_SLAVE_ADR_PAB))
+	if (transmit_package(LED_ON,SLAVE_ADDRESS_PABYGGNAD))
 	printf("test_fs_9() = PASSED");
 	else
 	printf("test_s_1() = NOT PASSED");
@@ -115,9 +122,9 @@ void test_s_2()
 	uint8_t counter=0;
 	while(counter<20)
 	{
-		send_package(LED_ON,TWI_SLAVE_ADR_PAB);
+		transmit_package(LED_ON,SLAVE_ADDRESS_PABYGGNAD);
 		delay_ms(3000);
-		send_package(LED_OFF,TWI_SLAVE_ADR_PAB);
+		transmit_package(LED_OFF,SLAVE_ADDRESS_PABYGGNAD);
 		delay_ms(3000);
 	}
 	printf("test_fs_9() = PASSED");
@@ -125,7 +132,7 @@ void test_s_2()
 
 void test_s_3()
 {
-	if (send_package(SERVO_CLOCKWISE,TWI_SLAVE_ADR_PAB)== DATA_SENT)
+	if (transmit_package(SERVO_CLOCKWISE,SLAVE_ADDRESS_PABYGGNAD)== DATA_SENT)
 		printf("test_s_3() = PASSED");
 	else
 		printf("test_s_3() = NOT PASSED");
@@ -133,7 +140,7 @@ void test_s_3()
 
 void test_s_4()
 {
-	if (send_package(SERVO_ANTI_CLOCKWISE,TWI_SLAVE_ADR_PAB)== DATA_SENT)
+	if (transmit_package(SERVO_ANTI_CLOCKWISE,SLAVE_ADDRESS_PABYGGNAD)== DATA_SENT)
 		printf("%s", "test_s_4() = PASSED");
 	else
 		printf("test_s_4() = NOT PASSED");
@@ -141,14 +148,14 @@ void test_s_4()
 
 void test_s_5()
 {
-	send_package(SERVO_CLOCKWISE,TWI_SLAVE_ADR_PAB);
+	transmit_package(SERVO_CLOCKWISE,SLAVE_ADDRESS_PABYGGNAD);
 	delay_ms(3000);
-	send_package(SERVO_STOP,TWI_SLAVE_ADR_PAB);
+	transmit_package(SERVO_STOP,SLAVE_ADDRESS_PABYGGNAD);
 }
 
 void test_s_6()
 {
-	if (read_package(TWI_SLAVE_ADR_PAB)==DATA_READ)
+	if (receive_package(SLAVE_ADDRESS_PABYGGNAD)==DATA_READ)
 		printf("test_s_6() = PASSED");
 	else
 		printf("test_s_6() = NOT PASSED");
@@ -156,7 +163,7 @@ void test_s_6()
 
 void test_s_7()
 {
-	if (read_package(TWI_SLAVE_ADR_PAB)==DATA_READ)
+	if (receive_package(SLAVE_ADDRESS_PABYGGNAD)==DATA_READ)
 		printf("test_s_7() = PASSED");
 	else
 		printf("test_s_7() = NOT PASSED");

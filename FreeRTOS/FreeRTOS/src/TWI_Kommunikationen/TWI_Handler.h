@@ -1,25 +1,21 @@
 /*
- * I2CFunctions.h
+ * TWI_Handler.h
  *
  * Created: 2018-05-01 16:16:01
  *  
  */ 
 
-#ifndef I2CFUNCTIONS_H_
-#define I2CFUNCTIONS_H_
+#ifndef TWI_HANDLER_H_
+#define TWI_HANDLER_H_
 
-#define TWI_SLAVE_ADR_PAB 8
-#define TWI_SLAVE_ADR_POS 0x10
+#define SLAVE_ADDRESS_PABYGGNAD 8
+#define SLAVE_ADDRESS_POSITIONERING 0x10
 
 /* Commands to send to the slave */
 #define data_01					10
 #define data_02					20
 #define data_03					30
-#define LED_ON					1
-#define LED_OFF					2
-#define SERVO_CLOCKWISE			3
-#define SERVO_ANTI_CLOCKWISE	4
-#define SERVO_STOP				5
+
 /*-------------------------------*/
 
 #define DATA_SENT     1
@@ -27,14 +23,15 @@
 
 #define DATA_NOT_SENT 0
 #define DATA_NOT_READ 0
-#define TWI_DATA_REC_LENGTH_POS		10	
+#define RECEIVE_LENGTH_POSITIONERING		10	
 
-uint8_t rec_data_pos[TWI_DATA_REC_LENGTH_POS];	
+uint8_t receive_data_positionering[RECEIVE_LENGTH_POSITIONERING];	
 
 uint8_t init_twi(void);
-uint8_t send_package(uint8_t data, uint8_t slave);
-uint8_t read_package(uint8_t slave);
+uint8_t transmit_package(uint8_t data, uint8_t slave);
+uint8_t receive_package(uint8_t slave);
 uint8_t twi_send(uint8_t data_arr[], uint8_t data, twi_packet_t packet, uint8_t slave);
 uint8_t twi_read(uint8_t rec_data[], uint8_t data_length, twi_packet_t packet_rec);
+uint8_t communicationManager (uint8_t value);
 
-#endif /* I2CFUNCTIONS_H_ */
+#endif /* TWI_HANDLER_H_ */

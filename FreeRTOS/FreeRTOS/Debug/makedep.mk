@@ -36,6 +36,10 @@ src\Tasks\task_player2.c
 
 src\TimeTick\time_tick_sam.c
 
+src\TWI_Kommunikationen\TWI_Handler.c
+
+src\TWI_Kommunikationen\test_TWI.c
+
 src\Utilities\ConsoleFunctions\consoleFunctions.c
 
 src\Utilities\DelayFunctions\delayFunctions.c

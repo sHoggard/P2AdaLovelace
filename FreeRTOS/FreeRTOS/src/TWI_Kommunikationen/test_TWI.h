@@ -12,8 +12,8 @@
 int console_init(void);
 
 /* Olika testfall från testprotokollet "I2C - Flera slaves" */
-void test_fs_1(void);
-void test_fs_2(void);
+void test_Led_On(void);
+void test_Servo_Right(void);
 void test_fs_3(void);
 void test_fs_4(void);
 void test_fs_5(void);
