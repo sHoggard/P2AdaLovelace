@@ -96,12 +96,16 @@ void drive(int16_t speed, uint32_t distance)
 	{
 		f_auto = true;
 		humanTargetDistance = distance;
+		if (speed < 0)
+		{
+			distance = -distance;
+		}
 		distance *= 2;
 		//distance *= 200;				// both wheels are counted together
 		//distance /= 338;				// 3,38mm per pulse
 		int32_t startDistance = distanceLeft + distanceRight;
 		targetDistance = startDistance + distance;
-		printf("Will stop after %i mm\n", abs(humanTargetDistance));
+		printf("Will stop after %lu mm\n", humanTargetDistance);
 	}
 }
 
@@ -143,6 +147,7 @@ void rotate(int16_t speed, uint16_t orientation)
 		orientation *= FULL_ROTATION;
 		orientation /= HUMAN_FULL_ROTATION;
 		targetOrientation = orientation;
+		printf("Will stop at %i degrees\n", humanTargetOrientation);
 	}
 }
 
@@ -169,7 +174,7 @@ void clearCounters()
  * FreeRTOS task, running continuously when needed, for updating motor speeds to follow commands. 
  * Calculates appropriate speed in mm/s. Sends regulated motor speeds to MotorControl. 
  */
-void task_movement(void *pvParameters)
+void task_movement()
 {
 	while (1)
 	{
@@ -192,7 +197,7 @@ void test_movement()
 	{
 		updateTargetSpeed();
 	}
-	task_regulate(0);
+	task_regulate();
 	applyRegulatedSpeeds();
 }
 
@@ -256,7 +261,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance > 0)
 			{
-				targetSpeed = (remainingDistance/50)*MOTOR_INCREMENTS + MOTOR_THRESHOLD;
+				targetSpeed = (remainingDistance/50)*SPEED_INCREMENTS + SPEED_INCREMENTS;
 				if (targetSpeed > humanTargetSpeed)
 				{
 					targetSpeed = humanTargetSpeed;
@@ -264,7 +269,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance < 0)
 			{
-				targetSpeed = (remainingDistance/50)*MOTOR_INCREMENTS - MOTOR_THRESHOLD;
+				targetSpeed = (remainingDistance/50)*SPEED_INCREMENTS - SPEED_INCREMENTS;
 				if (targetSpeed < humanTargetSpeed)
 				{
 					targetSpeed = -humanTargetSpeed;
@@ -272,6 +277,29 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			break;
 		case 'r':
+			if (abs(remainingDistance) < ROTATION_PRECISION)
+			{
+				stop();
+				regulated_speed.target = 0;
+				//delay_ms(10);
+				// TODO: precise adjustments
+			}
+			else if (remainingDistance > 0)
+			{
+				targetSpeed = (remainingDistance/50)*SPEED_INCREMENTS + SPEED_INCREMENTS;
+				if (targetSpeed > humanTargetSpeed)
+				{
+					targetSpeed = humanTargetSpeed;
+				}
+			}
+			else if (remainingDistance < 0)
+			{
+				targetSpeed = (remainingDistance/50)*SPEED_INCREMENTS - SPEED_INCREMENTS;
+				if (targetSpeed < humanTargetSpeed)
+				{
+					targetSpeed = -humanTargetSpeed;
+				}
+			}
 			break;
 		case 's':
 			targetSpeed = 0;

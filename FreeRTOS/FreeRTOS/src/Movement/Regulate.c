@@ -49,7 +49,7 @@
  double historyLeft[HISTORY_SIZE] = {0};
  double historyRight[HISTORY_SIZE] = {0};
 
- void task_regulate(void *pvParameters) 
+ void task_regulate() 
 {
 	currentLeft = counterLeft;
 	currentRight = counterRight;
@@ -128,7 +128,7 @@
 		printf("left: %i\nright: %i\n", regulated_speed.left, regulated_speed.right);
   }
 	 
-int16_t speed()
+int16_t getSpeed()
 {
 	return ((historyLeft[0] - historyLeft[1]) + (historyRight[0] - historyRight[1]))/2;
 }
