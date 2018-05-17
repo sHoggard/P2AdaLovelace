@@ -1,5 +1,5 @@
 #include <asf.h>
-#include "I2CFunctions.h"
+#include "TWI_I2C_Manager.h"
 #include "test.h"
 
 int main (void)
