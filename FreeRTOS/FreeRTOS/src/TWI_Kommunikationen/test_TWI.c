@@ -21,6 +21,8 @@
 /************************************************************************/
 /*							  TEST TVÅ SLAVAR                           */
 /************************************************************************/
+
+/*
 void test_Led_On(void)
 {
 	transmit_package(LED_ON, SLAVE_ADDRESS_PABYGGNAD);
@@ -111,9 +113,9 @@ void test_fs_10(){
 }
 
 
-/************************************************************************/
-/*							  TEST EN SLAV                              */
-/************************************************************************/
+//
+//							  TEST EN SLAV                              
+/
 void test_s_1()
 {
 	if (transmit_package(LED_ON,SLAVE_ADDRESS_PABYGGNAD))
@@ -181,11 +183,11 @@ int console_init(void)
 		.paritytype = CONF_UART_PARITY
 	};
 
-	/* Configure console UART. */
+	// Configure console UART. 
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
 	stdio_serial_init(CONF_UART, &uart_serial_options);
 	
 	printf("Console ready\n");
 	printf("=============\n");
 	return 0;
-}
+}*/

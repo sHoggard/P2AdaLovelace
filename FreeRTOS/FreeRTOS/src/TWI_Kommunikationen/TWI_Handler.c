@@ -77,7 +77,7 @@ uint8_t init_twi(void)
 {
 	twi_master_options_t opt;
 	opt.speed = SPEED;
-	if(twi_master_setup(PORT, &opt) == SUCCESS) 
+	if(twi_master_setup(PORT, &opt) == TWI_SUCCESS) 
 	{
 		printf("MASTER SETUP OK\n");
 		return 1;
@@ -105,7 +105,7 @@ uint8_t transmit_package(uint8_t data, uint8_t slave)
 		return twi_send(transmit_data_positionering, data, packet_pos, SLAVE_ADDRESS_POSITIONERING);
 		
 	else
-		return !SUCCESS;
+		return !TWI_SUCCESS;
 		
 }
 
@@ -118,7 +118,7 @@ uint8_t twi_send(uint8_t data_arr[], uint8_t data, twi_packet_t packet, uint8_t 
 	data_arr[0] = data;
 	packet.chip = slave;
 	packet.buffer = (void *)data_arr;
-	if(twi_master_write(PORT, &packet) == SUCCESS)
+	if(twi_master_write(PORT, &packet) == TWI_SUCCESS)
 		return DATA_SENT;
 	else
 		return DATA_NOT_SENT;
@@ -132,13 +132,13 @@ uint8_t receive_package(uint8_t slave)
 	else if (slave == SLAVE_ADDRESS_POSITIONERING)
 		return twi_read(receive_data_positionering, RECEIVE_LENGTH_POSITIONERING, packet_rec_pos);
 	else
-		return !SUCCESS;
+		return !TWI_SUCCESS;
 }
 
 uint8_t twi_read(uint8_t rec_data[], uint8_t data_length, twi_packet_t packet_rec)
 {
 	printf("reading...\n");
-	if(twi_master_read(PORT, &packet_rec) == SUCCESS)
+	if(twi_master_read(PORT, &packet_rec) == TWI_SUCCESS)
 	{
 		printf("reading IF STATE...\n");
 		for(int i = 0; i < data_length; i++)
