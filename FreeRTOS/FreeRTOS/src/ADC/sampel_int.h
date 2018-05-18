@@ -11,8 +11,8 @@
 
 #define CHECK_PIN PIO_PB26_IDX	//Ardiuno Due pin 22 used to measure work load
 
-uint32_t currentdistance;
-uint32_t lastdistance;
+uint32_t IR_currentdistance;
+uint32_t IR_lastdistance;
 
 void TC_Handler(void);
 

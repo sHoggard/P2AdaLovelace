@@ -17,8 +17,8 @@
 void TC0_Handler(void)
 {
 	volatile uint32_t ul_dummy;
-	uint32_t invalue;
-	uint32_t distance;
+	uint32_t IR_invalue;
+	uint32_t IR_distance;
 
 
 	/* Clear status bit to acknowledge interrupt */
@@ -31,12 +31,12 @@ void TC0_Handler(void)
 	
 	adc_start(ADC);
 	while((adc_get_status(ADC) & 0x1<<24)==0);  //Wait until DRDY get high
-	invalue=adc_get_latest_value(ADC);			//get input value
-	distance = (192000/(invalue));
+	IR_invalue=adc_get_latest_value(ADC);			//get input value
+	IR_distance = (192000/(IR_invalue));
 	//distance = 4800/(invalue - 20);
-	currentdistance = ((distance + lastdistance)/2);
-	printInt(currentdistance);
-	lastdistance = distance;
+	IR_currentdistance = ((IR_distance + IR_lastdistance)/2);
+	printInt(IR_currentdistance);
+	IR_lastdistance = IR_distance;
 	ioport_set_pin_level(CHECK_PIN,LOW);		//put test pin LOW
 	
 }
