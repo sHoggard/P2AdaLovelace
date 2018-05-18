@@ -14,7 +14,7 @@
 #include "semphr.h"
 
 
-#define xBlockTime 5000	//5ticks
+#define xBlockTime 5	//5ticks
 portTickType xTimeStampTicks;
 portTickType timeStart;
 
@@ -32,10 +32,11 @@ void task_control(void *pvParamters)
 	{	
 		//printf("task_control\n");
 		xLastWakeTime = xTaskGetTickCount();
+		
 		if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){
 			printf("-\n");
 			printf("- xSemaphoreKommunikation\n");
-			vTaskResume(*(taskHandler->taskNavigering));
+			//vTaskResume(*(taskHandler->taskNavigering));
 			printf("- - - -\n");
 		}
 		if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
@@ -54,7 +55,8 @@ void task_control(void *pvParamters)
 		if(xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 			printf("- -\n");
 			printf("- xSemaphoreStyrning\n");
-			vTaskResume(*(taskHandler->taskKommunikation));	
+			//vTaskResume(*(taskHandler->taskKommunikation));
+			vTaskResume(*(taskHandler->taskNavigering));
 			printf("- - - -\n");		
 		}
 

@@ -9,7 +9,7 @@
 #include "task_navigering.h"
 #include "Movement/Movement.h"
 
-#define xBlockTime 5000
+#define xBlockTime 5
 
 
 void task_navigering(void *pvParamters)
@@ -21,16 +21,7 @@ void task_navigering(void *pvParamters)
 	check_Dist = 0;
 	check_PDMM = 1;	//bara för nav_styr test
 	
-	double  x1=0.0;
-	double  x2=0.0;
-	double x3=0.0;
-	double  x4=0.0;
-	double  x5; //kulans testpos x
-	double  x6;	//kulans testpos y
-	double x7=0.0;
-	double  x8=0.0;
-	double  x9; //robotens testpos x
-	double x10;	//robotens testpos y
+
 	
 	while(1)
 	{
@@ -38,77 +29,18 @@ void task_navigering(void *pvParamters)
 		printf("Navigering\n");
 		xLastWakeTime = xTaskGetTickCount();
 		
-			int j;
+		int j;
+		printf("Tryck 1 om TC0, 2 om TC1, 3 om TC2, 4 om TC3, 5 om TC4, 6 om TC5 ska köras");
+		scanf("%i", &j);
+		printf("\nDu tryckte: ");
+		printInt(j);
+		
+		testStyr(j);
+			
 			//char garbage[50];
 			//scanf("%s", garbage);
 			//printf("Skräp: %s\n", garbage);
-			
-			printf("Tryck 1 om TC0, 2 om TC1, 3 om TC2, 4 om TC3, 5 om TC4, 6 om TC5 ska köras");
-			scanf("%i", &j);
-			printf("\nDu tryckte: ");
-			printInt(j);
-			
-			if (j == 0)
-			{
-				printf("meep, meep\n");
-				continue;
-			}
-			
-			if(j == 1)	//rotera 90grader!
-			{
-				x5 = 20.0;	//kulans testpos
-				x6 = 50.0;
 				
-				x9 = 20.0;	//robotens testpos
-				x10 = 10.0;
-				
-				testWhat = 0;	//variabel för att (0) endast köra rotationstest
-			}
-			
-			if(j == 2)	//rotera 180grader!
-			{
-				x5 = 200.0;	//kulans testpos
-				x6 = 200.0;
-				
-				x9 = 400.0;	//robotens testpos
-				x10 = 200.0;
-				
-				testWhat = 0;	//variabel för att (0) endast köra rotationstest
-			}
-			
-			if(j == 3)	//rotera 270grader!
-			{
-				x5 = 20.0;	//kulans testpos
-				x6 = 20.0;
-				
-				x9 = 20.0;	//robotens testpos
-				x10 = 50.0;
-				
-				testWhat = 0;	//variabel för att (0) endast köra rotationstest
-			}
-			
-			if(j == 4)	//rotera 0grader!
-			{
-				x5 = 300.0;	//kulans testpos
-				x6 = 100.0;
-				
-				x9 = 150.0;	//robotens testpos
-				x10 = 100.0;
-				
-				testWhat = 0;	//variabel för att (0) endast köra rotationstest
-			}
-			
-			if(j == 5)
-			{
-				testWhat = 1;	//variabel för att (1) endast köra distanstest
-			}
-			
-			if(j == 6)
-			{
-				testWhat = 2;	//variabel för att (2) köra test med rotation/distans-kombo
-			}
-		
-		
 		float distance = 0.0;
 		float goalAngle = 0.0;
 	
@@ -130,7 +62,7 @@ void task_navigering(void *pvParamters)
 				printInt(goalAngle);
 				rotation_angle = goalAngle;
 				
-				rotate(200, rotation_angle);
+				//rotate(200, rotation_angle);
 			}
 			
 			if(testWhat == 1)	//testa köra
@@ -143,8 +75,8 @@ void task_navigering(void *pvParamters)
 				printInt(distance);
 				
 				rotation_angle = 0.0;
-				rotate(200, rotation_angle);
-				drive(200, distance);
+				//rotate(200, rotation_angle);
+				//drive(200, distance);
 			}
 			
 			if(testWhat == 2)	//testa köra rakt, vända tillbaka, hamna i startposition
@@ -160,10 +92,10 @@ void task_navigering(void *pvParamters)
 				printf("Roboten har följande avstånd till stålkulan : ");
 				printInt(distance);
 				
-				rotate(200, rotation_angle);
-				drive(200, distance);
+				//rotate(200, rotation_angle);
+				//drive(200, distance);
 			}
-			fakePositionUpdateNAV(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
+			
 			xSemaphoreGive(xSemaphoreNavigering);
 			//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
 			vTaskSuspend(NULL);
@@ -181,6 +113,76 @@ void task_navigering(void *pvParamters)
 			//printInt(distance);
 			//if(distance <= 50){
 				////sätt navigering i vila och kör sensorer
+				
+void testStyr(int typo)
+{
+	double  x1=0.0;
+	double  x2=0.0;
+	double x3=0.0;
+	double  x4=0.0;
+	double  x5; //kulans testpos x
+	double  x6;	//kulans testpos y
+	double x7=0.0;
+	double  x8=0.0;
+	double  x9; //robotens testpos x
+	double x10;	//robotens testpos y
+	
+	int t = typo;
+	
+	//if (t == 0)
+	//{
+		//printf("meep, meep\n");
+		//continue;
+	//}
+	
+	if(t == 1)	//rotera 90grader!
+	{
+		x5 = 20.0;	//kulans testpos
+		x6 = 50.0;
+		
+		x9 = 20.0;	//robotens testpos
+		x10 = 10.0;
+		
+		testWhat = 0;	//variabel för att (0) endast köra rotationstest
+	} else if(t == 2)	//rotera 180grader!
+	{
+		x5 = 200.0;	//kulans testpos
+		x6 = 200.0;
+		
+		x9 = 400.0;	//robotens testpos
+		x10 = 200.0;
+		
+		testWhat = 0;	//variabel för att (0) endast köra rotationstest
+	} else if(t == 3)	//rotera 270grader!
+	{
+		x5 = 20.0;	//kulans testpos
+		x6 = 20.0;
+		
+		x9 = 20.0;	//robotens testpos
+		x10 = 50.0;
+		
+		testWhat = 0;	//variabel för att (0) endast köra rotationstest
+	} else if(t == 4)	//rotera 0grader!
+	{
+		x5 = 300.0;	//kulans testpos
+		x6 = 100.0;
+		
+		x9 = 150.0;	//robotens testpos
+		x10 = 100.0;
+		
+		testWhat = 0;	//variabel för att (0) endast köra rotationstest
+	} else if(t == 5)
+	{
+		testWhat = 1;	//variabel för att (1) endast köra distanstest
+	} else if(t == 6)
+	{
+		testWhat = 2;	//variabel för att (2) köra test med rotation/distans-kombo
+	}
+	fakePositionUpdateNAV(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
+	printf("testStyrFunction done");
+	
+}
+
 	void fakePositionUpdateNAV(double xBox,double  yBox,double  xCube,double  yCube,double  xBall,double  yBall,double  xGlass,double  yGlass,double  xRob,double  yRob)
 	{
 		double posRead [] = {xBox, yBox, xCube, yCube, xBall, yBall, xGlass, yGlass, xRob, yRob};
@@ -228,6 +230,7 @@ void task_navigering(void *pvParamters)
 				y_koord_Robot = posRead[i];
 			}
 			printInt(posRead[i]);
+			printf("fakePositionFunctionNAV done");
 		}			//check_Dist = 0;
 
 }

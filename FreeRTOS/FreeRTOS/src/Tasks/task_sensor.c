@@ -6,7 +6,7 @@
  */ 
 #include "task_sensor.h"
 
-#define xBlockTime 5000
+#define xBlockTime 5
 
 void task_sensor(void *pvParamters)
 {

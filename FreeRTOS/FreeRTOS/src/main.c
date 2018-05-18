@@ -92,9 +92,14 @@ int main (void)
 	
 	//Semaphores are configured, task1 will be resumed in task_control.c
 	xSemaphoreTake(xSemaphoreKommunikation,0);
+	//xSemaphoreTake(xSemaphoreNavigering, 0); 
 	xSemaphoreTake(xSemaphoreNavigering, 0); 
 	xSemaphoreTake(xSemaphoreSensor,0);
-	xSemaphoreGive(xSemaphoreStyrning); 
+	//xSemaphoreGive(xSemaphoreStyrning); 
+	
+	//Test Nav-Styr
+	xSemaphoreGive(xSemaphoreNavigering);
+	xSemaphoreTake(xSemaphoreStyrning,0); 
 
 	printf("Creating task handler...\n");
 	

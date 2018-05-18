@@ -23,6 +23,7 @@
 
 
 void task_navigering(void *pvParamters);
+void testStyr(int typo);
 void fakePositionUpdateNAV(double  xBox,double  yBox,double  xCube,double  yCube,double  xBall,double  yBall,double  xGlass,double yGlass,double  xRob,double  yRob);
 
 

@@ -9,7 +9,7 @@
 #include "task_reglering.h"
 
 
-#define xBlockTime 5000
+#define xBlockTime 5
 
 void task_reglering(void *pvParamters)
 {

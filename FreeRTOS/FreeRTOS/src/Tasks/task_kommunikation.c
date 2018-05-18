@@ -12,7 +12,7 @@
 #include "task_kommunikation.h"
 #include <asf.h>
 #include "../TWI_Kommunikationen/I2CFunctions.h"
-#define xBlockTime 5000
+#define xBlockTime 5
 #include "../Navigering/angleCalculation.h"
 
 void task_kommunikation(void *pvParamters)
