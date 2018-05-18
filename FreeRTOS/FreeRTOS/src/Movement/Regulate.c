@@ -54,7 +54,7 @@
 	currentLeft = counterLeft;
 	currentRight = counterRight;
 	
-	printf("counterLeft: %i\ncounterRight: %i\n", (int)counterLeft, (int)counterRight);
+	//printf("counterLeft: %i\ncounterRight: %i\n", (int)counterLeft, (int)counterRight);
 	
 		 //move history upwards
 		for (int index = HISTORY_SIZE; index > 1; index--) {
@@ -73,8 +73,8 @@
 		rightSpeed = ((historyRight[0] - historyRight[1])*CIRCUMFERENCE_RIGHT*1000/(N*t));
 		totSpeed = (leftSpeed+rightSpeed)/2;
 		
-		printf("uV*K: %i\nuH*K: %i\n", (int)(leftSpeed*1000), (int)(rightSpeed*1000));
-		printf("totSpeed*K: %i\n", (int)(totSpeed*1000));
+		//printf("uV*K: %i\nuH*K: %i\n", (int)(leftSpeed*1000), (int)(rightSpeed*1000));
+		//printf("totSpeed*K: %i\n", (int)(totSpeed*1000));
   
 		//PID reglering
 
@@ -84,8 +84,8 @@
 		}
 		error = leftSpeed - rightSpeed;
 		errorSpeed = regulated_speed.target - totSpeed;
-		printf("error*K: %i\n", (int)(error*1000));
-		printf("errorSpeed*K: %i\n", (int)(errorSpeed*1000));
+		//printf("error*K: %i\n", (int)(error*1000));
+		//printf("errorSpeed*K: %i\n", (int)(errorSpeed*1000));
 		//sum = sum + error;
 		P = kp*error;
 		Pspeed = errorSpeed*kpSpeed;
@@ -97,8 +97,8 @@
 		{
 			Pspeed *= 2;
 		}
-		printf("P*K: %i\n", (int)(P*1000));
-		printf("Pspeed*K: %i\n", (int)(Pspeed*1000));
+		//printf("P*K: %i\n", (int)(P*1000));
+		//printf("Pspeed*K: %i\n", (int)(Pspeed*1000));
 		// I = (sum*(dT/Ti));
 		// D = ((error-prevError)*(Td/dT));
 		//prevError = error;
@@ -125,7 +125,7 @@
 				//break;
 		//}
 		
-		printf("left: %i\nright: %i\n", regulated_speed.left, regulated_speed.right);
+		//printf("left: %i\nright: %i\n", regulated_speed.left, regulated_speed.right);
   }
 	 
 int16_t getSpeed()
