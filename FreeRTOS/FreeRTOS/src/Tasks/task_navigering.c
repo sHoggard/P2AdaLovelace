@@ -1,9 +1,9 @@
 /*
- * task_player1.c
+ * task_navigering.c
  *
  * Created: 2018-02-01 11:25:38
  *  Author: George Albert Florea
- *	Author: Benjamin Sejdic
+ *  Author: Jelena Novacic
  */ 
 
 #include "task_navigering.h"
@@ -14,14 +14,11 @@
 
 void task_navigering(void *pvParamters)
 {
-	printf("task_navigering\n");
-	//int work = 500000;
+	printf("task_navigering started\n");
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	check_Dist = 0;
 	check_PDMM = 1;	//bara för nav_styr test
-	
-
 	
 	while(1)
 	{
@@ -35,12 +32,9 @@ void task_navigering(void *pvParamters)
 		printf("\nDu tryckte: ");
 		printInt(j);
 		
-		testStyr(j);
-			
-			//char garbage[50];
-			//scanf("%s", garbage);
-			//printf("Skräp: %s\n", garbage);
-				
+		testStyr(j);	//Använd bara för att testa Navigering - Movement
+		
+						
 		float distance = 0.0;
 		float goalAngle = 0.0;
 	
@@ -62,7 +56,7 @@ void task_navigering(void *pvParamters)
 				printInt(goalAngle);
 				rotation_angle = goalAngle;
 				
-				//rotate(200, rotation_angle);
+				//rotate(200, rotation_angle);	//kommenterat pga ej uppdaterd movement
 			}
 			
 			if(testWhat == 1)	//testa köra
@@ -75,8 +69,8 @@ void task_navigering(void *pvParamters)
 				printInt(distance);
 				
 				rotation_angle = 0.0;
-				//rotate(200, rotation_angle);
-				//drive(200, distance);
+				//rotate(200, rotation_angle);	//kommenterat pga ej uppdaterd movement
+				//drive(200, distance);			//kommenterat pga ej uppdaterd movement
 			}
 			
 			if(testWhat == 2)	//testa köra rakt, vända tillbaka, hamna i startposition
@@ -92,8 +86,8 @@ void task_navigering(void *pvParamters)
 				printf("Roboten har följande avstånd till stålkulan : ");
 				printInt(distance);
 				
-				//rotate(200, rotation_angle);
-				//drive(200, distance);
+				//rotate(200, rotation_angle);	//kommenterat pga ej uppdaterd movement
+				//drive(200, distance);			//kommenterat pga ej uppdaterd movement
 			}
 			
 			xSemaphoreGive(xSemaphoreNavigering);
@@ -108,11 +102,7 @@ void task_navigering(void *pvParamters)
 			
 	}
 }
-			//distance = distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot); 
-			//printf("Roboten har följande avstånd till stålkulan : ");
-			//printInt(distance);
-			//if(distance <= 50){
-				////sätt navigering i vila och kör sensorer
+			
 				
 void testStyr(int typo)
 {
@@ -179,7 +169,7 @@ void testStyr(int typo)
 		testWhat = 2;	//variabel för att (2) köra test med rotation/distans-kombo
 	}
 	fakePositionUpdateNAV(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
-	printf("testStyrFunction done");
+	printf("testStyr-Function done");
 	
 }
 
@@ -230,10 +220,13 @@ void testStyr(int typo)
 				y_koord_Robot = posRead[i];
 			}
 			printInt(posRead[i]);
-			printf("fakePositionFunctionNAV done");
-		}			//check_Dist = 0;
-
+			
+		}			
+	printf("fakePositionNAV-function done");
 }
+
+
+
 			//goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
 			//printf("Roboten ska rotera till följande vinkel : ");
 			//printInt(goalAngle);

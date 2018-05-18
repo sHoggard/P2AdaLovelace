@@ -1,8 +1,8 @@
 /*
- * task_player1.h
+ * task_control.h
  *
  * Created: 2018-02-01 11:26:49
- *  Author: Spellabbet
+ *  
  */ 
 
 

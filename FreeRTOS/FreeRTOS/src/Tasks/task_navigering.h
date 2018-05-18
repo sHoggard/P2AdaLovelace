@@ -1,8 +1,7 @@
 /*
- * task_player1.h
+ * task_navigering.h
  *
  * Created: 2018-02-01 11:26:49
- *  Author: Spellabbet
  */ 
 
 #include <asf.h>
@@ -23,7 +22,9 @@
 
 
 void task_navigering(void *pvParamters);
+
 void testStyr(int typo);
+
 void fakePositionUpdateNAV(double  xBox,double  yBox,double  xCube,double  yCube,double  xBall,double  yBall,double  xGlass,double yGlass,double  xRob,double  yRob);
 
 

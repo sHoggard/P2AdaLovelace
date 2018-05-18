@@ -1,5 +1,5 @@
 /*
- * task3.c
+ * task_reglering.c
  *
  * Created: 2018-05-14 12:19:00
  *  Author: George
@@ -15,7 +15,7 @@ void task_reglering(void *pvParamters)
 {
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
-	printf("task_reglering\n");
+	printf("task_reglering started\n");
 	check = 1;
 	while(1){
 		xLastWakeTime =  xTaskGetTickCount();

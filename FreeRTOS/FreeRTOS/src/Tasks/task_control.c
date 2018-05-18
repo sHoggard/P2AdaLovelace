@@ -3,7 +3,7 @@
 *
 * Created: 2018-02-01 11:25:38
 *  Author: George Albert Florea
-*  Author: Benjamin Sejdic
+*  
 */
 
 #include <asf.h>

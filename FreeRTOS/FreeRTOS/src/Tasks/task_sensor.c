@@ -10,7 +10,7 @@
 
 void task_sensor(void *pvParamters)
 {
-	printf("task_sensor\n");
+	printf("task_sensor started\n");
 	//xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;

@@ -22,6 +22,8 @@
 
 void task_kommunikation(void *pvParamters);
 
+void testNavKom(int jin);
+
 void fakePositionUpdate(double  xBox,double  yBox,double  xCube,double  yCube,double  xBall,double  yBall,double  xGlass,double yGlass,double  xRob,double  yRob);
 
 

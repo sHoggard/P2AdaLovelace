@@ -1,9 +1,9 @@
 /*
-* task_player2.c
+* task_styrning.c
 *
 * Created: 2018-02-01 11:28:43
 *  Author: George Albert Florea
-*	Author: Benjamin Sejdic
+*	
 */
 
 #include "task_styrning.h"
@@ -14,7 +14,7 @@
 void task_styrning(void *pvParamters)
 {
 	 
-	printf("task_styrning\n");
+	printf("task_styrning started\n");
 	xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;

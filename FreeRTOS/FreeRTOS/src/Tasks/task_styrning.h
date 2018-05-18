@@ -1,8 +1,7 @@
 /*
- * task_player2.h
+ * task_styrning.h
  *
  * Created: 2018-02-01 11:29:09
- *  Author: Spellabbet
  */ 
 
 
