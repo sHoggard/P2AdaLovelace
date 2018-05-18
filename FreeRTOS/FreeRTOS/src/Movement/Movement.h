@@ -17,21 +17,28 @@
 #define FULL_ROTATION_TICKS 731
 #define FULL_ROTATION 2470
 #define HUMAN_FULL_ROTATION 360			// perhaps 720, for half-degrees?
-#define ROTATION_PRECISION 2*FULL_ROTATION/FULL_ROTATION_TICKS
-#define DISTANCE_PRECISION 8
+#define ROTATION_PRECISION (2*FULL_ROTATION/FULL_ROTATION_TICKS)
+#define DISTANCE_PRECISION 5
 #define MOTOR_BRAKE PULSE_WIDTH_BRAKE
 #define MOTOR_THRESHOLD 50				// minimum pulse width from brake
-#define MOTOR_INCREMENTS 10				// mm/s
-#define MAX_SPEED 500					// �s difference from MOTOR_BRAKE
-#define HUMAN_MAX_SPEED 300				// mm/s
+#define DRIVE_INCREMENTS 10				// mm/s
+#define ROTATE_INCREMENTS 20			// mm/s
+#define MAX_DRIVE 500					// �s difference from MOTOR_BRAKE
+#define HUMAN_MAX_DRIVE 300				// mm/s
+#define MAX_ROTATE 500					// �s difference from MOTOR_BRAKE
+#define HUMAN_MAX_ROTATE 50				// mm/s
 
 //xSemaphoreHandle xSemaphoreMovement;
 
 void initMovement(void);
 
-uint16_t orientation(void);
+uint16_t getOrientation(void);
+uint32_t getRemainingDistance(void);
+int16_t getSpeed(void);
+uint8_t isDone(void);
+
 void drive(int16_t speed, uint32_t distance);
-void rotate(int16_t speed, uint16_t orientation);
+void rotate(int16_t speed, int16_t orientation);
 void stop(void);
 void clearCounters(void);
 
