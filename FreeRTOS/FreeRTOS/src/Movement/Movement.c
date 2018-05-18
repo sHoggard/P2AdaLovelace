@@ -152,9 +152,10 @@ void rotate(int16_t speed, int16_t orientation)
 	{
 		f_auto = true;
 		humanTargetOrientation = orientation;
-		orientation *= FULL_ROTATION;
-		orientation /= HUMAN_FULL_ROTATION;
-		targetOrientation = orientation;
+		int32_t tempOrientation = orientation;
+		tempOrientation *= FULL_ROTATION;
+		tempOrientation /= HUMAN_FULL_ROTATION;
+		targetOrientation = tempOrientation;
 		printf("Will stop at %i degrees\n", humanTargetOrientation);
 	}
 }
@@ -228,7 +229,7 @@ int32_t calculateRemainingDistance()
 			remainingDistance = targetDistance - (distanceLeft + distanceRight);
 			break;
 		case 'r':
-			remainingDistance = calculateOrientation() - targetOrientation;
+			remainingDistance = targetOrientation - calculateOrientation();
 			// shortest path
 			if (remainingDistance > FULL_ROTATION/2)
 			{
@@ -266,7 +267,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance > 0)
 			{
-				targetSpeed = (remainingDistance/50)*SPEED_INCREMENTS + SPEED_INCREMENTS;
+				targetSpeed = (remainingDistance/50)*DRIVE_INCREMENTS + DRIVE_INCREMENTS;
 				if (targetSpeed > humanTargetSpeed)
 				{
 					targetSpeed = humanTargetSpeed;
@@ -274,7 +275,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance < 0)
 			{
-				targetSpeed = (remainingDistance/50)*SPEED_INCREMENTS - SPEED_INCREMENTS;
+				targetSpeed = (remainingDistance/50)*DRIVE_INCREMENTS - DRIVE_INCREMENTS;
 				if (targetSpeed < humanTargetSpeed)
 				{
 					targetSpeed = -humanTargetSpeed;
@@ -291,7 +292,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance > 0)
 			{
-				targetSpeed = (remainingDistance/50)*SPEED_INCREMENTS + SPEED_INCREMENTS;
+				targetSpeed = (remainingDistance/400)*ROTATE_INCREMENTS + ROTATE_INCREMENTS;
 				if (targetSpeed > humanTargetSpeed)
 				{
 					targetSpeed = humanTargetSpeed;
@@ -299,7 +300,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance < 0)
 			{
-				targetSpeed = (remainingDistance/50)*SPEED_INCREMENTS - SPEED_INCREMENTS;
+				targetSpeed = (remainingDistance/400)*ROTATE_INCREMENTS - ROTATE_INCREMENTS;
 				if (targetSpeed < humanTargetSpeed)
 				{
 					targetSpeed = -humanTargetSpeed;

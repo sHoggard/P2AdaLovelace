@@ -21,7 +21,8 @@
 #define DISTANCE_PRECISION 8
 #define MOTOR_BRAKE PULSE_WIDTH_BRAKE
 #define MOTOR_THRESHOLD 50				// minimum pulse width from brake
-#define SPEED_INCREMENTS 10				// mm/s
+#define DRIVE_INCREMENTS 10				// mm/s
+#define ROTATE_INCREMENTS 5				// mm/s
 #define MAX_SPEED 500					// µs difference from MOTOR_BRAKE
 #define HUMAN_MAX_SPEED 300				// mm/s
 
