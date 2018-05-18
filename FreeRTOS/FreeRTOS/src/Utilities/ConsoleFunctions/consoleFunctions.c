@@ -31,8 +31,8 @@ void configureConsole(void)
 void printInt(int theInt)
 {
 				char buffer [34];
-				itoa(theInt, buffer, 10);
-				// sysclk_get_cpu_hz() ger klockfrekvensen
+				itoa(theInt, buffer, 10);
+				// sysclk_get_cpu_hz() ger klockfrekvensen
 				puts(buffer);
 }
 

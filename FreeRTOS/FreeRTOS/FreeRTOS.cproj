@@ -602,6 +602,7 @@
     <Folder Include="src\ASF\sam\boards\arduino_due_x\" />
     <Folder Include="src\ASF\sam\drivers\" />
     <Folder Include="src\ASF\sam\drivers\adc\" />
+    <Folder Include="src\ASF\sam\drivers\dacc\" />
     <Folder Include="src\ASF\sam\drivers\pio\" />
     <Folder Include="src\ASF\sam\drivers\pmc\" />
     <Folder Include="src\ASF\sam\drivers\pwm\" />
@@ -666,6 +667,24 @@
     <None Include="src\ASF\common\services\delay\delay.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="src\ADC\adcdac.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ADC\adcdac.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ADC\conf_tc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ADC\conf_tc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ADC\sampel_int.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ADC\sampel_int.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ASF\common\services\delay\sam\cycle_counter.c">
       <SubType>compile</SubType>
     </Compile>
@@ -690,6 +709,12 @@
     <Compile Include="src\ASF\sam\drivers\adc\adc.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\ASF\sam\drivers\dacc\dacc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\sam\drivers\dacc\dacc.h">
+      <SubType>compile</SubType>
+    </None>
     <Compile Include="src\ASF\sam\drivers\pwm\pwm.c">
       <SubType>compile</SubType>
     </Compile>
