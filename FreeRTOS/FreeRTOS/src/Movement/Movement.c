@@ -41,6 +41,8 @@ void initMovement()
 	regulated_speed.left = 0;
 	regulated_speed.right = 0;
 	regulated_speed.target = 0;
+	
+	f_auto = false;
 }
 
 /**
@@ -48,10 +50,10 @@ void initMovement()
  */
 uint16_t getOrientation()
 {
-	uint16_t orientation = calculateOrientation();
+	uint32_t orientation = calculateOrientation();
 	orientation *= HUMAN_FULL_ROTATION;
 	orientation /= FULL_ROTATION;
-	return orientation;
+	return (uint16_t)orientation;
 }
 
 /**
@@ -67,7 +69,8 @@ uint32_t getRemainingDistance()
  */
 uint8_t isDone()
 {
-	return mode_movement == 's' ? 1 : 0;
+	//return mode_movement == 's' ? 1 : 0;
+	return !f_auto;
 }
 
 /**
@@ -78,15 +81,14 @@ uint8_t isDone()
 void drive(int16_t speed, uint32_t distance)
 {
 	mode_movement = 'd';
-	if (speed > HUMAN_MAX_SPEED)
+	if (speed > HUMAN_MAX_DRIVE)
 	{
-		speed = HUMAN_MAX_SPEED;
+		speed = HUMAN_MAX_DRIVE;
 	}
-	else if (speed < (-HUMAN_MAX_SPEED))
+	else if (speed < (-HUMAN_MAX_DRIVE))
 	{
-		speed = (-HUMAN_MAX_SPEED);
+		speed = (-HUMAN_MAX_DRIVE);
 	}
-	humanTargetSpeed = speed;
 	regulated_speed.target = speed;
 	#ifndef DOUBLE_REGULATION
 	// TODO: convert mm/s to target pulse
@@ -99,18 +101,18 @@ void drive(int16_t speed, uint32_t distance)
 	if (distance == 0)
 	{
 		f_auto = false;
+		regulated_speed.target = speed;		// this won't happen again anytime soon
 	}
 	else
 	{
 		f_auto = true;
+		humanTargetSpeed = abs(speed);		// negative speeds will mess up updates
 		humanTargetDistance = distance;
 		if (speed < 0)
 		{
 			distance = -distance;
 		}
-		distance *= 2;
-		//distance *= 200;				// both wheels are counted together
-		//distance /= 338;				// 3,38mm per pulse
+		distance *= 2;						// both wheels are counted together
 		int32_t startDistance = distanceLeft + distanceRight;
 		targetDistance = startDistance + distance;
 		printf("Will stop after %lu mm\n", humanTargetDistance);
@@ -125,16 +127,16 @@ void drive(int16_t speed, uint32_t distance)
 void rotate(int16_t speed, int16_t orientation)
 {
 	mode_movement = 'r';
-	if (speed > HUMAN_MAX_SPEED)
+	if (speed > HUMAN_MAX_ROTATE)
 	{
-		speed = HUMAN_MAX_SPEED;
+		speed = HUMAN_MAX_ROTATE;
 	}
-	else if (speed < (-HUMAN_MAX_SPEED))
+	else if (speed < (-HUMAN_MAX_ROTATE))
 	{
-		speed = (-HUMAN_MAX_SPEED);
+		speed = (-HUMAN_MAX_ROTATE);
 	}
 	orientation %= HUMAN_FULL_ROTATION;
-	humanTargetSpeed = speed;
+	// TODO: convert degrees/s to mm/s
 	regulated_speed.target = speed;
 	#ifndef DOUBLE_REGULATION
 	// TODO: convert degrees/s to target pulse
@@ -147,10 +149,12 @@ void rotate(int16_t speed, int16_t orientation)
 	if (orientation < 0)
 	{
 		f_auto = false;
+		regulated_speed.target = speed;		// this won't happen again anytime soon
 	}
 	else
 	{
 		f_auto = true;
+		humanTargetSpeed = abs(speed);		// negative speeds will mess up updates
 		humanTargetOrientation = orientation;
 		int32_t tempOrientation = orientation;
 		tempOrientation *= FULL_ROTATION;
@@ -167,6 +171,7 @@ void stop()
 {
 	mode_movement = 's';
 	f_auto = false;
+	regulated_speed.target = 0;
 	printf("Stopping any and all motion\n");
 	stopMotors();
 }
@@ -267,7 +272,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance > 0)
 			{
-				targetSpeed = (remainingDistance/50)*DRIVE_INCREMENTS + DRIVE_INCREMENTS;
+				targetSpeed = (remainingDistance/20)*DRIVE_INCREMENTS + DRIVE_INCREMENTS;
 				if (targetSpeed > humanTargetSpeed)
 				{
 					targetSpeed = humanTargetSpeed;
@@ -275,8 +280,8 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance < 0)
 			{
-				targetSpeed = (remainingDistance/50)*DRIVE_INCREMENTS - DRIVE_INCREMENTS;
-				if (targetSpeed < humanTargetSpeed)
+				targetSpeed = (remainingDistance/20)*DRIVE_INCREMENTS - DRIVE_INCREMENTS;
+				if (targetSpeed < -humanTargetSpeed)
 				{
 					targetSpeed = -humanTargetSpeed;
 				}
@@ -292,7 +297,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance > 0)
 			{
-				targetSpeed = (remainingDistance/400)*ROTATE_INCREMENTS + ROTATE_INCREMENTS;
+				targetSpeed = (remainingDistance/50)*ROTATE_INCREMENTS + ROTATE_INCREMENTS;
 				if (targetSpeed > humanTargetSpeed)
 				{
 					targetSpeed = humanTargetSpeed;
@@ -300,8 +305,8 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			else if (remainingDistance < 0)
 			{
-				targetSpeed = (remainingDistance/400)*ROTATE_INCREMENTS - ROTATE_INCREMENTS;
-				if (targetSpeed < humanTargetSpeed)
+				targetSpeed = (remainingDistance/50)*ROTATE_INCREMENTS - ROTATE_INCREMENTS;
+				if (targetSpeed < -humanTargetSpeed)
 				{
 					targetSpeed = -humanTargetSpeed;
 				}

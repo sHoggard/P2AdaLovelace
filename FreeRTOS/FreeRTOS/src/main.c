@@ -36,7 +36,7 @@
 #include "Movement/Movement.h"
 #include "TimeTick/time_tick.h"
 #include "Utilities/ConsoleFunctions/consoleFunctions.h"
-//#include "Com/Com.h"
+#include "Com/Com.h"
 
 #include "Movement/__vars.h"
 
@@ -55,70 +55,211 @@ int main (void)
 	initMovement();
 	//initCom();
 	
-	// testing new wheelcounter strategy
+	//// testing new wheelcounter strategy
 	//while (true)
 	//{
 		//printf("counterLeft: %i\ncounterRight: %i\n\n", (int)counterLeft, (int)counterRight);
 		//delay_ms(2000);
 	//}
 	
-	//test_bufferFunctions();
-	//while(1);
-	
 	time_tick_init();
 	
-	//char tempCommand = 's';
-	//int tempSpeed = 0;
-	//int tempDistance = 0;
-	//
-	//printf("setup\n");
-	//
+	//// test TWI
+	//printf("Starting to read TWI\n");
 	//while (1)
+	//{
+		//if (time_tick_get()%5000 == 0)
+		//{
+			//task_com();
+		//}
+	//}
+	
+	
+	//// movement functions
+	//drive(300, 4000);
+	//while(!isDone())
+	//{
+		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		//{
+			//task_movement();		// takes more than 1 ms
+		//}
+		//if (time_tick_get()%100 == 0)
+		//{
+			//task_movement();
+			//task_regulate();
+		//}
+	//}
+	//rotate(20, 270);
+	//while(!isDone())
+	//{
+		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		//{
+			//task_movement();		// takes more than 1 ms
+		//}
+		//if (time_tick_get()%100 == 0)
+		//{
+			//task_movement();
+			//task_regulate();
+		//}
+	//}
+	//drive(200, 2000);
+	//while(!isDone())
+	//{
+		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		//{
+			//task_movement();		// takes more than 1 ms
+		//}
+		//if (time_tick_get()%100 == 0)
+		//{
+			//task_movement();
+			//task_regulate();
+		//}
+	//}
+	//rotate(20, 180);
+	//while(!isDone())
+	//{
+		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		//{
+			//task_movement();		// takes more than 1 ms
+		//}
+		//if (time_tick_get()%100 == 0)
+		//{
+			//task_movement();
+			//task_regulate();
+		//}
+	//}
+	//drive(400, 2000);
+	//while(!isDone())
+	//{
+		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		//{
+			//task_movement();		// takes more than 1 ms
+		//}
+		//if (time_tick_get()%100 == 0)
+		//{
+			//task_movement();
+			//task_regulate();
+		//}
+	//}
+	//rotate(20, 135);
+	//while(!isDone())
+	//{
+		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		//{
+			//task_movement();		// takes more than 1 ms
+		//}
+		//if (time_tick_get()%100 == 0)
+		//{
+			//task_movement();
+			//task_regulate();
+		//}
+	//}
+	//drive(300, 2828);
+	//while(!isDone())
+	//{
+		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		//{
+			//task_movement();		// takes more than 1 ms
+		//}
+		//if (time_tick_get()%100 == 0)
+		//{
+			//task_movement();
+			//task_regulate();
+		//}
+	//}
+	//rotate(20, 360);
+	//while(!isDone())
+	//{
+		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		//{
+			//task_movement();		// takes more than 1 ms
+		//}
+		//if (time_tick_get()%100 == 0)
+		//{
+			//task_movement();
+			//task_regulate();
+		//}
+	//}
+	//while(1)
+	//{
+		//printf("Test drive done\n");
+	//}
+	
+	//// test_bufferFunctions()
+	//while(1)
 	//{
 		//if (time_tick_get()%100 == 0)
 		//{
-			//test_movement();
+			//task_com();
 		//}
-		//
-		//tempCommand = getchar();
-		////if (!feof(stdin))
-		////if (ftell(stdin) != 0)
-		//if (tempCommand != EOF)
-		//{
-			//printf("Reading... ");
-			////scanf("%c", &tempCommand);
-			//printf("%c\n", tempCommand);
-			//switch (tempCommand)
-			//{
-				//case 'd':
-					//scanf("%i%i", &tempSpeed, &tempDistance);
-					//printf("%i\n", tempSpeed);
-					//printf("%i\n", tempDistance);
-					//drive(tempSpeed, tempDistance);
-					//break;
-				//case 'r':
-					//scanf("%i%i", &tempSpeed, &tempDistance);
-					//printf("%i\n", tempSpeed);
-					//printf("%i\n", tempDistance);
-					//rotate(tempSpeed, tempDistance);
-					//break;
-				//case 'p':
-					//break;
-				//case 's':
-					//stop();
-					//break;
-			//}
-			////while((tempCommand = getchar()) != '\n' && tempCommand != EOF);
-			//fseek(stdin, 0, SEEK_END);
-		//}
-		//delay_ms(1);
 	//}
 	
-	//initCom();
-	//delay_ms(1000);
-	//initCom();
-	//delay_ms(1000);
-	//initCom();
+	char tempCommand = 's';
+	int tempSpeed = 0;
+	int tempDistance = 0;
+	
+	printf("setup\n");
+	
+	while (1)
+	{
+		if (time_tick_get()%20 == 0)
+		{
+			if (time_tick_get()%100 == 0)
+			{
+				task_regulate();
+			}
+			task_movement();
+		}
+		
+		//tempCommand = getchar();
+		//if (!feof(stdin))
+		//if (ftell(stdin) != 0)
+		//if (tempCommand != EOF)
+		if (isDone())
+		{
+			task_regulate();		// get rid of straggling values
+			task_regulate();
+			delay_ms(200);
+			printf("Reading... ");
+			scanf("%c", &tempCommand);
+			printf("%c\n", tempCommand);
+			switch (tempCommand)
+			{
+				case 'd':
+					scanf("%i%i", &tempSpeed, &tempDistance);
+					printf("%i\n", tempSpeed);
+					printf("%i\n", tempDistance);
+					drive(tempSpeed, tempDistance);
+					break;
+				case 'r':
+					scanf("%i%i", &tempSpeed, &tempDistance);
+					printf("%i\n", tempSpeed);
+					printf("%i\n", tempDistance);
+					rotate(tempSpeed, tempDistance);
+					break;
+				case 'o':
+					printf("Current orientation: %i\n", getOrientation());
+					break;
+				case 'c':
+					clearCounters();
+					break;
+				case 'p':
+					break;
+				case 's':
+					stop();
+					break;
+			}
+			//while((tempCommand = getchar()) != '\n' && tempCommand != EOF);
+			//fseek(stdin, 0, SEEK_END);
+		}
+		delay_ms(1);
+	}
+	
+	initCom();
+	delay_ms(1000);
+	initCom();
+	delay_ms(1000);
+	initCom();
 	
 	char buffer[20];
 	

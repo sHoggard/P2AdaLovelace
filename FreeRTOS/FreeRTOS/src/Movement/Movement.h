@@ -18,13 +18,15 @@
 #define FULL_ROTATION 2470
 #define HUMAN_FULL_ROTATION 360			// perhaps 720, for half-degrees?
 #define ROTATION_PRECISION (2*FULL_ROTATION/FULL_ROTATION_TICKS)
-#define DISTANCE_PRECISION 8
+#define DISTANCE_PRECISION 5
 #define MOTOR_BRAKE PULSE_WIDTH_BRAKE
 #define MOTOR_THRESHOLD 50				// minimum pulse width from brake
 #define DRIVE_INCREMENTS 10				// mm/s
-#define ROTATE_INCREMENTS 5				// mm/s
-#define MAX_SPEED 500					// µs difference from MOTOR_BRAKE
-#define HUMAN_MAX_SPEED 300				// mm/s
+#define ROTATE_INCREMENTS 20			// mm/s
+#define MAX_DRIVE 500					// µs difference from MOTOR_BRAKE
+#define HUMAN_MAX_DRIVE 300				// mm/s
+#define MAX_ROTATE 500					// µs difference from MOTOR_BRAKE
+#define HUMAN_MAX_ROTATE 50				// mm/s
 
 //xSemaphoreHandle xSemaphoreMovement;
 

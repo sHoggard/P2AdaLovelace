@@ -71,6 +71,10 @@
 		
 		leftSpeed = ((historyLeft[0] - historyLeft[1])*CIRCUMFERENCE_LEFT*1000/(N*t));
 		rightSpeed = ((historyRight[0] - historyRight[1])*CIRCUMFERENCE_RIGHT*1000/(N*t));
+		if (mode_movement == 'r')
+		{
+			rightSpeed *= (-1);
+		}
 		totSpeed = (leftSpeed+rightSpeed)/2;
 		
 		//printf("uV*K: %i\nuH*K: %i\n", (int)(leftSpeed*1000), (int)(rightSpeed*1000));
@@ -78,10 +82,6 @@
   
 		//PID reglering
 
-		if (mode_movement == 'r')
-		{
-			rightSpeed *= (-1);
-		}
 		error = leftSpeed - rightSpeed;
 		errorSpeed = regulated_speed.target - totSpeed;
 		//printf("error*K: %i\n", (int)(error*1000));
