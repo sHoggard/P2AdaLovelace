@@ -30,6 +30,9 @@ void initDecoders()
 	
 	// test counters with custom motor speeds
 	//setMotorSpeed(1100, 1600);
+
+	counterLeft = 0;
+	counterRight = 0;
 }
 
 #ifdef ISR_OVERRIDE

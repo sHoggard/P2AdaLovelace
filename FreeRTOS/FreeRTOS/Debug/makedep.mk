@@ -2,11 +2,19 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\ADC\adcdac.c
+
+src\ADC\conf_tc.c
+
+src\ADC\sampel_int.c
+
 src\ASF\common\services\delay\sam\cycle_counter.c
 
 src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\adc\adc.c
+
+src\ASF\sam\drivers\dacc\dacc.c
 
 src\ASF\sam\drivers\pwm\pwm.c
 

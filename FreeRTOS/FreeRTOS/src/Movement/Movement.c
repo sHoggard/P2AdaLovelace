@@ -245,6 +245,29 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			break;
 		case 'r':
+			if (abs(remaining_distance) < ROTATION_PRECISION)
+			{
+				stop();
+				regulated_speed.target = 0;
+				//delay_ms(10);
+				// TODO: precise adjustments
+			}
+			else if (remaining_distance > 0)
+			{
+				targetSpeed = (remaining_distance/50)*MOTOR_INCREMENTS + MOTOR_THRESHOLD;
+				if (targetSpeed > humanTargetSpeed)
+				{
+					targetSpeed = humanTargetSpeed;
+				}
+			}
+			else if (remaining_distance < 0)
+			{
+				targetSpeed = (remaining_distance/50)*MOTOR_INCREMENTS - MOTOR_THRESHOLD;
+				if (targetSpeed < humanTargetSpeed)
+				{
+					targetSpeed = -humanTargetSpeed;
+				}
+			}
 			break;
 		case 's':
 			targetSpeed = 0;

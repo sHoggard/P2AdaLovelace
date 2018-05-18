@@ -10,5 +10,6 @@
 #define CONSOLEFUNCTIONS_H_
 
 void configureConsole(void);
+void printInt(int theInt);
 
 #endif /* CONSOLEFUNCTIONS_H_ */

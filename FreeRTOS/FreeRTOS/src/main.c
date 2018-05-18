@@ -31,13 +31,17 @@
  
 #include <asf.h>
 #include "config/conf_AdaLovelace.h"
-#include "MotorControl/MotorControl.h"
-#include "WheelCounters/WheelCounters.h"
-#include "Movement/Movement.h"
-#include "TimeTick/time_tick.h"
+//#include "MotorControl/MotorControl.h"
+//#include "WheelCounters/WheelCounters.h"
+//#include "Movement/Movement.h"
+//#include "TimeTick/time_tick.h"
 #include "Utilities/ConsoleFunctions/consoleFunctions.h"
+#include "ADC/adcdac.h"
+#include "ADC/sampel_int.h"
+#include "ADC/conf_tc.h"
 
-#include "Movement/__vars.h"
+
+//#include "Movement/__vars.h"
 
 char clrCom[] = {27, '[', '2', 'J', 27, '[', 'H', '\0'};
 
@@ -46,11 +50,16 @@ int main (void)
 	// Insert system clock initialization code here (sysclk_init()).
 	sysclk_init();
 	board_init();
+	ioport_init();
 	configureConsole();
+
+	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);	
+	adc_setup();
+	configure_tc();
 
 	// Insert application code here, after the board has been initialized.
 	
-	initMovement();
+	//initMovement();
 	
 	// testing new wheelcounter strategy
 	//while (true)
@@ -59,29 +68,29 @@ int main (void)
 		//delay_ms(2000);
 	//}
 	
-	time_tick_init();
+	//time_tick_init();
 	
-	char buffer[20];
+	//char buffer[20];
 	
-	int speed = 100;
+	//int speed = 100;
 	
-	scanf("%i", &speed);
+	//scanf("%i", &speed);
 	
 	// test actual speed
-	uint32_t start = time_tick_get();
+	//uint32_t start = time_tick_get();
 	
-	drive(speed, 5000);
+	//drive(speed, 5000);
 	
-	printf("speed: %i\n\n", speed);
+	//printf("speed: %i\n\n", speed);
 	
 	//setMotorSpeed(MOTOR_BRAKE + speed, MOTOR_BRAKE + speed);
 	
-	int counter = 0;
+	//int counter = 0;
 	
 	while (1)
 	{
-		if (time_tick_get()%100 == 0)
-		{
+		//if (time_tick_get()%100 == 0)
+		//{
 			//fputs(clrCom, stdout);
 			//puts(itoa(counterLeft, buffer, 10));
 			//puts(itoa(counterRight, buffer, 10));
@@ -95,11 +104,11 @@ int main (void)
 			//{
 				//speed++;
 			//}
-			printf("%i: \n", counter++);
-			test_movement();
-			printf("\n");
-			delay_ms(1);
-		}
+			//printf("%i: \n", counter++);
+			//test_movement();
+			//printf("\n");
+			//delay_ms(1);
+		//}
 	
 		// test accuracy of distance measurement
 		//if (time_tick_get() > start + 10000)

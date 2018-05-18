@@ -27,3 +27,11 @@ void configureConsole(void)
 	printf("Console ready\n");
 	printf("=============\n");
 }
+
+void printInt(int theInt)
+{
+				char buffer [34];
+				itoa(theInt, buffer, 10);
+				// sysclk_get_cpu_hz() ger klockfrekvensen
+				puts(buffer);
+}
