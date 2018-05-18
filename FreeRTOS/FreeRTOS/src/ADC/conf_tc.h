@@ -2,7 +2,7 @@
  * conf_tc.h
  *
  * Created: 2013-12-10 08:34:37
- *  Author: Tommy
+ *  Author: Tommy, George Albert Florea, Jack Mao
  */ 
 
 
@@ -11,6 +11,7 @@
 
 
 void configure_tc(void);
+void configure_tc(int);
 
 
 #endif /* CONF_TC_H_ */

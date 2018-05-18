@@ -2,7 +2,7 @@
  * adcdac.c
  *
  * Created: 2013-12-10 08:30:13
- *  Author: Tommy
+ *  Author: Tommy, George Albert Florea, Jack Mao
  */ 
 
 #include <asf.h>

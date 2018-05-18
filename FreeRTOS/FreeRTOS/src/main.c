@@ -55,7 +55,7 @@ int main (void)
 
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);	
 	adc_setup();
-	configure_tc();
+	configure_tc(5);
 
 	// Insert application code here, after the board has been initialized.
 	

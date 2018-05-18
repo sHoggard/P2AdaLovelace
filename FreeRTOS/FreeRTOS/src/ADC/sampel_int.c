@@ -2,7 +2,7 @@
  * sampel_int.c
  *
  * Created: 2013-12-10 12:32:30
- *  Author: Tommy
+ *  Author: Tommy, George Albert Florea, Jack Mao
  */ 
 
 #include <asf.h>
@@ -18,6 +18,7 @@ void TC0_Handler(void)
 {
 	volatile uint32_t ul_dummy;
 	uint32_t invalue;
+	uint32_t distance;
 
 
 	/* Clear status bit to acknowledge interrupt */
@@ -30,10 +31,12 @@ void TC0_Handler(void)
 	
 	adc_start(ADC);
 	while((adc_get_status(ADC) & 0x1<<24)==0);  //Wait until DRDY get high
-
 	invalue=adc_get_latest_value(ADC);			//get input value
-	printInt(invalue);
-
+	distance = (192000/(invalue));
+	//distance = 4800/(invalue - 20);
+	currentdistance = ((distance + lastdistance)/2);
+	printInt(currentdistance);
+	lastdistance = distance;
 	ioport_set_pin_level(CHECK_PIN,LOW);		//put test pin LOW
 	
 }
