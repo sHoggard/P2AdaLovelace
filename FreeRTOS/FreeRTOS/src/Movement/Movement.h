@@ -35,7 +35,7 @@ int16_t getSpeed(void);
 uint8_t isDone(void);
 
 void drive(int16_t speed, uint32_t distance);
-void rotate(int16_t speed, uint16_t orientation);
+void rotate(int16_t speed, int16_t orientation);
 void stop(void);
 void clearCounters(void);
 

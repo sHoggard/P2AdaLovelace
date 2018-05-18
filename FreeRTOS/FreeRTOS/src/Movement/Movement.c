@@ -119,10 +119,10 @@ void drive(int16_t speed, uint32_t distance)
 
 /**
  * Makes Arlo rotate clockwise or counter-clockwise (negative speed) at given speed (degrees/s). 
- * If orientation is 0, it will keep rotating indefinitely. 
- * If orientation is not 0, it will stop at given orientation (degrees). 
+ * If orientation is negative, it will keep rotating indefinitely. 
+ * If orientation is positive, it will stop at given orientation (degrees). 
  */
-void rotate(int16_t speed, uint16_t orientation)
+void rotate(int16_t speed, int16_t orientation)
 {
 	mode_movement = 'r';
 	if (speed > HUMAN_MAX_SPEED)
@@ -133,6 +133,7 @@ void rotate(int16_t speed, uint16_t orientation)
 	{
 		speed = (-HUMAN_MAX_SPEED);
 	}
+	orientation %= HUMAN_FULL_ROTATION;
 	humanTargetSpeed = speed;
 	regulated_speed.target = speed;
 	#ifndef DOUBLE_REGULATION
@@ -143,8 +144,7 @@ void rotate(int16_t speed, uint16_t orientation)
 	printf("Rotating %s at %i degrees/s\n", (speed >= 0 ? "clockwise" : "counter-clockwise"), abs(speed));
 	
 	// calculate target orientation
-	orientation %= HUMAN_FULL_ROTATION;
-	if (orientation == 0)
+	if (orientation < 0)
 	{
 		f_auto = false;
 	}
