@@ -32,6 +32,7 @@ void initMovement(void);
 uint16_t getOrientation(void);
 uint32_t getRemainingDistance(void);
 int16_t getSpeed(void);
+uint8_t isDone(void);
 
 void drive(int16_t speed, uint32_t distance);
 void rotate(int16_t speed, uint16_t orientation);

@@ -63,6 +63,14 @@ uint32_t getRemainingDistance()
 }
 
 /**
+ * Returns whether task_movement() is done with its latest command. 
+ */
+uint8_t isDone()
+{
+	return mode_movement == 's' ? 1 : 0;
+}
+
+/**
  * Makes Arlo move forwards or backwards (negative speed) at given speed (mm/s). 
  * If distance is 0, it will keep moving indefinitely. 
  * If distance is not 0, it will stop after given distance. 
@@ -176,16 +184,13 @@ void clearCounters()
  */
 void task_movement()
 {
-	while (1)
+	// update target speed?
+	if (f_auto)
 	{
-		// update target speed?
-		if (f_auto)
-		{
-			updateTargetSpeed();
-		}
-		
-		applyRegulatedSpeeds();
+		updateTargetSpeed();
 	}
+	
+	applyRegulatedSpeeds();
 }
 
 /**
