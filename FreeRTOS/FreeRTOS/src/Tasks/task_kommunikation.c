@@ -159,5 +159,5 @@ void fakePositionUpdate(double xBox,double  yBox,double  xCube,double  yCube,dou
 		}
 		printInt(posRead[i]);
 	}
-	printf("fakePositionUpdateFunction done")
+	printf("fakePositionUpdateFunction done");
 }
