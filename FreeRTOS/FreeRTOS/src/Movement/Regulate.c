@@ -44,7 +44,7 @@
  double historyLeft[HISTORY_SIZE] = {0};
  double historyRight[HISTORY_SIZE] = {0};
 
- void task_regulate(void *pvParameters) 
+ void task_regulate() 
 {
 	currentLeft = counterLeft;
 	currentRight = counterRight;

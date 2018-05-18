@@ -16,7 +16,7 @@ xSemaphoreHandle xSemaphoreKommunikation;
 xSemaphoreHandle xSemaphoreNavigering;
 xSemaphoreHandle xSemaphoreSensor;
 xSemaphoreHandle xSemaphoreStyrning;
-xSemaphoreHandle xSemaphoreTickMovement;
+xSemaphoreHandle xSemaphoreReglering;
 
 void task_control(void *pvParamters);
 

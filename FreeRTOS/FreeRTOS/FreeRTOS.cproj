@@ -651,7 +651,6 @@
     <Folder Include="src\MotorControl" />
     <Folder Include="src\Navigering" />
     <Folder Include="src\Movement" />
-    <Folder Include="src\IntegrationTests" />
     <Folder Include="src\Sensor" />
     <Folder Include="src\TWI_Kommunikationen" />
     <Folder Include="src\TimeTick" />
@@ -718,30 +717,6 @@
     <Compile Include="src\config\conf_AdaLovelace.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\IntegrationTests\KomNavTest.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\IntegrationTests\KomNavTest.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\IntegrationTests\NavSensTest.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\IntegrationTests\NavSensTest.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\IntegrationTests\NavStyrTest.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\IntegrationTests\NavStyrTest.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\IntegrationTests\SensStyrTest.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\IntegrationTests\SensStyrTest.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\MotorControl\MotorControl.c">
       <SubType>compile</SubType>
     </Compile>
@@ -796,7 +771,7 @@
     <Compile Include="src\Tasks\task_sensor.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Tasks\task_tickMovement.c">
+    <Compile Include="src\Tasks\task_reglering.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Tasks\task_control.c">
@@ -817,7 +792,7 @@
     <Compile Include="src\Tasks\task_styrning.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Tasks\task_tickMovement.h">
+    <Compile Include="src\Tasks\task_reglering.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TimeTick\time_tick.h">

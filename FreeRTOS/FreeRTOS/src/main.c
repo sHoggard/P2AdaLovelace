@@ -23,7 +23,7 @@
 #include "Tasks/task_navigering.h"
 #include "Tasks/task_sensor.h"
 #include "Tasks/task_styrning.h"
-#include "Tasks/task_tickMovement.h"
+#include "Tasks/task_reglering.h"
 #include "Tasks/task_control.h"
 #include "Movement/Movement.h"
 
@@ -33,7 +33,7 @@ volatile xTaskHandle taskHandlerKommunikation;
 volatile xTaskHandle taskHandlerNavigering;
 volatile xTaskHandle taskHandlerSensor;
 volatile xTaskHandle taskHandlerStyrning;
-volatile xTaskHandle taskHandlerTickMovement;
+volatile xTaskHandle taskHandlerReglering;
 volatile int checkInt = 1;
 
 int main (void)
@@ -81,14 +81,14 @@ int main (void)
 	xSemaphoreNavigering = 0;
 	xSemaphoreSensor = 0;
 	xSemaphoreStyrning = 0;
-	xSemaphoreTickMovement = 0;
+	xSemaphoreReglering = 0;
 	
 	printf("Creating semaphores...\n");
 	vSemaphoreCreateBinary(xSemaphoreKommunikation);
 	vSemaphoreCreateBinary(xSemaphoreNavigering);
 	vSemaphoreCreateBinary(xSemaphoreSensor);
 	vSemaphoreCreateBinary(xSemaphoreStyrning);
-	vSemaphoreCreateBinary(xSemaphoreTickMovement);
+	vSemaphoreCreateBinary(xSemaphoreReglering);
 	
 	//Semaphores are configured, task1 will be resumed in task_control.c
 	xSemaphoreTake(xSemaphoreKommunikation,0);
@@ -114,22 +114,22 @@ int main (void)
 		printf("task_navigering created...\n");
 		
 	}
-	xReturned = xTaskCreate(task_sensor, (const signed char * const) "sensor", TASK_SENSOR_STACK_SIZE, NULL, TASK_SENSOR_PRIORITY, &taskHandlerSensor);
-	if( xReturned == pdPASS )
-	{
-		printf("task_sensor created...\n");
-		
-	}
+	//xReturned = xTaskCreate(task_sensor, (const signed char * const) "sensor", TASK_SENSOR_STACK_SIZE, NULL, TASK_SENSOR_PRIORITY, &taskHandlerSensor);
+	//if( xReturned == pdPASS )
+	//{
+		//printf("task_sensor created...\n");
+		//
+	//}
 	xReturned = xTaskCreate(task_styrning, (const signed char * const) "styrning", TASK_STYRNING_STACK_SIZE, (void *) xHandler, TASK_STYRNING_PRIORITY, &taskHandlerStyrning);
 	if( xReturned == pdPASS )
 	{
 		printf("task_styrning created...\n");
 		
 	}
-	xReturned = xTaskCreate(task_tickMovement, (const signed char * const) "tickMovement", TASK_TICKMOVEMENT_STACK_SIZE, xHandler, TASK_TICKMOVEMENT_PRIORITY, &taskHandlerTickMovement);
+	xReturned = xTaskCreate(task_reglering, (const signed char * const) "tickReglering", TASK_REGLERING_STACK_SIZE, xHandler, TASK_REGLERING_PRIORITY, &taskHandlerReglering);
 	if( xReturned == pdPASS )
 	{
-		printf("task_tickMovement created...\n");
+		printf("task_reglering created...\n");
 		
 	}
 	
@@ -138,14 +138,14 @@ int main (void)
 	xHandler->taskNavigering = &taskHandlerNavigering;
 	xHandler->taskSensor = &taskHandlerSensor;
 	xHandler->taskStyrning = &taskHandlerStyrning;
-	xHandler->taskTickMovement = &taskHandlerTickMovement;
+	xHandler->taskReglering = &taskHandlerReglering;
 	
 	//Suspend all tasks
 	vTaskSuspend(*(xHandler->taskKommunikation));
 	vTaskSuspend(*(xHandler->taskNavigering));
 	vTaskSuspend(*(xHandler->taskSensor));
 	vTaskSuspend(*(xHandler->taskStyrning));
-	vTaskSuspend(*(xHandler->taskTickMovement));
+	vTaskSuspend(*(xHandler->taskReglering));
 	
 	printf("Address stored in &xHandler: %x\n", &xHandler );
 	printf("Address stored in xHandler: %x\n", xHandler );

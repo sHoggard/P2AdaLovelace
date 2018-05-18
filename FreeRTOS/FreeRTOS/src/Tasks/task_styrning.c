@@ -26,7 +26,7 @@ void task_styrning(void *pvParamters)
 
 		if(check_Dist == 0){
 			
-			//rotera nu utefter sensorerna (ej navigeringen längre - vi är för nära objektet)
+			
 			printf("\nKör med navigering+positioneringssystem");
 		}
 
@@ -38,19 +38,23 @@ void task_styrning(void *pvParamters)
 		char buffer[20];
 		int speed = 200;
 		uint32_t start = time_tick_get();		
-		drive(speed, 1000);		
-		printf("speed: %i\n\n", speed);
+		//drive(speed, 1000);
+		
+		
+		//printf("speed: %i\n\n", speed);
 
 
 		counter = 0;
-		check = 0;
-		//vTaskResume(*(taskHandler->taskTickMovement));
+		check = 1;
+		vTaskResume(*(taskHandler->taskReglering));
 		while(check)
 		{
-			vTaskDelay(1/portTICK_RATE_MS);
+			task_movement();
+			printf("delay%i\n", 50/portTICK_RATE_MS);
+			vTaskDelay(50/portTICK_RATE_MS);
+			
 		}	
-		printf("delay%i\n", 2000/portTICK_RATE_MS);
-		vTaskDelay(2000/portTICK_RATE_MS);
+		
 		
 		//ioport_set_pin_level(PIO_PB26_IDX, LOW);
 		printf("\nStyrning out");

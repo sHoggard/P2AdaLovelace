@@ -35,9 +35,9 @@ void rotate(int16_t speed, uint16_t orientation);
 void stop(void);
 void clearCounters(void);
 
-void task_movement(void *pvParameters);
+void task_movement(void);
 void test_movement(void);
 
-void task_regulate(void *pvParameters);
+void task_regulate(void);
 
 #endif /* MOVEMENT_H_ */

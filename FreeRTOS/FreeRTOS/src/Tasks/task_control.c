@@ -41,15 +41,16 @@ void task_control(void *pvParamters)
 		if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
 			printf("-\n");
 			printf("- xSemaphoreNavigering\n");	
-			vTaskResume(*(taskHandler->taskSensor));		
+			//vTaskResume(*(taskHandler->taskSensor));
+			vTaskResume(*(taskHandler->taskStyrning));		
 			printf("- - - -\n");					
 		}
-		if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
-			printf("-\n");
-			printf("- xSemaphoreSensor\n");
-			vTaskResume(*(taskHandler->taskStyrning));
-			printf("- - - -\n");
-		}
+		//if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
+			//printf("-\n");
+			//printf("- xSemaphoreSensor\n");
+			//vTaskResume(*(taskHandler->taskStyrning));
+			//printf("- - - -\n");
+		//}
 		if(xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 			printf("- -\n");
 			printf("- xSemaphoreStyrning\n");

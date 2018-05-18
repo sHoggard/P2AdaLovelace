@@ -1,4 +1,6 @@
-src/main.d src/main.o: ../src/main.c ../src/asf.h \
+src/Tasks/task_reglering.d src/Tasks/task_reglering.o: \
+ ../src/Tasks/task_reglering.c ../src/Tasks/task_reglering.h \
+ ../src/Tasks/../WheelCounters/WheelCounters.h ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\5.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -167,28 +169,21 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- ../src/Utilities/DelayFunctions/delayFunctions.h \
- ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
- ../src/Utilities/TimerCounter/TimerCounter.h \
- ../src/Utilities/PioInterrupt/PioInterrupt.h ../src/xHandlerParameters.h \
- ../src/config/conf_board.h ../src/Tasks/task_kommunikation.h \
- ../src/Tasks/task_control.h ../src/Tasks/../config/conf_AdaLovelace.h \
- ../src/Tasks/../TimeTick/time_tick.h \
- ../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h \
- ../src/Tasks/../TWI_Kommunikationen/KOM_NAV.h \
- ../src/xHandlerParameters.h ../src/Tasks/task_navigering.h \
- ../src/Tasks/../Navigering/angleCalculation.h \
+ ../src/config/conf_AdaLovelace.h \
+ ../src/Tasks/../Navigering/angleCalculation.h ../src/config/conf_board.h \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
  ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
- ../src/config/conf_AdaLovelace.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
- ../src/Tasks/../Navigering/NAV_SENS_STYR.h \
- ../src/Tasks/../Movement/Movement.h ../src/Tasks/task_sensor.h \
- ../src/Tasks/task_styrning.h \
- ../src/Tasks/../WheelCounters/WheelCounters.h \
+ ../src/Tasks/../config/conf_AdaLovelace.h \
  ../src/Tasks/../MotorControl/MotorControl.h \
- ../src/Tasks/../Movement/__vars.h ../src/Tasks/task_reglering.h \
- ../src/Tasks/task_control.h ../src/Movement/Movement.h
+ ../src/Tasks/../Movement/Movement.h ../src/xHandlerParameters.h \
+ ../src/Tasks/../TimeTick/time_tick.h \
+ ../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h \
+ ../src/Tasks/../Movement/__vars.h
+
+../src/Tasks/task_reglering.h:
+
+../src/Tasks/../WheelCounters/WheelCounters.h:
 
 ../src/asf.h:
 
@@ -540,35 +535,11 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 
 c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
 
-../src/Utilities/DelayFunctions/delayFunctions.h:
-
-../src/Utilities/ConsoleFunctions/consoleFunctions.h:
-
-../src/Utilities/TimerCounter/TimerCounter.h:
-
-../src/Utilities/PioInterrupt/PioInterrupt.h:
-
-../src/xHandlerParameters.h:
-
-../src/config/conf_board.h:
-
-../src/Tasks/task_kommunikation.h:
-
-../src/Tasks/task_control.h:
-
-../src/Tasks/../config/conf_AdaLovelace.h:
-
-../src/Tasks/../TimeTick/time_tick.h:
-
-../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h:
-
-../src/Tasks/../TWI_Kommunikationen/KOM_NAV.h:
-
-../src/xHandlerParameters.h:
-
-../src/Tasks/task_navigering.h:
+../src/config/conf_AdaLovelace.h:
 
 ../src/Tasks/../Navigering/angleCalculation.h:
+
+../src/config/conf_board.h:
 
 c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
 
@@ -576,26 +547,18 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 
 ../src/WheelCounters/WheelCounters.h:
 
-../src/config/conf_AdaLovelace.h:
-
 ../src/Utilities/ConsoleFunctions/consoleFunctions.h:
 
-../src/Tasks/../Navigering/NAV_SENS_STYR.h:
-
-../src/Tasks/../Movement/Movement.h:
-
-../src/Tasks/task_sensor.h:
-
-../src/Tasks/task_styrning.h:
-
-../src/Tasks/../WheelCounters/WheelCounters.h:
+../src/Tasks/../config/conf_AdaLovelace.h:
 
 ../src/Tasks/../MotorControl/MotorControl.h:
 
+../src/Tasks/../Movement/Movement.h:
+
+../src/xHandlerParameters.h:
+
+../src/Tasks/../TimeTick/time_tick.h:
+
+../src/Tasks/../Utilities/ConsoleFunctions/consoleFunctions.h:
+
 ../src/Tasks/../Movement/__vars.h:
-
-../src/Tasks/task_reglering.h:
-
-../src/Tasks/task_control.h:
-
-../src/Movement/Movement.h:

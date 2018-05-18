@@ -32,8 +32,7 @@ double  y_koord_Kub;
 int check_PDMM;
 int check_Arm;
 
-
-
+int testWhat;
 
 
 #endif /* KOM_NAV_H_ */

@@ -23,6 +23,7 @@
 
 
 void task_navigering(void *pvParamters);
+void fakePositionUpdateNAV(double  xBox,double  yBox,double  xCube,double  yCube,double  xBall,double  yBall,double  xGlass,double yGlass,double  xRob,double  yRob);
 
 
 #endif /* TASK_NAVIGERING_H_ */

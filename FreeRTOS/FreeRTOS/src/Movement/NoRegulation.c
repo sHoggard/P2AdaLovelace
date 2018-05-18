@@ -14,7 +14,7 @@
  * Determines appropriate motor speed, given desired speed. 
  * Placeholder for PID. 
  */
-void task_regulate(void *pvParameters)
+void task_regulate()
 {
 	int16_t targetSpeed = regulated_speed.target;
 	targetSpeed += MOTOR_THRESHOLD;

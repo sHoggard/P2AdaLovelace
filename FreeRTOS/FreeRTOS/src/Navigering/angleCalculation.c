@@ -53,7 +53,7 @@ double degreeCalculation(double xObject, double xRobot, double yObject, double y
 	
 
 	if(sinusValue == 0 && cosinusValue >0){
-		alpha = 0.0;
+		alpha = 360.0;
 		}else if(sinusValue > 0 && cosinusValue == 0){
 		alpha = 90.0;
 		}else if(sinusValue == 0 && cosinusValue <0){

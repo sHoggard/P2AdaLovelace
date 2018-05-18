@@ -14,6 +14,10 @@ uint32_t distanceToObject;
 
 double check_Dist;
 
+//int testDistance;
+//int testRotation;
+
+
 
 
 #endif /* NAV_SENS_STYR_H_ */

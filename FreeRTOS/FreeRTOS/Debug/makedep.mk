@@ -16,14 +16,6 @@ src\ASF\sam\drivers\twi\twi.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
-src\IntegrationTests\KomNavTest.c
-
-src\IntegrationTests\NavSensTest.c
-
-src\IntegrationTests\NavStyrTest.c
-
-src\IntegrationTests\SensStyrTest.c
-
 src\MotorControl\MotorControl.c
 
 src\Movement\Movement.c
@@ -44,7 +36,7 @@ src\Tasks\task_kommunikation.c
 
 src\Tasks\task_sensor.c
 
-src\Tasks\task_tickMovement.c
+src\Tasks\task_reglering.c
 
 src\Tasks\task_control.c
 

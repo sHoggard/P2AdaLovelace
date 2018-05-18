@@ -17,13 +17,13 @@
 
 #include "../Movement/__vars.h"
 
-#ifndef TASK_TICKMOVEMENT_H_
-#define TASK_TICKMOVEMENT_H_
+#ifndef TASK_REGLERING_H_
+#define TASK_REGLERING_H_
 
-#define TASK_TICKMOVEMENT_STACK_SIZE (2048/ sizeof(portSTACK_TYPE))
-#define TASK_TICKMOVEMENT_PRIORITY   (3)
+#define TASK_REGLERING_STACK_SIZE (2048/ sizeof(portSTACK_TYPE))
+#define TASK_REGLERING_PRIORITY   (3)
 
-void task_tickMovement(void *pvParamters);
+void task_reglering(void *pvParamters);
 
 
 

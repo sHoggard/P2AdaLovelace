@@ -108,7 +108,6 @@ SUBDIRS :=  \
 ../src/MotorControl \
 ../src/Navigering \
 ../src/Movement \
-../src/IntegrationTests \
 ../src/Sensor \
 ../src/TWI_Kommunikationen \
 ../src/TimeTick \
@@ -130,10 +129,6 @@ C_SRCS +=  \
 ../src/ASF/sam/drivers/tc/tc.c \
 ../src/ASF/sam/drivers/twi/twi.c \
 ../src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.c \
-../src/IntegrationTests/KomNavTest.c \
-../src/IntegrationTests/NavSensTest.c \
-../src/IntegrationTests/NavStyrTest.c \
-../src/IntegrationTests/SensStyrTest.c \
 ../src/MotorControl/MotorControl.c \
 ../src/Movement/Movement.c \
 ../src/Movement/NoRegulation.c \
@@ -144,7 +139,7 @@ C_SRCS +=  \
 ../src/Sensor/Ultraljud.c \
 ../src/Tasks/task_kommunikation.c \
 ../src/Tasks/task_sensor.c \
-../src/Tasks/task_tickMovement.c \
+../src/Tasks/task_reglering.c \
 ../src/Tasks/task_control.c \
 ../src/Tasks/task_navigering.c \
 ../src/Tasks/task_styrning.c \
@@ -198,10 +193,6 @@ src/ASF/sam/drivers/pwm/pwm.o \
 src/ASF/sam/drivers/tc/tc.o \
 src/ASF/sam/drivers/twi/twi.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
-src/IntegrationTests/KomNavTest.o \
-src/IntegrationTests/NavSensTest.o \
-src/IntegrationTests/NavStyrTest.o \
-src/IntegrationTests/SensStyrTest.o \
 src/MotorControl/MotorControl.o \
 src/Movement/Movement.o \
 src/Movement/NoRegulation.o \
@@ -212,7 +203,7 @@ src/Sensor/sensorCalculation.o \
 src/Sensor/Ultraljud.o \
 src/Tasks/task_kommunikation.o \
 src/Tasks/task_sensor.o \
-src/Tasks/task_tickMovement.o \
+src/Tasks/task_reglering.o \
 src/Tasks/task_control.o \
 src/Tasks/task_navigering.o \
 src/Tasks/task_styrning.o \
@@ -259,10 +250,6 @@ src/ASF/sam/drivers/pwm/pwm.o \
 src/ASF/sam/drivers/tc/tc.o \
 src/ASF/sam/drivers/twi/twi.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
-src/IntegrationTests/KomNavTest.o \
-src/IntegrationTests/NavSensTest.o \
-src/IntegrationTests/NavStyrTest.o \
-src/IntegrationTests/SensStyrTest.o \
 src/MotorControl/MotorControl.o \
 src/Movement/Movement.o \
 src/Movement/NoRegulation.o \
@@ -273,7 +260,7 @@ src/Sensor/sensorCalculation.o \
 src/Sensor/Ultraljud.o \
 src/Tasks/task_kommunikation.o \
 src/Tasks/task_sensor.o \
-src/Tasks/task_tickMovement.o \
+src/Tasks/task_reglering.o \
 src/Tasks/task_control.o \
 src/Tasks/task_navigering.o \
 src/Tasks/task_styrning.o \
@@ -320,10 +307,6 @@ src/ASF/sam/drivers/pwm/pwm.d \
 src/ASF/sam/drivers/tc/tc.d \
 src/ASF/sam/drivers/twi/twi.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
-src/IntegrationTests/KomNavTest.d \
-src/IntegrationTests/NavSensTest.d \
-src/IntegrationTests/NavStyrTest.d \
-src/IntegrationTests/SensStyrTest.d \
 src/MotorControl/MotorControl.d \
 src/Movement/Movement.d \
 src/Movement/NoRegulation.d \
@@ -334,7 +317,7 @@ src/Sensor/sensorCalculation.d \
 src/Sensor/Ultraljud.d \
 src/Tasks/task_kommunikation.d \
 src/Tasks/task_sensor.d \
-src/Tasks/task_tickMovement.d \
+src/Tasks/task_reglering.d \
 src/Tasks/task_control.d \
 src/Tasks/task_navigering.d \
 src/Tasks/task_styrning.d \
@@ -381,10 +364,6 @@ src/ASF/sam/drivers/pwm/pwm.d \
 src/ASF/sam/drivers/tc/tc.d \
 src/ASF/sam/drivers/twi/twi.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
-src/IntegrationTests/KomNavTest.d \
-src/IntegrationTests/NavSensTest.d \
-src/IntegrationTests/NavStyrTest.d \
-src/IntegrationTests/SensStyrTest.d \
 src/MotorControl/MotorControl.d \
 src/Movement/Movement.d \
 src/Movement/NoRegulation.d \
@@ -395,7 +374,7 @@ src/Sensor/sensorCalculation.d \
 src/Sensor/Ultraljud.d \
 src/Tasks/task_kommunikation.d \
 src/Tasks/task_sensor.d \
-src/Tasks/task_tickMovement.d \
+src/Tasks/task_reglering.d \
 src/Tasks/task_control.d \
 src/Tasks/task_navigering.d \
 src/Tasks/task_styrning.d \
@@ -560,14 +539,6 @@ LINKER_SCRIPT_DEP+=  \
 
 
 
-
-
-
-
-
-
-
-
 src/ASF/common/services/delay/sam/%.o: ../src/ASF/common/services/delay/sam/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 5.3.1
@@ -611,13 +582,6 @@ src/ASF/sam/drivers/twi/%.o: ../src/ASF/sam/drivers/twi/%.c
 	
 
 src/ASF/thirdparty/wireless/addons/sio2host/uart/%.o: ../src/ASF/thirdparty/wireless/addons/sio2host/uart/%.c
-	@echo Building file: $<
-	@echo Invoking: ARM/GNU C Compiler : 5.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG -DBOARD=ARDUINO_DUE_X -Dscanf=iscanf -DARM_MATH_CM3=true -Dprintf=iprintf -D__SAM3X8E__ -D__FREERTOS__  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam3x/source/templates" -I"../src/ASF/sam/utils/cmsis/sam3x/include" -I"../src/ASF/sam/boards" -I"../src/ASF/sam/boards/arduino_due_x" -I"../src/ASF/common/services/gpio" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/clock" -I"../src/ASF/sam/drivers/pmc" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/uart" -I"../src/ASF/common/services/serial/sam_uart" -I"../src/ASF/common/services/serial" -I"../src/ASF/common/utils/stdio/stdio_serial" -I"../src/ASF/sam/drivers/usart" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam" -I"../src/ASF/sam/drivers/trng" -I"../src/ASF/sam/drivers/adc" -I"../src/ASF/thirdparty/wireless/addons/sio2host/uart" -I"../src/ASF/sam/drivers/pwm" -I"../src/ASF/sam/drivers/tc" -I"../src/ASF/common/services/delay" -I"../src/ASF/common/services/twi" -I"../src/ASF/sam/drivers/twi"  -O1 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-src/IntegrationTests/%.o: ../src/IntegrationTests/%.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 5.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAM3X8E__ -DDEBUG -DBOARD=ARDUINO_DUE_X -Dscanf=iscanf -DARM_MATH_CM3=true -Dprintf=iprintf -D__SAM3X8E__ -D__FREERTOS__  -I"../src/ASF/common/boards" -I"../src/ASF/sam/utils" -I"../src/ASF/sam/utils/header_files" -I"../src/ASF/sam/utils/preprocessor" -I"../src/ASF/thirdparty/CMSIS/Include" -I"../src/ASF/thirdparty/CMSIS/Lib/GCC" -I"../src/ASF/common/utils" -I"../src/ASF/sam/utils/cmsis/sam3x/source/templates" -I"../src/ASF/sam/utils/cmsis/sam3x/include" -I"../src/ASF/sam/boards" -I"../src/ASF/sam/boards/arduino_due_x" -I"../src/ASF/common/services/gpio" -I"../src/ASF/sam/drivers/pio" -I"../src/ASF/common/services/ioport" -I"../src/ASF/common/services/clock" -I"../src/ASF/sam/drivers/pmc" -I"../src" -I"../src/config" -I"../src/ASF/sam/drivers/uart" -I"../src/ASF/common/services/serial/sam_uart" -I"../src/ASF/common/services/serial" -I"../src/ASF/common/utils/stdio/stdio_serial" -I"../src/ASF/sam/drivers/usart" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/include" -I"../src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam" -I"../src/ASF/sam/drivers/trng" -I"../src/ASF/sam/drivers/adc" -I"../src/ASF/thirdparty/wireless/addons/sio2host/uart" -I"../src/ASF/sam/drivers/pwm" -I"../src/ASF/sam/drivers/tc" -I"../src/ASF/common/services/delay" -I"../src/ASF/common/services/twi" -I"../src/ASF/sam/drivers/twi"  -O1 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m3 -c -pipe -fno-strict-aliasing -Wall -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -std=gnu99 -ffunction-sections -fdata-sections -Wchar-subscripts -Wcomment -Wformat=2 -Wimplicit-int -Wmain -Wparentheses -Wsequence-point -Wreturn-type -Wswitch -Wtrigraphs -Wunused -Wuninitialized -Wunknown-pragmas -Wfloat-equal -Wundef -Wshadow -Wbad-function-cast -Wwrite-strings -Wsign-compare -Waggregate-return  -Wmissing-declarations -Wformat -Wmissing-format-attribute -Wno-deprecated-declarations -Wpacked -Wredundant-decls -Wnested-externs -Wlong-long -Wunreachable-code -Wcast-align --param max-inline-insns-single=500 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

@@ -15,7 +15,7 @@ typedef struct TASKHANDLER_PARAM
 	xTaskHandle* taskNavigering;
 	xTaskHandle* taskSensor;
 	xTaskHandle* taskStyrning;
-	xTaskHandle* taskTickMovement;
+	xTaskHandle* taskReglering;
 	int* check;
 } xHandlerParameters;
 

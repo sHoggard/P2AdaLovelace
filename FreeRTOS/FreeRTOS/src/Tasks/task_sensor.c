@@ -16,6 +16,9 @@ void task_sensor(void *pvParamters)
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	
 	while(1){
+		if(check_Dist == 0){
+			vTaskSuspend(NULL);
+		}
 		vTaskDelay(xBlockTime);
 		printf("Sensor\n");
 		xLastWakeTime = xTaskGetTickCount();
@@ -29,7 +32,7 @@ void task_sensor(void *pvParamters)
 	printf("\nSensor out");
 	xSemaphoreGive(xSemaphoreSensor);
 	//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
-	while(1);
+	//while(1);
 	vTaskSuspend(NULL);
 	}
 	

@@ -33,8 +33,8 @@ void initMovement()
 	puts("No regulation");
 	#endif
 	
-	//initMotors();
-	//initDecoders();
+	initMotors();
+	initDecoders();
 	
 	mode_movement = 's';
 	regulated_speed.left = 0;
@@ -161,10 +161,9 @@ void clearCounters()
  * FreeRTOS task, running continuously when needed, for updating motor speeds to follow commands. 
  * Calculates appropriate speed in mm/s. Sends regulated motor speeds to MotorControl. 
  */
-void task_movement(void *pvParameters)
+void task_movement()
 {
-	while (1)
-	{
+	
 		// update target speed?
 		if (f_auto)
 		{
@@ -172,7 +171,7 @@ void task_movement(void *pvParameters)
 		}
 		
 		applyRegulatedSpeeds();
-	}
+	
 }
 
 /**
@@ -185,7 +184,7 @@ void test_movement()
 	{
 		updateTargetSpeed();
 	}
-	task_regulate(0);
+	task_regulate();
 	applyRegulatedSpeeds();
 	printf("test_movement END");
 }
@@ -247,6 +246,29 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			}
 			break;
 		case 'r':
+			if (abs(remaining_distance) < ROTATION_PRECISION)
+			{
+				stop();
+				regulated_speed.target = 0;
+				//delay_ms(10);
+				// TODO: precise adjustments
+			}
+			else if (remaining_distance > 0)
+			{
+				targetSpeed = (remaining_distance/50)*MOTOR_INCREMENTS + MOTOR_THRESHOLD;
+				if (targetSpeed > humanTargetSpeed)
+				{
+					targetSpeed = humanTargetSpeed;
+				}
+			}
+			else if (remaining_distance < 0)
+			{
+				targetSpeed = (remaining_distance/50)*MOTOR_INCREMENTS - MOTOR_THRESHOLD;
+				if (targetSpeed < humanTargetSpeed)
+				{
+					targetSpeed = -humanTargetSpeed;
+				}
+			}
 			break;
 		case 's':
 			targetSpeed = 0;
