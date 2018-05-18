@@ -11,7 +11,7 @@
 
 
 void configure_tc(void);
-void configure_tc(int);
+//void configure_tc(int);
 
 
 #endif /* CONF_TC_H_ */
