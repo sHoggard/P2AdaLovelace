@@ -54,9 +54,9 @@ void task_navigering(void *pvParamters)
 				goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
 				printf("Roboten ska rotera till följande vinkel : ");
 				printInt(goalAngle);
-				rotation_angle = goalAngle;
+				rotation_angle = 360 - goalAngle;
 				
-				//rotate(200, rotation_angle);	//kommenterat pga ej uppdaterd movement
+				rotate(200, rotation_angle);	//kommenterat pga ej uppdaterd movement
 			}
 			
 			if(testWhat == 1)	//testa köra
@@ -64,30 +64,44 @@ void task_navigering(void *pvParamters)
 				printf("Testing drive");
 				printInt(testWhat);
 				
-				distance = distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
+				distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot))*10;
 				printf("Roboten har följande avstånd till stålkulan : ");
 				printInt(distance);
 				
-				rotation_angle = 0.0;
+				//rotation_angle = 0.0;
 				//rotate(200, rotation_angle);	//kommenterat pga ej uppdaterd movement
-				//drive(200, distance);			//kommenterat pga ej uppdaterd movement
+				drive(200, distance);			//kommenterat pga ej uppdaterd movement
 			}
 			
 			if(testWhat == 2)	//testa köra rakt, vända tillbaka, hamna i startposition
 			{
 				printf("Testing combination");
 				printInt(testWhat);
-				goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
+				//goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
 				printf("Roboten ska rotera till följande vinkel : ");
 				printInt(goalAngle);
-				rotation_angle = goalAngle;
+				//rotation_angle = goalAngle;
 				
-				distance = distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
+				rotation_angle = (getOrientation() + 180);
+				
+				distance = 1000;
+				//distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot))*10;
 				printf("Roboten har följande avstånd till stålkulan : ");
 				printInt(distance);
 				
-				//rotate(200, rotation_angle);	//kommenterat pga ej uppdaterd movement
-				//drive(200, distance);			//kommenterat pga ej uppdaterd movement
+				drive(200, distance);
+				
+				xSemaphoreGive(xSemaphoreNavigering);
+				//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+				vTaskSuspend(NULL);
+				
+				rotate(200, rotation_angle);	//kommenterat pga ej uppdaterd movement
+				
+				xSemaphoreGive(xSemaphoreNavigering);
+				//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+				vTaskSuspend(NULL);
+				
+				drive(200, distance);			//kommenterat pga ej uppdaterd movement
 			}
 			
 			xSemaphoreGive(xSemaphoreNavigering);
@@ -163,6 +177,11 @@ void testStyr(int typo)
 		testWhat = 0;	//variabel för att (0) endast köra rotationstest
 	} else if(t == 5)
 	{
+		x5 = 50.0;	//kulans testpos
+		x6 = 100.0;
+		
+		x9 = 0.0;	//robotens testpos
+		x10 = 100.0;
 		testWhat = 1;	//variabel för att (1) endast köra distanstest
 	} else if(t == 6)
 	{

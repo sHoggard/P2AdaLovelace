@@ -259,7 +259,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 	int16_t targetSpeed = 0;
 	int32_t remainingDistance = calculateRemainingDistance();
 	
-	printf("remainingDistance: %i\n", (int)remainingDistance);
+	//printf("remainingDistance: %i\n", (int)remainingDistance);
 	
 	// calculate target speed
 	switch (mode_movement)
@@ -318,7 +318,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			targetSpeed = 0;
 			break;
 	}
-	printf("targetSpeed: %i\n", (int)targetSpeed);
+	//printf("targetSpeed: %i\n", (int)targetSpeed);
 	
 	// send to regulator
 	regulated_speed.target = targetSpeed;

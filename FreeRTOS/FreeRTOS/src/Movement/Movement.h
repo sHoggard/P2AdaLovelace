@@ -26,7 +26,7 @@
 #define MAX_DRIVE 500					// �s difference from MOTOR_BRAKE
 #define HUMAN_MAX_DRIVE 300				// mm/s
 #define MAX_ROTATE 500					// �s difference from MOTOR_BRAKE
-#define HUMAN_MAX_ROTATE 50				// mm/s
+#define HUMAN_MAX_ROTATE 100			// mm/s
 
 //xSemaphoreHandle xSemaphoreMovement;
 

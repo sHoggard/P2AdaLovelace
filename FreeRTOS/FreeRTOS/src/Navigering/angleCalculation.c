@@ -53,7 +53,7 @@ double degreeCalculation(double xObject, double xRobot, double yObject, double y
 	
 
 	if(sinusValue == 0 && cosinusValue >0){
-		alpha = 360.0;
+		alpha = 0.0;
 		}else if(sinusValue > 0 && cosinusValue == 0){
 		alpha = 90.0;
 		}else if(sinusValue == 0 && cosinusValue <0){
@@ -66,9 +66,9 @@ double degreeCalculation(double xObject, double xRobot, double yObject, double y
 		}else if(sinusValue > 0 && cosinusValue < 0){
 		alpha = rad2deg(atan(k))+ 90;
 		}else if(sinusValue < 0 && cosinusValue < 0) {
-		alpha = 270 - rad2deg(atan(k));
-		}else if(sinusValue < 0 && cosinusValue > 0){
-		alpha = 360 - rad2deg(atan(k));
+		alpha = 180 + rad2deg(atan(k));
+		}else if(sinusValue < 0 && cosinusValue >= 0){
+		alpha = 270 + rad2deg(atan(k));
 	}
 	return alpha;
 }
