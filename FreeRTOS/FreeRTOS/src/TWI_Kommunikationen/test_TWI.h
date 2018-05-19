@@ -9,7 +9,7 @@
 #ifndef TEST_H_
 #define TEST_H_
 
-int console_init(void);
+//int console_init(void);
 
 /* Olika testfall från testprotokollet "I2C - Flera slaves" */
 void test_Led_On(void);
