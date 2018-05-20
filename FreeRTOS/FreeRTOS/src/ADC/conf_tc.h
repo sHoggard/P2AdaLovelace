@@ -10,7 +10,6 @@
 #define CONF_TC_H_
 
 
-void configure_tc(void);
 void configure_tc(int);
 
 

@@ -14,7 +14,7 @@
 /**
  *  Interrupt handler for TC0 interrupt.
  */
-void TC0_Handler(void)
+void TC8_Handler(void)
 {
 	volatile uint32_t ul_dummy;
 	uint32_t IR_invalue;
@@ -22,7 +22,7 @@ void TC0_Handler(void)
 
 
 	/* Clear status bit to acknowledge interrupt */
-	ul_dummy = tc_get_status(TC0, 0);			//The compare bit is cleared by reading the register, manual p. 915
+	ul_dummy = tc_get_status(TC2, 2);			//The compare bit is cleared by reading the register, manual p. 915
 
 	/* Avoid compiler warning */
 	UNUSED(ul_dummy);

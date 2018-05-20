@@ -145,6 +145,8 @@ __lock___atexit_recursive_mutex
 mode_movement       0x1               src/Movement/Movement.o
 __lock___arc4random_mutex
                     0x1               c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc.a(lib_a-lock.o)
+IR_lastdistance     0x4               src/ADC/sampel_int.o
+IR_currentdistance  0x4               src/ADC/sampel_int.o
 errno               0x4               c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc.a(lib_a-reent.o)
 counterLeft         0x4               src/Movement/Movement.o
 regulated_speed     0x6               src/Movement/Movement.o
@@ -166,7 +168,6 @@ xSemaphorePlayer2   0x4               src/Tasks/task_control.o
 quadratureCounter   0x4               src/Utilities/PioInterrupt/PioInterrupt.o
 xSemaphorePlayer1   0x4               src/Tasks/task_control.o
 leftCorrection      0x8               src/Movement/Regulate.o
-lastdistance        0x4               src/ADC/sampel_int.o
 speedCorrection     0x8               src/Movement/Regulate.o
 counterRight        0x4               src/Movement/Movement.o
 stdio_base          0x4               src/ASF/common/utils/stdio/write.o
@@ -180,7 +181,6 @@ reactionTimePlayer1
 __lock___dd_hash_mutex
                     0x1               c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc.a(lib_a-lock.o)
 __lock___tz_mutex   0x1               c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc.a(lib_a-lock.o)
-currentdistance     0x4               src/ADC/sampel_int.o
 u                   0x8               src/Movement/Regulate.o
 __lock___sfp_recursive_mutex
                     0x1               c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7-m\libc.a(lib_a-lock.o)
@@ -13025,9 +13025,9 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
  .text.configure_tc
                 0x000801c4       0x6c src/ADC/conf_tc.o
                 0x000801c4                configure_tc
- .text.TC0_Handler
+ .text.TC8_Handler
                 0x00080230       0x84 src/ADC/sampel_int.o
-                0x00080230                TC0_Handler
+                0x00080230                TC8_Handler
  .text._read    0x000802b4       0x3c src/ASF/common/utils/stdio/read.o
                 0x000802b4                _read
  .text.adc_init
@@ -13215,12 +13215,12 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x00080dec                CAN1_Handler
                 0x00080dec                MemManage_Handler
                 0x00080dec                SUPC_Handler
-                0x00080dec                TC8_Handler
                 0x00080dec                USART2_Handler
                 0x00080dec                EMAC_Handler
                 0x00080dec                UART_Handler
                 0x00080dec                BusFault_Handler
                 0x00080dec                RSTC_Handler
+                0x00080dec                TC0_Handler
                 0x00080dec                TC5_Handler
                 0x00080dec                UOTGHS_Handler
                 0x00080dec                SPI0_Handler
@@ -13603,8 +13603,8 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x20070cbc                __malloc_top_pad
  *(COMMON)
  COMMON         0x20070cc0        0x8 src/ADC/sampel_int.o
-                0x20070cc0                lastdistance
-                0x20070cc4                currentdistance
+                0x20070cc0                IR_lastdistance
+                0x20070cc4                IR_currentdistance
  COMMON         0x20070cc8        0x4 src/ASF/common/utils/stdio/read.o
                 0x20070cc8                ptr_get
  COMMON         0x20070ccc        0x8 src/ASF/common/utils/stdio/write.o
@@ -13832,34 +13832,34 @@ OUTPUT(FreeRTOS.elf elf32-littlearm)
  .comment       0x00000059       0x5a src/ASF/sam/utils/syscalls/gcc/syscalls.o
  .comment       0x00000059       0x5a src/main.o
 
-.debug_info     0x00000000    0x20843
+.debug_info     0x00000000    0x20844
  .debug_info    0x00000000     0x121e src/ADC/adcdac.o
- .debug_info    0x0000121e     0x104e src/ADC/conf_tc.o
- .debug_info    0x0000226c     0x1524 src/ADC/sampel_int.o
- .debug_info    0x00003790      0xac9 src/ASF/common/utils/stdio/read.o
- .debug_info    0x00004259     0x1af7 src/ASF/sam/drivers/adc/adc.o
- .debug_info    0x00005d50     0x1260 src/ASF/sam/drivers/tc/tc.o
- .debug_info    0x00006fb0     0x19a3 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o
- .debug_info    0x00008953     0x10c7 src/TimeTick/time_tick_sam.o
- .debug_info    0x00009a1a     0x143d src/Utilities/ConsoleFunctions/consoleFunctions.o
- .debug_info    0x0000ae57     0x171e src/Utilities/TimerCounter/TimerCounter.o
- .debug_info    0x0000c575     0x24e6 src/ASF/sam/drivers/usart/usart.o
- .debug_info    0x0000ea5b      0xc6e src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.o
- .debug_info    0x0000f6c9     0x243f src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
- .debug_info    0x00011b08      0xac6 src/ASF/common/utils/stdio/write.o
- .debug_info    0x000125ce     0x113c src/ASF/common/services/serial/usart_serial.o
- .debug_info    0x0001370a     0x119e src/ASF/sam/drivers/uart/uart.o
- .debug_info    0x000148a8     0x11ad src/ASF/common/services/clock/sam3x/sysclk.o
- .debug_info    0x00015a55      0xb01 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
- .debug_info    0x00016556     0x108a src/ASF/sam/boards/arduino_due_x/init.o
- .debug_info    0x000175e0     0x1c61 src/ASF/sam/drivers/pio/pio.o
- .debug_info    0x00019241     0x17be src/ASF/sam/drivers/pio/pio_handler.o
- .debug_info    0x0001a9ff     0x19df src/ASF/sam/drivers/pmc/pmc.o
- .debug_info    0x0001c3de      0xa39 src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
- .debug_info    0x0001ce17      0xd1b src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
- .debug_info    0x0001db32      0xdc2 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
- .debug_info    0x0001e8f4      0xdb0 src/ASF/sam/utils/syscalls/gcc/syscalls.o
- .debug_info    0x0001f6a4     0x119f src/main.o
+ .debug_info    0x0000121e     0x104f src/ADC/conf_tc.o
+ .debug_info    0x0000226d     0x1524 src/ADC/sampel_int.o
+ .debug_info    0x00003791      0xac9 src/ASF/common/utils/stdio/read.o
+ .debug_info    0x0000425a     0x1af7 src/ASF/sam/drivers/adc/adc.o
+ .debug_info    0x00005d51     0x1260 src/ASF/sam/drivers/tc/tc.o
+ .debug_info    0x00006fb1     0x19a3 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o
+ .debug_info    0x00008954     0x10c7 src/TimeTick/time_tick_sam.o
+ .debug_info    0x00009a1b     0x143d src/Utilities/ConsoleFunctions/consoleFunctions.o
+ .debug_info    0x0000ae58     0x171e src/Utilities/TimerCounter/TimerCounter.o
+ .debug_info    0x0000c576     0x24e6 src/ASF/sam/drivers/usart/usart.o
+ .debug_info    0x0000ea5c      0xc6e src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.o
+ .debug_info    0x0000f6ca     0x243f src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
+ .debug_info    0x00011b09      0xac6 src/ASF/common/utils/stdio/write.o
+ .debug_info    0x000125cf     0x113c src/ASF/common/services/serial/usart_serial.o
+ .debug_info    0x0001370b     0x119e src/ASF/sam/drivers/uart/uart.o
+ .debug_info    0x000148a9     0x11ad src/ASF/common/services/clock/sam3x/sysclk.o
+ .debug_info    0x00015a56      0xb01 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_info    0x00016557     0x108a src/ASF/sam/boards/arduino_due_x/init.o
+ .debug_info    0x000175e1     0x1c61 src/ASF/sam/drivers/pio/pio.o
+ .debug_info    0x00019242     0x17be src/ASF/sam/drivers/pio/pio_handler.o
+ .debug_info    0x0001aa00     0x19df src/ASF/sam/drivers/pmc/pmc.o
+ .debug_info    0x0001c3df      0xa39 src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
+ .debug_info    0x0001ce18      0xd1b src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
+ .debug_info    0x0001db33      0xdc2 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
+ .debug_info    0x0001e8f5      0xdb0 src/ASF/sam/utils/syscalls/gcc/syscalls.o
+ .debug_info    0x0001f6a5     0x119f src/main.o
 
 .debug_abbrev   0x00000000     0x4b57
  .debug_abbrev  0x00000000      0x258 src/ADC/adcdac.o
@@ -13890,31 +13890,31 @@ OUTPUT(FreeRTOS.elf elf32-littlearm)
  .debug_abbrev  0x0000460c      0x264 src/ASF/sam/utils/syscalls/gcc/syscalls.o
  .debug_abbrev  0x00004870      0x2e7 src/main.o
 
-.debug_loc      0x00000000     0x6759
+.debug_loc      0x00000000     0x675a
  .debug_loc     0x00000000       0x40 src/ADC/adcdac.o
- .debug_loc     0x00000040       0x93 src/ADC/conf_tc.o
- .debug_loc     0x000000d3       0xb0 src/ADC/sampel_int.o
- .debug_loc     0x00000183       0xb3 src/ASF/common/utils/stdio/read.o
- .debug_loc     0x00000236      0x9a4 src/ASF/sam/drivers/adc/adc.o
- .debug_loc     0x00000bda      0x5a4 src/ASF/sam/drivers/tc/tc.o
- .debug_loc     0x0000117e      0x5b0 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o
- .debug_loc     0x0000172e       0x83 src/TimeTick/time_tick_sam.o
- .debug_loc     0x000017b1      0x3a3 src/Utilities/ConsoleFunctions/consoleFunctions.o
- .debug_loc     0x00001b54       0xe2 src/Utilities/TimerCounter/TimerCounter.o
- .debug_loc     0x00001c36     0x1062 src/ASF/sam/drivers/usart/usart.o
- .debug_loc     0x00002c98       0xe0 src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.o
- .debug_loc     0x00002d78     0x14ba src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
- .debug_loc     0x00004232      0x12b src/ASF/common/utils/stdio/write.o
- .debug_loc     0x0000435d      0x2a7 src/ASF/common/services/serial/usart_serial.o
- .debug_loc     0x00004604      0x241 src/ASF/sam/drivers/uart/uart.o
- .debug_loc     0x00004845      0x183 src/ASF/common/services/clock/sam3x/sysclk.o
- .debug_loc     0x000049c8       0x70 src/ASF/sam/boards/arduino_due_x/init.o
- .debug_loc     0x00004a38      0xacc src/ASF/sam/drivers/pio/pio.o
- .debug_loc     0x00005504      0x569 src/ASF/sam/drivers/pio/pio_handler.o
- .debug_loc     0x00005a6d      0xaeb src/ASF/sam/drivers/pmc/pmc.o
- .debug_loc     0x00006558       0x6b src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
- .debug_loc     0x000065c3       0xfd src/ASF/sam/utils/syscalls/gcc/syscalls.o
- .debug_loc     0x000066c0       0x99 src/main.o
+ .debug_loc     0x00000040       0x94 src/ADC/conf_tc.o
+ .debug_loc     0x000000d4       0xb0 src/ADC/sampel_int.o
+ .debug_loc     0x00000184       0xb3 src/ASF/common/utils/stdio/read.o
+ .debug_loc     0x00000237      0x9a4 src/ASF/sam/drivers/adc/adc.o
+ .debug_loc     0x00000bdb      0x5a4 src/ASF/sam/drivers/tc/tc.o
+ .debug_loc     0x0000117f      0x5b0 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o
+ .debug_loc     0x0000172f       0x83 src/TimeTick/time_tick_sam.o
+ .debug_loc     0x000017b2      0x3a3 src/Utilities/ConsoleFunctions/consoleFunctions.o
+ .debug_loc     0x00001b55       0xe2 src/Utilities/TimerCounter/TimerCounter.o
+ .debug_loc     0x00001c37     0x1062 src/ASF/sam/drivers/usart/usart.o
+ .debug_loc     0x00002c99       0xe0 src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.o
+ .debug_loc     0x00002d79     0x14ba src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
+ .debug_loc     0x00004233      0x12b src/ASF/common/utils/stdio/write.o
+ .debug_loc     0x0000435e      0x2a7 src/ASF/common/services/serial/usart_serial.o
+ .debug_loc     0x00004605      0x241 src/ASF/sam/drivers/uart/uart.o
+ .debug_loc     0x00004846      0x183 src/ASF/common/services/clock/sam3x/sysclk.o
+ .debug_loc     0x000049c9       0x70 src/ASF/sam/boards/arduino_due_x/init.o
+ .debug_loc     0x00004a39      0xacc src/ASF/sam/drivers/pio/pio.o
+ .debug_loc     0x00005505      0x569 src/ASF/sam/drivers/pio/pio_handler.o
+ .debug_loc     0x00005a6e      0xaeb src/ASF/sam/drivers/pmc/pmc.o
+ .debug_loc     0x00006559       0x6b src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
+ .debug_loc     0x000065c4       0xfd src/ASF/sam/utils/syscalls/gcc/syscalls.o
+ .debug_loc     0x000066c1       0x99 src/main.o
 
 .debug_aranges  0x00000000      0xe60
  .debug_aranges
@@ -14234,61 +14234,61 @@ OUTPUT(FreeRTOS.elf elf32-littlearm)
  .debug_line    0x000166b9      0x40b src/ASF/sam/utils/syscalls/gcc/syscalls.o
  .debug_line    0x00016ac4     0x1171 src/main.o
 
-.debug_str      0x00000000    0x6bbba
+.debug_str      0x00000000    0x6bbcf
  .debug_str     0x00000000    0x64c93 src/ADC/adcdac.o
                               0x65074 (size before relaxing)
  .debug_str     0x00064c93      0x391 src/ADC/conf_tc.o
                               0x64f27 (size before relaxing)
- .debug_str     0x00065024      0x340 src/ADC/sampel_int.o
-                              0x6508c (size before relaxing)
- .debug_str     0x00065364       0x2c src/ASF/common/utils/stdio/read.o
+ .debug_str     0x00065024      0x355 src/ADC/sampel_int.o
+                              0x65098 (size before relaxing)
+ .debug_str     0x00065379       0x2c src/ASF/common/utils/stdio/read.o
                               0x5c7c9 (size before relaxing)
- .debug_str     0x00065390      0x718 src/ASF/sam/drivers/adc/adc.o
+ .debug_str     0x000653a5      0x718 src/ASF/sam/drivers/adc/adc.o
                               0x5d2ca (size before relaxing)
- .debug_str     0x00065aa8      0x2d3 src/ASF/sam/drivers/tc/tc.o
+ .debug_str     0x00065abd      0x2d3 src/ASF/sam/drivers/tc/tc.o
                               0x5cb83 (size before relaxing)
- .debug_str     0x00065d7b      0x7d8 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o
+ .debug_str     0x00065d90      0x7d8 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o
                               0x65704 (size before relaxing)
- .debug_str     0x00066553      0x147 src/TimeTick/time_tick_sam.o
+ .debug_str     0x00066568      0x147 src/TimeTick/time_tick_sam.o
                               0x64fd8 (size before relaxing)
- .debug_str     0x0006669a       0xb3 src/Utilities/ConsoleFunctions/consoleFunctions.o
+ .debug_str     0x000666af       0xb3 src/Utilities/ConsoleFunctions/consoleFunctions.o
                               0x650a8 (size before relaxing)
- .debug_str     0x0006674d     0x196f src/Utilities/TimerCounter/TimerCounter.o
+ .debug_str     0x00066762     0x196f src/Utilities/TimerCounter/TimerCounter.o
                               0x66c87 (size before relaxing)
- .debug_str     0x000680bc      0x97e src/ASF/sam/drivers/usart/usart.o
+ .debug_str     0x000680d1      0x97e src/ASF/sam/drivers/usart/usart.o
                               0x5d451 (size before relaxing)
- .debug_str     0x00068a3a      0x555 src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.o
+ .debug_str     0x00068a4f      0x555 src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.o
                               0x62763 (size before relaxing)
- .debug_str     0x00068f8f     0x103f src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
+ .debug_str     0x00068fa4     0x103f src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
                                0xab7c (size before relaxing)
- .debug_str     0x00069fce       0x26 src/ASF/common/utils/stdio/write.o
+ .debug_str     0x00069fe3       0x26 src/ASF/common/utils/stdio/write.o
                               0x5c7ca (size before relaxing)
- .debug_str     0x00069ff4       0x31 src/ASF/common/services/serial/usart_serial.o
+ .debug_str     0x0006a009       0x31 src/ASF/common/services/serial/usart_serial.o
                               0x60994 (size before relaxing)
- .debug_str     0x0006a025      0x1d9 src/ASF/sam/drivers/uart/uart.o
+ .debug_str     0x0006a03a      0x1d9 src/ASF/sam/drivers/uart/uart.o
                               0x5cba0 (size before relaxing)
- .debug_str     0x0006a1fe      0x34b src/ASF/common/services/clock/sam3x/sysclk.o
+ .debug_str     0x0006a213      0x34b src/ASF/common/services/clock/sam3x/sysclk.o
                               0x6087b (size before relaxing)
- .debug_str     0x0006a549       0x73 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_str     0x0006a55e       0x73 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
                               0x5c820 (size before relaxing)
- .debug_str     0x0006a5bc       0x9e src/ASF/sam/boards/arduino_due_x/init.o
+ .debug_str     0x0006a5d1       0x9e src/ASF/sam/boards/arduino_due_x/init.o
                               0x60f68 (size before relaxing)
- .debug_str     0x0006a65a      0x3e4 src/ASF/sam/drivers/pio/pio.o
+ .debug_str     0x0006a66f      0x3e4 src/ASF/sam/drivers/pio/pio.o
                               0x5d17f (size before relaxing)
- .debug_str     0x0006aa3e      0x15a src/ASF/sam/drivers/pio/pio_handler.o
+ .debug_str     0x0006aa53      0x15a src/ASF/sam/drivers/pio/pio_handler.o
                               0x5d278 (size before relaxing)
- .debug_str     0x0006ab98      0x574 src/ASF/sam/drivers/pmc/pmc.o
+ .debug_str     0x0006abad      0x574 src/ASF/sam/drivers/pmc/pmc.o
                               0x5d1fb (size before relaxing)
- .debug_str     0x0006b10c       0x4d src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
+ .debug_str     0x0006b121       0x4d src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
                               0x5c7f4 (size before relaxing)
- .debug_str     0x0006b159       0xd9 src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
+ .debug_str     0x0006b16e       0xd9 src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
                               0x5c8f0 (size before relaxing)
- .debug_str     0x0006b232      0x195 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
+ .debug_str     0x0006b247      0x195 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
                               0x5cacc (size before relaxing)
- .debug_str     0x0006b3c7      0x761 src/ASF/sam/utils/syscalls/gcc/syscalls.o
+ .debug_str     0x0006b3dc      0x761 src/ASF/sam/utils/syscalls/gcc/syscalls.o
                                0x7428 (size before relaxing)
- .debug_str     0x0006bb28       0x92 src/main.o
-                              0x64fb8 (size before relaxing)
+ .debug_str     0x0006bb3d       0x92 src/main.o
+                              0x64fbe (size before relaxing)
 
 .debug_frame    0x00000000     0x2d48
  .debug_frame   0x00000000       0x48 src/ADC/adcdac.o
@@ -14399,6 +14399,10 @@ HSMCI_Handler                                     src/ASF/sam/utils/cmsis/sam3x/
 HardFault_Handler                                 src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
                                                   src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
 I                                                 src/Movement/Regulate.o
+IR_currentdistance                                src/main.o
+                                                  src/ADC/sampel_int.o
+IR_lastdistance                                   src/main.o
+                                                  src/ADC/sampel_int.o
 MemManage_Handler                                 src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
                                                   src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
 N                                                 src/Movement/Regulate.o
@@ -14443,7 +14447,7 @@ SystemCoreClock                                   src/ASF/sam/utils/cmsis/sam3x/
 SystemCoreClockUpdate                             src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
                                                   src/ASF/common/services/clock/sam3x/sysclk.o
 SystemInit                                        src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
-TC0_Handler                                       src/ADC/sampel_int.o
+TC0_Handler                                       src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
                                                   src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
 TC1_Handler                                       src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
                                                   src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
@@ -14459,7 +14463,7 @@ TC6_Handler                                       src/ASF/sam/utils/cmsis/sam3x/
                                                   src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
 TC7_Handler                                       src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
                                                   src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
-TC8_Handler                                       src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
+TC8_Handler                                       src/ADC/sampel_int.o
                                                   src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
 TRNG_Handler                                      src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
                                                   src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
@@ -14975,8 +14979,6 @@ cpu_irq_enter_critical                            src/ASF/common/utils/interrupt
 cpu_irq_leave_critical                            src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
 currentLeft                                       src/Movement/Regulate.o
 currentRight                                      src/Movement/Regulate.o
-currentdistance                                   src/main.o
-                                                  src/ADC/sampel_int.o
 dT                                                src/Movement/Regulate.o
 dac_setup                                         src/ADC/adcdac.o
 dacc_disable_channel                              src/ASF/sam/drivers/dacc/dacc.o
@@ -15056,8 +15058,6 @@ kp                                                src/Movement/Regulate.o
 kpSpeed                                           src/Movement/Regulate.o
 lastLeft                                          src/Movement/Regulate.o
 lastRight                                         src/Movement/Regulate.o
-lastdistance                                      src/main.o
-                                                  src/ADC/sampel_int.o
 leftCorrection                                    src/Movement/Regulate.o
 leftSpeed                                         src/Movement/Regulate.o
 link                                              src/ASF/sam/utils/syscalls/gcc/syscalls.o
