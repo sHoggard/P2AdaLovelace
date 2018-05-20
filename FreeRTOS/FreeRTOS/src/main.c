@@ -47,7 +47,7 @@ int main (void)
 	configureConsole();
 	// Insert application code here, after the board has been initialized.
 	ioport_init();
-	delay_init();
+	
 	//Check pin for the TC-handler
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);
 	//Configuring board settings
