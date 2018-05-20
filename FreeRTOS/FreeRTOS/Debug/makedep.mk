@@ -62,12 +62,6 @@ src\TWI_Kommunikationen\test.c
 
 src\Utilities\ConsoleFunctions\consoleFunctions.c
 
-src\Utilities\DelayFunctions\delayFunctions.c
-
-src\Utilities\PioInterrupt\PioInterrupt.c
-
-src\Utilities\TimerCounter\TimerCounter.c
-
 src\WheelCounters\WheelCounters.c
 
 src\ASF\sam\drivers\adc\adc_sam3u.c

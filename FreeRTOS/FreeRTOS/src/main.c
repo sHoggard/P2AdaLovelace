@@ -6,10 +6,7 @@
 #include <inttypes.h>
 #include <stdio_serial.h>
 //Utilities
-#include "Utilities/DelayFunctions/delayFunctions.h"
 #include "Utilities/ConsoleFunctions/consoleFunctions.h"
-#include "Utilities/TimerCounter/TimerCounter.h" //From module: TC - Timer Counter
-#include "Utilities/PioInterrupt/PioInterrupt.h"
 //FreeRTOS, Semaphores
 #include "FreeRTOS.h"
 #include "semphr.h"
@@ -26,6 +23,7 @@
 #include "Tasks/task_reglering.h"
 #include "Tasks/task_control.h"
 #include "Movement/Movement.h"
+#include "ADC/sampel_int.h"
 
 
 volatile xHandlerParameters *xHandler;
@@ -38,7 +36,6 @@ volatile int checkInt = 1;
 
 int main (void)
 { 
-	
 	//Instantiating the struct
 	xHandler = ( xHandlerParameters* ) pvPortMalloc( sizeof( xHandler ) );
 	
@@ -48,21 +45,17 @@ int main (void)
 	sysclk_init();
 	// Configuring console (Tools->Data Visulizer)
 	configureConsole();
-	// Delay initialization
-	delayInit();
 	// Insert application code here, after the board has been initialized.
-	//init_timer();
 	ioport_init();
-	
+	delay_init();
 	//Check pin for the TC-handler
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);
 	//Configuring board settings
 	pmc_enable_periph_clk(ID_TRNG);
 	trng_enable(TRNG);
 	initMovement();
-	//analogInit(0);
 	
-	delayMicroseconds(100000);
+	delay_ms(100);
 
 	// Initiating board pins
 	ioport_set_pin_dir(PIO_PB26_IDX, IOPORT_DIR_OUTPUT);
@@ -73,8 +66,6 @@ int main (void)
 	ioport_set_pin_level(PIO_PC1_IDX, HIGH);
 	ioport_set_pin_dir(PIO_PC19_IDX, IOPORT_DIR_OUTPUT);
 	ioport_set_pin_level(PIO_PC19_IDX, HIGH);
-	
-	configPioInterrupt();
 	
 	//Creating semaphores and tasks
 	xSemaphoreKommunikation = 0;

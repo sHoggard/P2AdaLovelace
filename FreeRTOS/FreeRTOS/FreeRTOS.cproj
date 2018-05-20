@@ -665,9 +665,6 @@
     <Folder Include="src\TimeTick" />
     <Folder Include="src\Utilities" />
     <Folder Include="src\Utilities\ConsoleFunctions\" />
-    <Folder Include="src\Utilities\DelayFunctions\" />
-    <Folder Include="src\Utilities\PioInterrupt\" />
-    <Folder Include="src\Utilities\TimerCounter\" />
     <Folder Include="src\WheelCounters" />
     <Folder Include="src\Tasks" />
   </ItemGroup>
@@ -859,24 +856,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Utilities\ConsoleFunctions\consoleFunctions.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Utilities\DelayFunctions\delayFunctions.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Utilities\DelayFunctions\delayFunctions.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Utilities\PioInterrupt\PioInterrupt.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Utilities\PioInterrupt\PioInterrupt.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Utilities\TimerCounter\TimerCounter.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Utilities\TimerCounter\TimerCounter.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\WheelCounters\WheelCounters.c">
