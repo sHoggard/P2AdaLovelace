@@ -36,27 +36,28 @@ void task_control(void *pvParamters)
 		if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){
 			printf("-\n");
 			printf("- xSemaphoreKommunikation\n");
-			//vTaskResume(*(taskHandler->taskNavigering));
+			vTaskResume(*(taskHandler->taskNavigering));
 			printf("- - - -\n");
 		}
 		if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
 			printf("-\n");
 			printf("- xSemaphoreNavigering\n");	
-			//vTaskResume(*(taskHandler->taskSensor));
-			vTaskResume(*(taskHandler->taskStyrning));		
+			//vTaskResume(*(taskHandler->taskSensor)); //denna ska användas i slutändan
+			//vTaskResume(*(taskHandler->taskStyrning));	//denna är bara för nav-styr-test	
+			vTaskResume(*(taskHandler->taskKommunikation));	//denna är bara för kom-nav-test
 			printf("- - - -\n");					
 		}
 		//if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
 			//printf("-\n");
 			//printf("- xSemaphoreSensor\n");
-			//vTaskResume(*(taskHandler->taskStyrning));
+			//vTaskResume(*(taskHandler->taskStyrning));	//denna ska användas i slutändan
 			//printf("- - - -\n");
 		//}
 		if(xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 			printf("- -\n");
 			printf("- xSemaphoreStyrning\n");
-			//vTaskResume(*(taskHandler->taskKommunikation));
-			vTaskResume(*(taskHandler->taskNavigering));
+			//vTaskResume(*(taskHandler->taskKommunikation));	//denna ska användas i slutändan
+			//vTaskResume(*(taskHandler->taskNavigering));	//denna är bara för nav-styr-test
 			printf("- - - -\n");		
 		}
 

@@ -15,6 +15,22 @@
 #define TASK_SENSOR_STACK_SIZE (2048/ sizeof(portSTACK_TYPE))
 #define TASK_SENSOR_PRIORITY   (2)
 
+#define OBJECT_PROXIMITY 500
+#define US_OFFSET 0
+#define IR_OFFSET 180
+
+uint32_t US_currentdistance;
+
+uint16_t US_edgeLeft;
+uint16_t US_edgeRight;
+uint16_t US_objectCentre;
+
+uint16_t IR_edgeLeft;
+uint16_t IR_edgeRight;
+uint16_t IR_objectCentre;
+
+void initEdges(void);
+
 void task_sensor(void *pvParamters);
 
 

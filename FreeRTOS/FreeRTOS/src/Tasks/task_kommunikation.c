@@ -25,8 +25,6 @@ void task_kommunikation(void *pvParamters)
 		vTaskDelay(xBlockTime);
 		xLastWakeTime = xTaskGetTickCount();
 		
-		//	Uppstart POSITIONERING
-		
 			delay_ms(1000);
 			
 			//Test med fejkad positioneringsdata
@@ -36,6 +34,9 @@ void task_kommunikation(void *pvParamters)
 			printf("\nDu tryckte: ");
 			printInt(j);
 			testNavKom(j);
+			
+			xSemaphoreGive(xSemaphoreKommunikation);
+			vTaskSuspend(NULL);
 	}
 		
 	printf("\nKommunikation out");
@@ -43,6 +44,8 @@ void task_kommunikation(void *pvParamters)
 	vTaskSuspend(NULL);
 }
 
+
+//--------------- Test för KOM-NAV --------------------------------------------------------
 void testNavKom(int jin)
 {
 	double  x1=0.0;
@@ -58,31 +61,7 @@ void testNavKom(int jin)
 	
 	int t = jin;
 	
-	//if (t == 0)
-	//{
-	//printf("meep, meep\n");
-	//continue;
-	//}
-	
-	if(t == 1)	//rotera 90grader!
-	{
-		x5 = 20.0;	//kulans testpos
-		x6 = 50.0;
-		
-		x9 = 20.0;	//robotens testpos
-		x10 = 10.0;
-		
-		testWhat = 0;	//variabel för att (0) endast köra rotationstest
-	} else if(t == 2)	//rotera 180grader!
-	{
-		x5 = 200.0;	//kulans testpos
-		x6 = 200.0;
-		
-		x9 = 400.0;	//robotens testpos
-		x10 = 200.0;
-		
-		testWhat = 0;	//variabel för att (0) endast köra rotationstest
-	} else if(t == 3)	//rotera 270grader!
+	if(t == 1)	//TC0 
 	{
 		x5 = 20.0;	//kulans testpos
 		x6 = 20.0;
@@ -90,23 +69,16 @@ void testNavKom(int jin)
 		x9 = 20.0;	//robotens testpos
 		x10 = 50.0;
 		
-		testWhat = 0;	//variabel för att (0) endast köra rotationstest
-	} else if(t == 4)	//rotera 0grader!
-	{
-		x5 = 300.0;	//kulans testpos
-		x6 = 100.0;
+		testWhat = 0;	//variabel för att (0) endast se så data delas
 		
-		x9 = 150.0;	//robotens testpos
-		x10 = 100.0;
+	} else if(t == 2)	//TC1
+	{		
+		testWhat = 1;	//variabel för att (1) beräkna avstånd från datan
 		
-		testWhat = 0;	//variabel för att (0) endast köra rotationstest
-	} else if(t == 5)
+	} else if(t == 3)	//TC2
 	{
-		testWhat = 1;	//variabel för att (1) endast köra distanstest
-	} else if(t == 6)
-	{
-		testWhat = 2;	//variabel för att (2) köra test med rotation/distans-kombo
-	}
+		testWhat = 2;	//variabel för att (2) beräkna vinkel från datan
+	} 
 	fakePositionUpdate(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
 	printf("testNavKomFunction done");
 	
@@ -157,7 +129,8 @@ void fakePositionUpdate(double xBox,double  yBox,double  xCube,double  yCube,dou
 		{
 			y_koord_Robot = posRead[i];
 		}
-		printInt(posRead[i]);
+		//printInt(posRead[i]);
 	}
 	printf("fakePositionUpdateFunction done");
 }
+//------------------------------------------------------------------------------------------

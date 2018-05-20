@@ -91,15 +91,19 @@ int main (void)
 	vSemaphoreCreateBinary(xSemaphoreReglering);
 	
 	//Semaphores are configured, task1 will be resumed in task_control.c
-	xSemaphoreTake(xSemaphoreKommunikation,0);
+	//xSemaphoreTake(xSemaphoreKommunikation,0);
 	//xSemaphoreTake(xSemaphoreNavigering, 0); 
-	xSemaphoreTake(xSemaphoreNavigering, 0); 
-	xSemaphoreTake(xSemaphoreSensor,0);
-	//xSemaphoreGive(xSemaphoreStyrning); 
+	//xSemaphoreTake(xSemaphoreNavigering, 0); 
+	//xSemaphoreTake(xSemaphoreSensor,0);
+	//xSemaphoreGive(xSemaphoreStyrning); //GLÖM EJ ATT AVKOMMENTERA DESSA EFTER DE OLIKA TESTEN
 	
 	//Test Nav-Styr
-	xSemaphoreGive(xSemaphoreNavigering);
-	xSemaphoreTake(xSemaphoreStyrning,0); 
+	//xSemaphoreGive(xSemaphoreNavigering);
+	//xSemaphoreTake(xSemaphoreStyrning,0);
+	
+	//Test Kom-Nav
+	 xSemaphoreGive(xSemaphoreKommunikation);
+	 xSemaphoreTake(xSemaphoreNavigering,0);
 
 	printf("Creating task handler...\n");
 	

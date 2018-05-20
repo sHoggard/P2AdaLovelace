@@ -792,6 +792,9 @@
     <Compile Include="src\Sensor\Ultraljud.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\Sensor\Ultraljud.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\Tasks\task_kommunikation.c">
       <SubType>compile</SubType>
     </Compile>
