@@ -23,11 +23,11 @@ uint32_t US_currentdistance;
 
 uint16_t US_edgeLeft;
 uint16_t US_edgeRight;
-uint16_t US_objectCentre;
 
 uint16_t IR_edgeLeft;
 uint16_t IR_edgeRight;
-uint16_t IR_objectCentre;
+
+uint16_t objectCentre;
 
 void initEdges(void);
 

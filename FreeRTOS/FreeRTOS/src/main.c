@@ -24,6 +24,7 @@
 #include "Tasks/task_control.h"
 #include "Movement/Movement.h"
 #include "ADC/sampel_int.h"
+//#include "TWI_Kommunikationen/I2CFunctions.h"
 
 
 volatile xHandlerParameters *xHandler;
@@ -47,6 +48,9 @@ int main (void)
 	configureConsole();
 	// Insert application code here, after the board has been initialized.
 	ioport_init();
+	
+	//init_twi();
+	//send_package(0x20, 0x8);
 	
 	//Check pin for the TC-handler
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);
@@ -84,7 +88,6 @@ int main (void)
 	//Semaphores are configured, task1 will be resumed in task_control.c
 	//xSemaphoreTake(xSemaphoreKommunikation,0);
 	//xSemaphoreTake(xSemaphoreNavigering, 0); 
-	//xSemaphoreTake(xSemaphoreNavigering, 0); 
 	//xSemaphoreTake(xSemaphoreSensor,0);
 	//xSemaphoreGive(xSemaphoreStyrning); //GLÖM EJ ATT AVKOMMENTERA DESSA EFTER DE OLIKA TESTEN
 	
@@ -93,7 +96,12 @@ int main (void)
 	//xSemaphoreTake(xSemaphoreStyrning,0);
 	
 	//Test Kom-Nav
-	 xSemaphoreGive(xSemaphoreKommunikation);
+	 //xSemaphoreGive(xSemaphoreKommunikation);
+	 //xSemaphoreTake(xSemaphoreNavigering,0);
+	 
+	 //Test Nav-Sens-Styr
+	 xSemaphoreGive(xSemaphoreSensor);
+	 //xSemaphoreTake(xSemaphoreStyrning,0);
 	 xSemaphoreTake(xSemaphoreNavigering,0);
 
 	printf("Creating task handler...\n");
@@ -114,12 +122,12 @@ int main (void)
 		printf("task_navigering created...\n");
 		
 	}
-	//xReturned = xTaskCreate(task_sensor, (const signed char * const) "sensor", TASK_SENSOR_STACK_SIZE, NULL, TASK_SENSOR_PRIORITY, &taskHandlerSensor);
-	//if( xReturned == pdPASS )
-	//{
-		//printf("task_sensor created...\n");
-		//
-	//}
+	xReturned = xTaskCreate(task_sensor, (const signed char * const) "sensor", TASK_SENSOR_STACK_SIZE, NULL, TASK_SENSOR_PRIORITY, &taskHandlerSensor);
+	if( xReturned == pdPASS )
+	{
+		printf("task_sensor created...\n");
+		
+	}
 	xReturned = xTaskCreate(task_styrning, (const signed char * const) "styrning", TASK_STYRNING_STACK_SIZE, (void *) xHandler, TASK_STYRNING_PRIORITY, &taskHandlerStyrning);
 	if( xReturned == pdPASS )
 	{

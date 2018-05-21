@@ -33,33 +33,34 @@ void task_control(void *pvParamters)
 		//printf("task_control\n");
 		xLastWakeTime = xTaskGetTickCount();
 		
-		if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){
-			printf("-\n");
-			printf("- xSemaphoreKommunikation\n");
-			vTaskResume(*(taskHandler->taskNavigering));
-			printf("- - - -\n");
-		}
+		//if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){
+			//printf("-\n");
+			//printf("- xSemaphoreKommunikation\n");
+			//vTaskResume(*(taskHandler->taskNavigering));
+			//printf("- - - -\n");
+		//}
 		if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
 			printf("-\n");
 			printf("- xSemaphoreNavigering\n");	
-			//vTaskResume(*(taskHandler->taskSensor)); //denna ska användas i slutändan
+			vTaskResume(*(taskHandler->taskSensor)); //denna ska användas i slutändan
 			//vTaskResume(*(taskHandler->taskStyrning));	//denna är bara för nav-styr-test	
-			vTaskResume(*(taskHandler->taskKommunikation));	//denna är bara för kom-nav-test
+			//vTaskResume(*(taskHandler->taskKommunikation));	//denna är bara för kom-nav-test
 			printf("- - - -\n");					
 		}
-		//if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
-			//printf("-\n");
-			//printf("- xSemaphoreSensor\n");
+		if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
+			printf("-\n");
+			printf("- xSemaphoreSensor\n");
 			//vTaskResume(*(taskHandler->taskStyrning));	//denna ska användas i slutändan
-			//printf("- - - -\n");
-		//}
-		if(xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
-			printf("- -\n");
-			printf("- xSemaphoreStyrning\n");
-			//vTaskResume(*(taskHandler->taskKommunikation));	//denna ska användas i slutändan
-			//vTaskResume(*(taskHandler->taskNavigering));	//denna är bara för nav-styr-test
-			printf("- - - -\n");		
+			vTaskResume(*(taskHandler->taskNavigering));	//denna är bara för nav-sens-test
+			printf("- - - -\n");
 		}
+		//if(xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
+			//printf("- -\n");
+			//printf("- xSemaphoreStyrning\n");
+			////vTaskResume(*(taskHandler->taskKommunikation));	//denna ska användas i slutändan
+			//vTaskResume(*(taskHandler->taskNavigering));	//denna är bara för nav-styr-test
+			//printf("- - - -\n");		
+		//}
 
 		//printf("end task_control\n");
 		vTaskDelay(xBlockTime);	

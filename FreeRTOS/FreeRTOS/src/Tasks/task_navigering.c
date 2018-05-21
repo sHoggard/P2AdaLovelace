@@ -41,48 +41,68 @@ void task_navigering(void *pvParamters)
 		float distance = 0.0;
 		float goalAngle = 0.0;
 	
-		if(check_Dist == 1)
-		{
-			vTaskSuspend(NULL);
-		}
-	
-	
 		if(check_PDMM == 1)
 		{
+			//--------------- Test för NAV-SENS ---------------------------------------------------------
+				int j;
+				printf("Tryck 1 om TC0, 2 om TC1 ska köras");
+				scanf("%i", &j);
+				printf("\nDu tryckte: ");
+				printInt(j);
+				
+				if(j == 1)	//Sensor tar över
+				{
+					check_Dist = 0;
+					printf("\ntask_navigering: switch to SCAN_OBJECT\n");
+				}
+					
+				if(j == 2)	//Navigering aktiv igen
+				{
+					check_Dist = 1;
+					printf("\ntask_navigering: TOWARDS_OBJECT\n");
+					//printf("\nNavigering out");
+					
+					//xSemaphoreGive(xSemaphoreSensor);
+					//vTaskSuspend(NULL);
+				}
+			//------------------------------------------------------------------------------------------
+
+			
+			
 			//--------------- Test för KOM-NAV ---------------------------------------------------------
 			
-			if(testWhat == 0)	//TC0
-			{
-				printf("\nTesting communication data transfer to navigation\n");
-				printInt(testWhat);
-				
-				printf("\nStålkulans x-koordinat är: ");
-				printInt(x_koord_Kula);
-				printf("\nStålkulans y-koordinat är: ");
-				printInt(y_koord_Kula);
-				printf("\nRobotens x-koordinat är: ");
-				printInt(x_koord_Robot);
-				printf("\nRobotens y-koordinat är: ");
-				printInt(y_koord_Robot);
-			}
-			
-			if(testWhat == 1)	//TC1
-			{
-				printf("\nTesting distance calculation\n");
-				printInt(testWhat);
-				distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot))*10;
-				printf("Roboten har följande avstånd (i mm) till stålkulan : ");
-				printInt(distance);
-			}
-			
-			if(testWhat == 2)	//TC2
-			{
-				printf("\nTesting angle calculation\n");
-				printInt(testWhat);
-				goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
-				printf("Roboten ska rotera till följande vinkel : ");
-				printInt(goalAngle);
-			}
+			//if(testWhat == 0)	//TC0
+			//{
+				//printf("\nTesting communication data transfer to navigation\n");
+				//printInt(testWhat);
+				//
+				//printf("\nStålkulans x-koordinat är: ");
+				//printInt(x_koord_Kula);
+				//printf("\nStålkulans y-koordinat är: ");
+				//printInt(y_koord_Kula);
+				//printf("\nRobotens x-koordinat är: ");
+				//printInt(x_koord_Robot);
+				//printf("\nRobotens y-koordinat är: ");
+				//printInt(y_koord_Robot);
+			//}
+			//
+			//if(testWhat == 1)	//TC1
+			//{
+				//printf("\nTesting distance calculation\n");
+				//printInt(testWhat);
+				//distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot))*10;
+				//printf("Roboten har följande avstånd (i mm) till stålkulan : ");
+				//printInt(distance);
+			//}
+			//
+			//if(testWhat == 2)	//TC2
+			//{
+				//printf("\nTesting angle calculation\n");
+				//printInt(testWhat);
+				//goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
+				//printf("Roboten ska rotera till följande vinkel : ");
+				//printInt(goalAngle);
+			//}
 				
 			//------------------------------------------------------------------------------------------
 			
@@ -148,12 +168,18 @@ void task_navigering(void *pvParamters)
 			////vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
 			//vTaskSuspend(NULL);
 			//---------------------------------------------------------------------------------------------
+				//rotate(200,-1);	//sätt i rotation för scanning
+				printf("\nNavigering out");
+				xSemaphoreGive(xSemaphoreNavigering);
+				//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+				
+				vTaskSuspend(NULL);
 		}
 	
-	printf("\nNavigering out");
-	xSemaphoreGive(xSemaphoreNavigering);
-	//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
-	vTaskSuspend(NULL);
+	//printf("\nNavigering out");
+	//xSemaphoreGive(xSemaphoreNavigering);
+	////vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+	//vTaskSuspend(NULL);
 			
 	}
 }

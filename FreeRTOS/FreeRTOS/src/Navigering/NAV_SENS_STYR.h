@@ -12,7 +12,7 @@
 uint16_t rotation_angle;
 uint32_t distanceToObject;
 
-double check_Dist;
+double check_Dist; //1 om >500mm	//0 om <=500mm
 
 //int testDistance;
 //int testRotation;
