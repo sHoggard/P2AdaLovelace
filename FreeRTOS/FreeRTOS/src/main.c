@@ -42,6 +42,13 @@
 
 char clrCom[] = {27, '[', '2', 'J', 27, '[', 'H', '\0'};
 
+void test_driveAccuracy(void);
+void test_track(void);
+void test_TWI(void);
+void test_comFunctions(void);
+void test_commandParser(void);
+void test_allocatedAddresses(void);
+
 int main (void)
 {
 	// Insert system clock initialization code here (sysclk_init()).
@@ -54,6 +61,7 @@ int main (void)
 	//membag_init();			// move to initCom()?
 	initMovement();
 	//initCom();
+	time_tick_init();
 	
 	//// testing new wheelcounter strategy
 	//while (true)
@@ -62,138 +70,232 @@ int main (void)
 		//delay_ms(2000);
 	//}
 	
-	time_tick_init();
+	// test TWI
+	//test_TWI();
 	
-	//// test TWI
-	//printf("Starting to read TWI\n");
-	//while (1)
-	//{
-		//if (time_tick_get()%5000 == 0)
-		//{
-			//task_com();
-		//}
-	//}
+	// movement functions
+	test_track();				//initMovement()
 	
+	//test_commandParser();
 	
-	//// movement functions
-	//drive(300, 4000);
-	//while(!isDone())
-	//{
-		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		//{
-			//task_movement();		// takes more than 1 ms
-		//}
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_movement();
-			//task_regulate();
-		//}
-	//}
-	//rotate(20, 270);
-	//while(!isDone())
-	//{
-		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		//{
-			//task_movement();		// takes more than 1 ms
-		//}
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_movement();
-			//task_regulate();
-		//}
-	//}
-	//drive(200, 2000);
-	//while(!isDone())
-	//{
-		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		//{
-			//task_movement();		// takes more than 1 ms
-		//}
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_movement();
-			//task_regulate();
-		//}
-	//}
-	//rotate(20, 180);
-	//while(!isDone())
-	//{
-		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		//{
-			//task_movement();		// takes more than 1 ms
-		//}
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_movement();
-			//task_regulate();
-		//}
-	//}
-	//drive(400, 2000);
-	//while(!isDone())
-	//{
-		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		//{
-			//task_movement();		// takes more than 1 ms
-		//}
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_movement();
-			//task_regulate();
-		//}
-	//}
-	//rotate(20, 135);
-	//while(!isDone())
-	//{
-		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		//{
-			//task_movement();		// takes more than 1 ms
-		//}
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_movement();
-			//task_regulate();
-		//}
-	//}
-	//drive(300, 2828);
-	//while(!isDone())
-	//{
-		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		//{
-			//task_movement();		// takes more than 1 ms
-		//}
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_movement();
-			//task_regulate();
-		//}
-	//}
-	//rotate(20, 360);
-	//while(!isDone())
-	//{
-		//if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		//{
-			//task_movement();		// takes more than 1 ms
-		//}
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_movement();
-			//task_regulate();
-		//}
-	//}
-	//while(1)
-	//{
-		//printf("Test drive done\n");
-	//}
+	//test_bufferFunctions()	//membag_init(), initCom()
 	
-	//// test_bufferFunctions()
-	//while(1)
-	//{
-		//if (time_tick_get()%100 == 0)
-		//{
-			//task_com();
-		//}
-	//}
+	//char buffer[20];
 	
+	int speed = 100;
+	
+	// test actual speed
+	scanf("%i", &speed);
+	printf("speed: %i\n\n", speed);
+	//setMotorSpeed(MOTOR_BRAKE + speed, MOTOR_BRAKE + speed);
+	
+	int counter = 0;
+	
+	while (1)
+	{
+		if (time_tick_get()%100 == 0)
+		{
+			//fputs(clrCom, stdout);
+			//puts(itoa(counterLeft, buffer, 10));
+			//puts(itoa(counterRight, buffer, 10));
+			//puts(itoa(orientation(), buffer, 10));
+			//puts(itoa(regulated_speed.left, buffer, 10));
+			//puts(itoa(regulated_speed.right, buffer, 10));
+			//puts(itoa(regulated_speed.target, buffer, 10));
+			////drive(speed, 0);
+			//test_movement();
+			//if (speed < 500)
+			//{
+				//speed++;
+			//}
+			printf("%i: \n", counter++);
+			test_movement();
+			printf("\n");
+			delay_ms(1);
+		}
+	}
+	
+	// test accuracy of distance measurement
+	test_driveAccuracy();
+}
+
+void test_driveAccuracy()
+{
+	uint32_t start = time_tick_get();
+	int speed = 100;
+	scanf("%i", &speed);
+	printf("speed: %i\n\n", speed);
+	drive(speed, 5000);
+	if (time_tick_get() > start + 10000)
+		{
+			printf("distance travelled after 10 seconds: %i\n", (int)(distanceLeft + distanceRight)/2);
+			drive(0, 0);
+			test_movement();
+			delay_ms(5000);
+		}
+}
+
+void test_track()
+{
+	drive(300, 4000);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_movement();
+			task_regulate();
+		}
+	}
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	rotate(50, 270);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_movement();
+			task_regulate();
+		}
+	}
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	drive(200, 2000);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_movement();
+			task_regulate();
+		}
+	}
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	rotate(50, 180);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_movement();
+			task_regulate();
+		}
+	}
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	drive(400, 2000);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_movement();
+			task_regulate();
+		}
+	}
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	rotate(50, 135);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_movement();
+			task_regulate();
+		}
+	}
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	drive(300, 2828);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_movement();
+			task_regulate();
+		}
+	}
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	rotate(50, 0);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_movement();
+			task_regulate();
+		}
+	}
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	while(1)
+	{
+		printf("Test drive done\n");
+	}
+}
+
+void test_TWI()
+{
+	printf("Starting to read TWI\n");
+	while (1)
+	{
+		if (time_tick_get()%5000 == 0)
+		{
+			task_com();
+		}
+	}
+}
+
+void test_comFunctions()
+{
+	while(1)
+	{
+		if (time_tick_get()%100 == 0)
+		{
+			task_com();
+		}
+	}
+}
+
+void test_commandParser()
+{
 	char tempCommand = 's';
 	int tempSpeed = 0;
 	int tempDistance = 0;
@@ -254,60 +356,13 @@ int main (void)
 		}
 		delay_ms(1);
 	}
-	
+}
+
+void test_allocatedAddresses()
+{
 	initCom();
 	delay_ms(1000);
 	initCom();
 	delay_ms(1000);
 	initCom();
-	
-	char buffer[20];
-	
-	int speed = 100;
-	
-	scanf("%i", &speed);
-	
-	// test actual speed
-	uint32_t start = time_tick_get();
-	
-	drive(speed, 5000);
-	
-	printf("speed: %i\n\n", speed);
-	
-	//setMotorSpeed(MOTOR_BRAKE + speed, MOTOR_BRAKE + speed);
-	
-	int counter = 0;
-	
-	while (1)
-	{
-		if (time_tick_get()%100 == 0)
-		{
-			//fputs(clrCom, stdout);
-			//puts(itoa(counterLeft, buffer, 10));
-			//puts(itoa(counterRight, buffer, 10));
-			//puts(itoa(orientation(), buffer, 10));
-			//puts(itoa(regulated_speed.left, buffer, 10));
-			//puts(itoa(regulated_speed.right, buffer, 10));
-			//puts(itoa(regulated_speed.target, buffer, 10));
-			////drive(speed, 0);
-			//test_movement();
-			//if (speed < 500)
-			//{
-				//speed++;
-			//}
-			printf("%i: \n", counter++);
-			test_movement();
-			printf("\n");
-			delay_ms(1);
-		}
-	
-		// test accuracy of distance measurement
-		//if (time_tick_get() > start + 10000)
-		//{
-			//printf("distance travelled after 10 seconds: %i\n", (int)(distanceLeft + distanceRight)/2);
-			//drive(0, 0);
-			//test_movement();
-			//delay_ms(5000);
-		//}
-	}
 }

@@ -110,8 +110,13 @@
 		rightCorrection = rightCorrection + u;
 		speedCorrection += Pspeed;
 
+		#ifdef SPEED_REGULATION
 		regulated_speed.left = leftCorrection + speedCorrection;
 		regulated_speed.right = rightCorrection + speedCorrection;
+		#else
+		regulated_speed.left += leftCorrection;
+		regulated_speed.right += rightCorrection;
+		#endif //SPEED_REGULATION
 
 		//switch (mode_movement)
 		//{

@@ -12,6 +12,15 @@
 void initDecoders()
 {
 	puts("initDecoders");
+	#ifdef SOFTDEC
+	puts("Software decoding");
+	#endif
+	#ifdef ISR_OVERRIDE
+	puts("PIOC_Handler overridden");
+	#endif
+	#ifdef HARDDEC
+	puts("Hardware decoding");
+	#endif
 	
 	#ifdef SOFTDEC
 	pio_set_input(PIOC, MASK_SENSORS, PIO_PULLUP);
