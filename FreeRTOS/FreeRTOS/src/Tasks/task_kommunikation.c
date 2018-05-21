@@ -8,7 +8,7 @@
 
 #include "task_kommunikation.h"
 #include <asf.h>
-#include "../TWI_Kommunikationen/I2CFunctions.h"
+#include "../TWI_Kommunikationen/TWI_Handler.h"
 #define xBlockTime 5
 #include "../Navigering/angleCalculation.h"
 
@@ -25,15 +25,32 @@ void task_kommunikation(void *pvParamters)
 		vTaskDelay(xBlockTime);
 		xLastWakeTime = xTaskGetTickCount();
 		
-			delay_ms(1000);
+		delay_ms(1000);
+		init_twi();
+	
+	
+
+		//	Example code, send and receive
+		/*printf("Start Send\n");
+		transmit_package(0x20, SLAVE_ADDRESS_PABYGGNAD);
+		printf("end Send\n");
+		delay_ms(1000);
+		// Läser från påbyggnaden och skriver ut från på byggnaden
+		receive_package(SLAVE_ADDRESS_PABYGGNAD);
+		for(int i=0;i<10;i++)
+		{
+			printf(" %d",receive_data_pabyggnad[i]);
+		}*/
+		
+	//	delay_ms(1000);
 			
 			//Test med fejkad positioneringsdata
-			int j;
-			printf("Tryck 1 om TC0, 2 om TC1, 3 om TC2 ska köras");
-			scanf("%i", &j);
-			printf("\nDu tryckte: ");
-			printInt(j);
-			testNavKom(j);
+			//int j;
+			//printf("Tryck 1 om TC0, 2 om TC1, 3 om TC2 ska köras");
+			//scanf("%i", &j);
+			//printf("\nDu tryckte: ");
+			//printInt(j);
+			//testNavKom(j);
 			
 			xSemaphoreGive(xSemaphoreKommunikation);
 			vTaskSuspend(NULL);

@@ -54,11 +54,9 @@ src\Tasks\task_styrning.c
 
 src\TimeTick\time_tick_sam.c
 
-src\TWI_Kommunikationen\I2CFunctions.c
-
 src\TWI_Kommunikationen\main_KOM.c
 
-src\TWI_Kommunikationen\test.c
+src\TWI_Kommunikationen\TWI_Handler.c
 
 src\Utilities\ConsoleFunctions\consoleFunctions.c
 

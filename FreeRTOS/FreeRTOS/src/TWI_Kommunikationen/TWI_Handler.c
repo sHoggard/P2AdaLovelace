@@ -1,29 +1,28 @@
 /*
- * I2CFunctions.c
+ * 
+ * TWI_Handler.c
+ * 
+ * 
+ * Author: Björn Berggren
  *
-
  */
 
 #include <asf.h>
-#include "I2CFunctions.h"
+#include "TWI_Handler.h"
 
 
 /*-------------- Definitions ---------------*/
 #define TWI_SPEED					100000					/* Default I2C transfer speed = 100.000 */						
 #define TWI_SLAVE_MEM_ADDR			0x00					
 #define TWI_PORT					TWI1					/* Use SDA 20 and SCL 21 on Arduino Due */ 
-#define TWI_DATA_SEND_LENGTH_PA		1						/* The length of the package that is sent to PAB */
-#define TWI_DATA_SEND_LENGTH_POS	1						/* The length of the package that is sent to POS */
-#define TWI_DATA_REC_LENGTH_PA		1						/* The length of the package that is received from PAB */
-#define TWI_DATA_REC_LENGTH_POS		10						/* The length of the package that is received from POS */
-/*------------------------------------------*/						
-
+		
 
 /*-------------- Packet related ------------*/
-uint8_t send_data_pab[TWI_DATA_SEND_LENGTH_PA]	= {};		/* stores the data which will be sent to UNO */
-uint8_t send_data_pos[TWI_DATA_SEND_LENGTH_POS] = {};		/* stores the data which will be sent to MEGA */
-uint8_t rec_data_pab[TWI_DATA_REC_LENGTH_PA]	= {};		/* stores the data which will be received from UNO */
-uint8_t rec_data_pos[TWI_DATA_REC_LENGTH_POS]	= {};		/* stores the data which will be received from MEGA */
+uint8_t transmit_data_pabyggnad[TRANSMIT_LENGTH_PABYGGNAD]= {};		/* stores the data which will be sent to UNO */
+uint8_t transmit_data_positionering[TRANSMIT_LENGTH_POSITIONERING]= {};		/* stores the data which will be sent to MEGA */
+uint8_t receive_data_pabyggnad[RECEIVE_LENGTH_PABYGGNAD]= {};		/* stores the data which will be received from UNO */
+uint8_t receive_data_positionering[RECEIVE_LENGTH_POSITIONERING]= {};		/* stores the data which will be received from MEGA */
+
 
 
 	/* ---------- Packets to send ---------- */
@@ -31,18 +30,18 @@ uint8_t rec_data_pos[TWI_DATA_REC_LENGTH_POS]	= {};		/* stores the data which wi
 		.addr[0]		= TWI_SLAVE_MEM_ADDR,				/* TWI slave memory address data (Most significant bit) */
 		.addr[1]		= 0,								/* Least significant bit */
 		.addr_length	= 0,								/* Length of the TWI data address segment (1-3 bytes) (TWI slave memory address data size) */
-		.chip			= TWI_SLAVE_ADR_PAB,				/* TWI chip address to communicate with (TWI slave bus address) */
-		.buffer			= (void *) send_data_pab,			/* transfer data source buffer (pointer on the data to write to slave) */
-		.length			= TWI_DATA_SEND_LENGTH_PA			/* How many bytes do we want to transfer (bytes) */
+		.chip			= SLAVE_ADDRESS_PABYGGNAD,				/* TWI chip address to communicate with (TWI slave bus address) */
+		.buffer			= (void *) transmit_data_pabyggnad,			/* transfer data source buffer (pointer on the data to write to slave) */
+		.length			= TRANSMIT_LENGTH_PABYGGNAD			/* How many bytes do we want to transfer (bytes) */
 	};
 
 	twi_package_t packet_pos = {
 		.addr[0]		= TWI_SLAVE_MEM_ADDR,					
 		.addr[1]		= 0,									
 		.addr_length	= 0,									
-		.chip			= TWI_SLAVE_ADR_POS,					
-		.buffer			= (void *) send_data_pos,				
-		.length			= TWI_DATA_SEND_LENGTH_POS				
+		.chip			= SLAVE_ADDRESS_POSITIONERING,					
+		.buffer			= (void *) transmit_data_positionering,				
+		.length			= TRANSMIT_LENGTH_POSITIONERING				
 	};
 	/* ------------------------------------ */
 
@@ -51,9 +50,9 @@ uint8_t rec_data_pos[TWI_DATA_REC_LENGTH_POS]	= {};		/* stores the data which wi
 		.addr[0]		= TWI_SLAVE_MEM_ADDR,
 		.addr[1]		= 0,
 		.addr_length	= 0,
-		.chip			= TWI_SLAVE_ADR_PAB,
-		.buffer			= (void *) rec_data_pab,
-		.length			= TWI_DATA_REC_LENGTH_PA
+		.chip			= SLAVE_ADDRESS_PABYGGNAD,
+		.buffer			= (void *) receive_data_pabyggnad,
+		.length			= RECEIVE_LENGTH_PABYGGNAD
 	};
 	
 	twi_package_t packet_rec_pos = 
@@ -61,9 +60,9 @@ uint8_t rec_data_pos[TWI_DATA_REC_LENGTH_POS]	= {};		/* stores the data which wi
 		.addr[0]		= TWI_SLAVE_MEM_ADDR,
 		.addr[1]		= 0,
 		.addr_length	= 0,
-		.chip			= TWI_SLAVE_ADR_POS,
-		.buffer			= (void *) rec_data_pos,
-		.length			= TWI_DATA_REC_LENGTH_POS
+		.chip			= SLAVE_ADDRESS_POSITIONERING,
+		.buffer			= (void *) receive_data_positionering,
+		.length			= RECEIVE_LENGTH_POSITIONERING
 	};
 	/* ------------------------------------ */
 
@@ -93,16 +92,16 @@ uint8_t init_twi(void)
 /*
  *	Sends a packet (1 byte) to the slave (uno or mega)
  */
-uint8_t send_package(uint8_t data, uint8_t slave)
+uint8_t transmit_package(uint8_t data, uint8_t slave)
 {
 		
 	/* Send to Påbyggnadsenhet (UNO) */
-	if(TWI_SLAVE_ADR_PAB == slave)
-		return twi_send(send_data_pab, data, packet_pab, TWI_SLAVE_ADR_PAB);
+	if(SLAVE_ADDRESS_PABYGGNAD == slave)
+		return twi_send(transmit_data_pabyggnad, data, packet_pab, SLAVE_ADDRESS_PABYGGNAD);
 		
 	/* Send to Positioneringsenhet (MEGA) */
-	else if(TWI_SLAVE_ADR_POS == slave)
-		return twi_send(send_data_pos, data, packet_pos, TWI_SLAVE_ADR_POS);
+	else if(SLAVE_ADDRESS_POSITIONERING == slave)
+		return twi_send(transmit_data_positionering, data, packet_pos, SLAVE_ADDRESS_POSITIONERING);
 		
 	else
 		return !TWI_SUCCESS;
@@ -125,12 +124,12 @@ uint8_t twi_send(uint8_t data_arr[], uint8_t data, twi_packet_t packet, uint8_t 
 }
 
 
-uint8_t read_package(uint8_t slave)
+uint8_t receive_package(uint8_t slave)
 {
-	if (slave == TWI_SLAVE_ADR_PAB)
-		return twi_read(rec_data_pab, TWI_DATA_REC_LENGTH_PA, packet_rec_pab);
-	else if (slave == TWI_SLAVE_ADR_POS)
-		return twi_read(rec_data_pos, TWI_DATA_REC_LENGTH_POS, packet_rec_pos);
+	if (slave == SLAVE_ADDRESS_PABYGGNAD)
+		return twi_read(receive_data_pabyggnad, RECEIVE_LENGTH_PABYGGNAD, packet_rec_pab);
+	else if (slave == SLAVE_ADDRESS_POSITIONERING)
+		return twi_read(receive_data_positionering, RECEIVE_LENGTH_POSITIONERING, packet_rec_pos);
 	else
 		return !TWI_SUCCESS;
 }
@@ -142,10 +141,27 @@ uint8_t twi_read(uint8_t rec_data[], uint8_t data_length, twi_packet_t packet_re
 	{
 		printf("reading IF STATE...\n");
 		for(int i = 0; i < data_length; i++)
-			printf("%i\n", rec_data_pos[i]);
 		return DATA_READ;
 	}
 	else
 		return DATA_NOT_READ;
 }
 
+uint8_t console_init(void)
+{
+	const usart_serial_options_t uart_serial_options = {
+		.baudrate = CONF_UART_BAUDRATE,
+		.paritytype = CONF_UART_PARITY
+	};
+
+	/* Configure console UART. */
+	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
+	stdio_serial_init(CONF_UART, &uart_serial_options);
+	
+	printf("Console ready\n");
+	printf("=============\n");
+	return 0;
+}
+	
+
+	
