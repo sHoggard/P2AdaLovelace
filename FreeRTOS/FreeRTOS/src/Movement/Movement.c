@@ -325,7 +325,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			break;
 	}
 	#ifdef DEBUG_PRINTS
-	printf("targetSpeed: %li\n", targetSpeed);
+	printf("targetSpeed: %i\n", targetSpeed);
 	#endif
 	
 	// send to regulator
