@@ -62,6 +62,13 @@
 // From module: Delay routines
 #include <delay.h>
 
+// From module: FreeRTOS - PDC Interface Layer
+#include <freertos_peripheral_control.h>
+#include <freertos_peripheral_control_private.h>
+
+// From module: FreeRTOS - TWI Interface Layer
+#include <freertos_twi_master.h>
+
 // From module: FreeRTOS mini Real-Time Kernel
 #include <FreeRTOS.h>
 #include <FreeRTOS_CLI.h>
@@ -87,6 +94,12 @@
 
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
+
+// From module: MEMBAG Memory Bag Allocator
+#include <membag.h>
+
+// From module: PDC - Peripheral DMA Controller Example
+#include <pdc.h>
 
 // From module: PIO - Parallel Input/Output Controller
 #include <pio.h>
@@ -115,6 +128,15 @@
 
 // From module: TRNG - True Random Number Generator Register
 #include <trng.h>
+
+// From module: TWI - Two-Wire Interface - SAM implementation
+#include <sam_twi/twi_master.h>
+#include <sam_twi/twi_slave.h>
+#include <twi_master.h>
+#include <twi_slave.h>
+
+// From module: TWI - Two-wire Interface
+#include <twi.h>
 
 // From module: UART - Univ. Async Rec/Trans
 #include <uart.h>
