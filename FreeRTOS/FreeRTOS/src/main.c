@@ -37,17 +37,23 @@
 #include "TimeTick/time_tick.h"
 #include "Utilities/ConsoleFunctions/consoleFunctions.h"
 #include "Com/Com.h"
+#include "Com/KOM_NAV.h"
 
 #include "Movement/__vars.h"
 
 char clrCom[] = {27, '[', '2', 'J', 27, '[', 'H', '\0'};
 
 void test_driveAccuracy(void);
-void test_track(void);
+void test_track(bool);
 void test_TWI(void);
 void test_comFunctions(void);
 void test_commandParser(void);
 void test_allocatedAddresses(void);
+void test_pickupObject(int);
+void test_dropOffObject(void);
+void test_regulatedDrive(uint16_t, uint32_t, bool);
+void test_regulatedRotate(uint16_t, uint16_t, bool);
+void test_regulatedComControl(void);
 
 int main (void)
 {
@@ -58,9 +64,9 @@ int main (void)
 
 	// Insert application code here, after the board has been initialized.
 	
-	//membag_init();			// move to initCom()?
+	membag_init();			// move to initCom()?
 	initMovement();
-	//initCom();
+	initCom();
 	time_tick_init();
 	
 	//// testing new wheelcounter strategy
@@ -70,11 +76,15 @@ int main (void)
 		//delay_ms(2000);
 	//}
 	
+	//drive(50, 0);
+	
 	// test TWI
 	//test_TWI();
 	
+	//test_pickupObject(3);
+	
 	// movement functions
-	test_track();				//initMovement()
+	test_track(1);				//initMovement()
 	
 	//test_commandParser();
 	
@@ -135,139 +145,59 @@ void test_driveAccuracy()
 		}
 }
 
-void test_track()
+void test_track(bool f_TWI)
 {
-	drive(300, 4000);
-	while(!isDone())
-	{
-		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		{
-			task_movement();		// takes more than 1 ms
-		}
-		if (time_tick_get()%100 == 0)
-		{
-			task_movement();
-			task_regulate();
-		}
-	}
+	test_comFunctions();
+	delay_ms(500);
+	test_comFunctions();
+	delay_ms(500);
+	test_comFunctions();
+	printf("First leg\n");
+	test_regulatedDrive(300, 4000, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	rotate(50, 270);
-	while(!isDone())
-	{
-		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		{
-			task_movement();		// takes more than 1 ms
-		}
-		if (time_tick_get()%100 == 0)
-		{
-			task_movement();
-			task_regulate();
-		}
-	}
+	printf("Second leg\n");
+	test_regulatedRotate(100, 270, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	drive(200, 2000);
-	while(!isDone())
-	{
-		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		{
-			task_movement();		// takes more than 1 ms
-		}
-		if (time_tick_get()%100 == 0)
-		{
-			task_movement();
-			task_regulate();
-		}
-	}
+	test_regulatedDrive(200, 2000, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	rotate(50, 180);
-	while(!isDone())
-	{
-		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		{
-			task_movement();		// takes more than 1 ms
-		}
-		if (time_tick_get()%100 == 0)
-		{
-			task_movement();
-			task_regulate();
-		}
-	}
+	printf("Third leg\n");
+	test_regulatedRotate(100, 180, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	drive(400, 2000);
-	while(!isDone())
-	{
-		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		{
-			task_movement();		// takes more than 1 ms
-		}
-		if (time_tick_get()%100 == 0)
-		{
-			task_movement();
-			task_regulate();
-		}
-	}
+	test_regulatedDrive(400, 2000, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	rotate(50, 135);
-	while(!isDone())
-	{
-		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		{
-			task_movement();		// takes more than 1 ms
-		}
-		if (time_tick_get()%100 == 0)
-		{
-			task_movement();
-			task_regulate();
-		}
-	}
+	test_pickupObject(data_extension.type_object);
+	printf("Fourth leg\n");
+	test_regulatedRotate(100, 135, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	drive(300, 2828);
-	while(!isDone())
-	{
-		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		{
-			task_movement();		// takes more than 1 ms
-		}
-		if (time_tick_get()%100 == 0)
-		{
-			task_movement();
-			task_regulate();
-		}
-	}
+	test_regulatedDrive(300, 2828, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	rotate(50, 0);
-	while(!isDone())
-	{
-		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
-		{
-			task_movement();		// takes more than 1 ms
-		}
-		if (time_tick_get()%100 == 0)
-		{
-			task_movement();
-			task_regulate();
-		}
-	}
+	printf("Reset\n");
+	test_regulatedRotate(100, 0, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
+	if (data_extension.type_object != 0)
+	{
+		test_dropOffObject();
+	}
 	while(1)
 	{
 		printf("Test drive done\n");
+		delay_ms(500);
 	}
 }
 
@@ -276,22 +206,39 @@ void test_TWI()
 	printf("Starting to read TWI\n");
 	while (1)
 	{
-		if (time_tick_get()%5000 == 0)
+		if (time_tick_get()%100 == 0)
 		{
-			task_com();
+			task_regulate();
+			task_movement();
+			delay_ms(1);
+		}
+		if (time_tick_get()%2000 == 0)
+		{
+			test_comFunctions();
 		}
 	}
 }
 
 void test_comFunctions()
 {
-	while(1)
-	{
-		if (time_tick_get()%100 == 0)
-		{
-			task_com();
-		}
-	}
+	task_com();
+	printf("Extension ID: 0x%x\n", data_extension.ID);
+	printf("Object distance: %i\n", data_extension.distance_object);
+	printf("Object bearing: %i\n", data_extension.bearing_object);
+	printf("Dropzone distance: %i\n", data_extension.distance_dropzone);
+	printf("Dropzone bearing: %i\n", data_extension.bearing_dropzone);
+	printf("Maximum speed: %i\n", data_extension.max_speed);
+	printf("Object type: %i\n", data_extension.type_object);
+	printf("x_koord_Box: %i\n", (int)x_koord_Box);
+	printf("y_koord_Box: %i\n", (int)y_koord_Box);
+	printf("x_koord_Kub: %i\n", (int)x_koord_Kub);
+	printf("y_koord_Kub: %i\n", (int)y_koord_Kub);
+	printf("x_koord_Kula: %i\n", (int)x_koord_Kula);
+	printf("y_koord_Kula: %i\n", (int)y_koord_Kula);
+	printf("x_koord_Vinglas: %i\n", (int)x_koord_Vinglas);
+	printf("y_koord_Vinglas: %i\n", (int)y_koord_Vinglas);
+	printf("x_koord_Robot: %i\n", (int)x_koord_Robot);
+	printf("y_koord_Robot: %i\n", (int)y_koord_Robot);
 }
 
 void test_commandParser()
@@ -309,6 +256,7 @@ void test_commandParser()
 			if (time_tick_get()%100 == 0)
 			{
 				task_regulate();
+				delay_ms(1);
 			}
 			task_movement();
 		}
@@ -365,4 +313,110 @@ void test_allocatedAddresses()
 	initCom();
 	delay_ms(1000);
 	initCom();
+}
+
+void test_pickupObject(int object)
+{
+	task_com();
+	switch (object)
+	{
+		case 0:
+			printf("No object to pick up\n");
+			break;
+		case BALL:
+			printf("Picking up ball\n");
+			state_com = 0;
+			sendToSlave(extension, 0x21);
+			delay_ms(500);
+			while (state_com != 0x14 && state_com != 0x15)
+			{
+				test_regulatedComControl();
+			}
+			break;
+		case GLASS:
+			printf("Picking up glass\n");
+			state_com = 0;
+			sendToSlave(extension, 0x23);
+			delay_ms(500);
+			while (state_com != 0x14 && state_com != 0x15)
+			{
+				test_regulatedComControl();
+			}
+			break;
+	}
+}
+
+void test_dropOffObject()
+{
+	printf("Dropping off object\n");
+	state_com = 0;
+	sendToSlave(extension, 0x25);
+	delay_ms(500);
+	while (state_com != 0x16 && state_com != 0x17)
+	{
+		test_regulatedComControl();
+	}
+}
+
+void test_regulatedDrive(uint16_t speed, uint32_t distance, bool f_TWI)
+{
+	drive(speed, distance);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_regulate();
+			task_movement();
+			delay_ms(1);
+		}
+		if (f_TWI && time_tick_get()%2000 == 60)
+		{
+			test_comFunctions();
+		}
+	}
+}
+
+void test_regulatedRotate(uint16_t speed, uint16_t orientation, bool f_TWI)
+{
+	rotate(speed, orientation);
+	while(!isDone())
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%100 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%100 == 0)
+		{
+			task_regulate();
+			task_movement();
+			delay_ms(1);
+		}
+		if (f_TWI && time_tick_get()%2000 == 60)
+		{
+			test_comFunctions();
+		}
+	}
+}
+
+void test_regulatedComControl()
+{
+	while(1)
+	{
+		if (time_tick_get()%25 == 0 && time_tick_get()%500 != 0)
+		{
+			task_movement();		// takes more than 1 ms
+		}
+		if (time_tick_get()%500 == 0)
+		{
+			task_regulate();
+			task_movement();
+			task_com();
+			delay_ms(1);
+			return;
+		}
+	}
 }

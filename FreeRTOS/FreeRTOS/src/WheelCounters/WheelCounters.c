@@ -8,6 +8,7 @@
 
 #include "WheelCounters.h"
 #include "MotorControl/MotorControl.h"
+#include "config/conf_AdaLovelace.h"
 
 void initDecoders()
 {

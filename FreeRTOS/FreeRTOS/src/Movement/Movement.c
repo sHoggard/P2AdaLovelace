@@ -11,6 +11,7 @@
 #include "__vars.h"
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
+#include "config/conf_AdaLovelace.h"
 
 static bool f_auto = false;
 static int16_t humanTargetSpeed;
@@ -274,7 +275,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			if (abs(remainingDistance) < DISTANCE_PRECISION)
 			{
 				stop();
-				regulated_speed.target = 0;
+				//regulated_speed.target = 0;
 				//delay_ms(10);
 				// TODO: precise adjustments
 			}
@@ -299,7 +300,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			if (abs(remainingDistance) < ROTATION_PRECISION)
 			{
 				stop();
-				regulated_speed.target = 0;
+				//regulated_speed.target = 0;
 				//delay_ms(10);
 				// TODO: precise adjustments
 			}
