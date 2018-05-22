@@ -58,6 +58,8 @@ src\TWI_Kommunikationen\main_KOM.c
 
 src\TWI_Kommunikationen\TWI_Handler.c
 
+src\UltrasonicSensor\Ultraljud.c
+
 src\Utilities\ConsoleFunctions\consoleFunctions.c
 
 src\WheelCounters\WheelCounters.c

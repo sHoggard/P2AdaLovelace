@@ -660,6 +660,7 @@
     <Folder Include="src\MotorControl" />
     <Folder Include="src\Navigering" />
     <Folder Include="src\Movement" />
+    <Folder Include="src\UltrasonicSensor" />
     <Folder Include="src\Sensor" />
     <Folder Include="src\TWI_Kommunikationen" />
     <Folder Include="src\TimeTick" />
@@ -844,6 +845,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\TWI_Kommunikationen\TWI_Handler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\UltrasonicSensor\Ultraljud.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\UltrasonicSensor\Ultraljud.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Utilities\ConsoleFunctions\consoleFunctions.c">
