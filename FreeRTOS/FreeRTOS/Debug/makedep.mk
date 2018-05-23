@@ -4,15 +4,29 @@
 
 src\ASF\common\services\delay\sam\cycle_counter.c
 
+src\ASF\common\services\freertos\sam\freertos_peripheral_control.c
+
+src\ASF\common\services\freertos\sam\freertos_twi_master.c
+
+src\ASF\common\utils\membag\membag.c
+
 src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\adc\adc.c
+
+src\ASF\sam\drivers\pdc\pdc.c
 
 src\ASF\sam\drivers\pwm\pwm.c
 
 src\ASF\sam\drivers\tc\tc.c
 
+src\ASF\sam\drivers\twi\twi.c
+
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
+
+src\Com\Com.c
+
+src\Com\TWI_data.c
 
 src\MotorControl\MotorControl.c
 
@@ -29,6 +43,8 @@ src\Tasks\task_player1.c
 src\Tasks\task_player2.c
 
 src\TimeTick\time_tick_sam.c
+
+src\TWI_Kommunikationen\TWI_Handler.c
 
 src\Utilities\ConsoleFunctions\consoleFunctions.c
 
