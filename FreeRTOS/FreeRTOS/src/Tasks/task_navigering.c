@@ -19,8 +19,8 @@ void task_navigering(void *pvParamters)
 	xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
-	check_Dist = 0;
-	check_PDMM = 1;	//bara test
+	//check_Dist = 0;
+	//check_PDMM = 1;	//bara test
 	
 	while(1)
 	{
@@ -42,6 +42,7 @@ void task_navigering(void *pvParamters)
 						
 		float distance = 0.0;
 		float goalAngle = 0.0;
+		float robotRadius = 22.5;
 	
 		if(check_PDMM == VINGLAS){
 			if(currentState == TOWARDS_OBJECT_0){
@@ -52,7 +53,7 @@ void task_navigering(void *pvParamters)
 						printf("Roboten ska rotera till följande vinkel : ");
 						printInt(goalAngle);
 					
-						distance = (distanceCalculation(x_koord_Vinglas,x_koord_Robot,y_koord_Vinglas,y_koord_Robot));
+						distance = (distanceCalculation(x_koord_Vinglas,x_koord_Robot,y_koord_Vinglas,y_koord_Robot))-robotRadius;
 						printf("Roboten har följande avstånd till vinglaset : ");
 						printInt(distance);
 						
@@ -63,14 +64,12 @@ void task_navigering(void *pvParamters)
 					{
 						rotation_angle = 360 - goalAngle;
 						rotate(200, rotation_angle);
-						
+						vTaskResume(*(taskHandler->taskStyrning));
 						changeState(TOWARDS_OBJECT_1);
 						check_rotation = true;
 					}
 				}
-		}
-		
-		if(currentState == TOWARDS_OBJECT_1){
+		}else if(currentState == TOWARDS_OBJECT_1){
 			bool check_distance = false;
 			while(!check_distance)
 			{
@@ -81,8 +80,7 @@ void task_navigering(void *pvParamters)
 				check_distance = true;
 			}
 		}
-
-			if(check_PDMM == KULA){
+		}else if(check_PDMM == KULA){
 				if(currentState == TOWARDS_OBJECT_0){
 					bool check_rotation = false;
 					while(!check_rotation)
@@ -91,7 +89,7 @@ void task_navigering(void *pvParamters)
 						printf("Roboten ska rotera till följande vinkel : ");
 						printInt(goalAngle);
 						
-						distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot));
+						distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot))-robotRadius;
 						printf("Roboten har följande avstånd till stålkulan : ");
 						printInt(distance);
 						
@@ -102,14 +100,12 @@ void task_navigering(void *pvParamters)
 						{
 							rotation_angle = 360 - goalAngle;
 							rotate(200, rotation_angle);
-							
+							vTaskResume(*(taskHandler->taskStyrning));
 							changeState(TOWARDS_OBJECT_1);
 							check_rotation = true;
 						}
 					}
-				}
-				
-				if(currentState == TOWARDS_OBJECT_1){
+				}else if(currentState == TOWARDS_OBJECT_1){
 					bool check_distance = false;
 					while(!check_distance)
 					{
@@ -120,8 +116,7 @@ void task_navigering(void *pvParamters)
 						check_distance = true;
 					}
 				}
-
-				if(currentState == TOWARDS_BOX_0){
+		}else if(currentState == TOWARDS_BOX_0){
 					bool check_rotation = false;
 					while(!check_rotation)
 					{
@@ -129,7 +124,7 @@ void task_navigering(void *pvParamters)
 						printf("Roboten ska rotera till följande vinkel : ");
 						printInt(goalAngle);
 						
-						distance = (distanceCalculation(x_koord_Box,x_koord_Robot,y_koord_Box,y_koord_Robot));
+						distance = (distanceCalculation(x_koord_Box,x_koord_Robot,y_koord_Box,y_koord_Robot))-robotRadius;
 						printf("Roboten har följande avstånd till lådan : ");
 						printInt(distance);
 						
@@ -145,8 +140,7 @@ void task_navigering(void *pvParamters)
 							check_rotation = true;
 						}
 					}
-				
-				if(currentState == TOWARDS_BOX_1){
+				}else if(currentState == TOWARDS_BOX_1){
 					bool check_distance = false;
 					while(!check_distance)
 					{
@@ -157,15 +151,14 @@ void task_navigering(void *pvParamters)
 						check_distance = true;
 					}
 				}
+				printf("\nNavigering out");
+				xSemaphoreGive(xSemaphoreNavigering);
+				vTaskSuspend(NULL);
 			}
-		
-		printf("\nNavigering out");
-		xSemaphoreGive(xSemaphoreNavigering);
-		vTaskSuspend(NULL);
-	}
-	}
-	}
-	}
+		}
+	
+
+	
 		//if(check_PDMM == 1)
 		//{
 			////--------------- Test för NAV-SENS ---------------------------------------------------------
