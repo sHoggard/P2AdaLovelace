@@ -24,6 +24,7 @@
 #include "Tasks/task_control.h"
 #include "Movement/Movement.h"
 #include "ADC/sampel_int.h"
+#include "UltrasonicSensor/Ultraljud.h"
 //#include "TWI_Kommunikationen/I2CFunctions.h"
 
 
@@ -34,6 +35,7 @@ volatile xTaskHandle taskHandlerSensor;
 volatile xTaskHandle taskHandlerStyrning;
 volatile xTaskHandle taskHandlerReglering;
 volatile int checkInt = 1;
+
 
 int main (void)
 { 
@@ -174,9 +176,17 @@ int main (void)
 	// Start the FreeRTOS scheduler running all tasks indefinitely
 	printf("Starting scheduler...\n");
 	xTaskCreate(task_control, (const signed char * const) "control", TASK_CONTROL_STACK_SIZE, (void *) xHandler, TASK_CONTROL_PRIORITY, NULL);
-	vTaskStartScheduler();
+	//vTaskStartScheduler();
 	
 	xHandler->check = &checkInt;
-	while(1);
+	
+	initUltrasonic();
+	
+	
+	while(1){
+		delay_ms(500);
+		printInt(pulseIn(1));
+		
+		}
 	
 }

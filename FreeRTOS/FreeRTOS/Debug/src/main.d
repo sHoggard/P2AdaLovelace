@@ -190,7 +190,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/Tasks/../MotorControl/MotorControl.h \
  ../src/Tasks/../Movement/__vars.h ../src/Tasks/task_reglering.h \
  ../src/Tasks/task_control.h ../src/Movement/Movement.h \
- ../src/ADC/sampel_int.h
+ ../src/ADC/sampel_int.h ../src/UltrasonicSensor/Ultraljud.h
 
 ../src/asf.h:
 
@@ -605,3 +605,5 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/Movement/Movement.h:
 
 ../src/ADC/sampel_int.h:
+
+../src/UltrasonicSensor/Ultraljud.h:
