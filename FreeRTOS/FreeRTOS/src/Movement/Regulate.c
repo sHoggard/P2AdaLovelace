@@ -8,6 +8,7 @@
  #include "Movement.h"
  #include "__vars.h"
  #include "WheelCounters/WheelCounters.h"
+ #include "config/conf_AdaLovelace.h"
  
  #define HISTORY_SIZE 10
 
@@ -77,8 +78,10 @@
 		}
 		totSpeed = (leftSpeed+rightSpeed)/2;
 		
-		//printf("uV*K: %i\nuH*K: %i\n", (int)(leftSpeed*1000), (int)(rightSpeed*1000));
-		//printf("totSpeed*K: %i\n", (int)(totSpeed*1000));
+		#ifdef DEBUG_PRINTS
+		printf("leftSpeed*K: %i\nrightSpeed*K: %i\n", (int)(leftSpeed*1000), (int)(rightSpeed*1000));
+		printf("totSpeed*K: %i\n", (int)(totSpeed*1000));
+		#endif //DEBUG_PRINTS
   
 		//PID reglering
 
@@ -86,6 +89,16 @@
 		errorSpeed = regulated_speed.target - totSpeed;
 		//printf("error*K: %i\n", (int)(error*1000));
 		//printf("errorSpeed*K: %i\n", (int)(errorSpeed*1000));
+		
+		if (mode_movement == 's')
+		{
+			leftCorrection = 0;
+			rightCorrection = 0;
+			regulated_speed.left = 0;
+			regulated_speed.right = 0;
+			return;
+		}
+		
 		//sum = sum + error;
 		P = kp*error;
 		Pspeed = errorSpeed*kpSpeed;
@@ -110,8 +123,13 @@
 		rightCorrection = rightCorrection + u;
 		speedCorrection += Pspeed;
 
+		#ifdef SPEED_REGULATION
 		regulated_speed.left = leftCorrection + speedCorrection;
 		regulated_speed.right = rightCorrection + speedCorrection;
+		#else
+		regulated_speed.left += leftCorrection;
+		regulated_speed.right += rightCorrection;
+		#endif //SPEED_REGULATION
 
 		//switch (mode_movement)
 		//{
@@ -125,7 +143,9 @@
 				//break;
 		//}
 		
+		#ifdef DEBUG_PRINTS
 		//printf("left: %i\nright: %i\n", regulated_speed.left, regulated_speed.right);
+		#endif
   }
 	 
 int16_t getSpeed()
