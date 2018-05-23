@@ -11,6 +11,7 @@
 #include "../TWI_Kommunikationen/TWI_Handler.h"
 #define xBlockTime 5
 #include "../Navigering/angleCalculation.h"
+#include "../RunState.h"
 
 void task_kommunikation(void *pvParamters)
 {
@@ -34,10 +35,10 @@ void task_kommunikation(void *pvParamters)
 	{
 		//när vi fått in data från positionering
 		//if data mottagits:
-		if(){
+		//if(){
 		changeState(TOWARDS_OBJECT_0);
 		check_com = true;
-		}
+		//}
 	}
 	
 	

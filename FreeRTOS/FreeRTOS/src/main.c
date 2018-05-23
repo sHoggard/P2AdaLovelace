@@ -175,7 +175,7 @@ int main (void)
 	
 	// Start the FreeRTOS scheduler running all tasks indefinitely
 	printf("Starting scheduler...\n");
-	xTaskCreate(task_control, (const signed char * const) "control", TASK_CONTROL_STACK_SIZE, (void *) xHandler, TASK_CONTROL_PRIORITY, NULL);
+	xTaskCreate(task_state, (const signed char * const) "state", TASK_STATE_STACK_SIZE, (void *) xHandler, TASK_STATE_PRIORITY, NULL);
 	//vTaskStartScheduler();
 	
 	xHandler->check = &checkInt;

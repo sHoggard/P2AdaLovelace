@@ -8,6 +8,7 @@
 
 #include "task_navigering.h"
 #include "Movement/Movement.h"
+#include "../RunState.h"
 
 #define xBlockTime 5
 
@@ -53,7 +54,7 @@ void task_navigering(void *pvParamters)
 					printf("Roboten har följande avstånd till stålkulan : ");
 					printInt(distance);
 					
-					if(distance =< 500){
+					if(distance <= 500){
 						changeState(SCAN_OBJECT);
 						check_rotation = true;
 					}else if(distance > 500)

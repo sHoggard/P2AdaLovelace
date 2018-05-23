@@ -1,4 +1,4 @@
-src/ADC/sampel_int.d src/ADC/sampel_int.o: ../src/ADC/sampel_int.c \
+src/Tasks/task_state.d src/Tasks/task_state.o: ../src/Tasks/task_state.c \
  ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
  ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\5.3.1\include\stddef.h \
@@ -166,8 +166,8 @@ src/ADC/sampel_int.d src/ADC/sampel_int.o: ../src/ADC/sampel_int.c \
  ../src/ASF/common/services/twi/sam_twi/twi_master.h \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/ADC/sampel_int.h \
- ../src/ADC/../Utilities/ConsoleFunctions/consoleFunctions.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Tasks/task_state.h \
+ ../src/xHandlerParameters.h ../src/RunState.h
 
 ../src/asf.h:
 
@@ -519,6 +519,8 @@ c:\program\ files\ (x86)\atmel_7\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-ea
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/ADC/sampel_int.h:
+../src/Tasks/task_state.h:
 
-../src/ADC/../Utilities/ConsoleFunctions/consoleFunctions.h:
+../src/xHandlerParameters.h:
+
+../src/RunState.h:

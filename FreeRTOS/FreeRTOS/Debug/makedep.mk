@@ -46,7 +46,7 @@ src\Tasks\task_sensor.c
 
 src\Tasks\task_reglering.c
 
-src\Tasks\task_control.c
+src\Tasks\task_state.c
 
 src\Tasks\task_navigering.c
 
