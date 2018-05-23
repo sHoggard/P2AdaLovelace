@@ -6,7 +6,7 @@
  */ 
 #include <asf.h>
 #include "semphr.h"
-#include "task_control.h"
+#include "task_state.h"
 #include "../config/conf_AdaLovelace.h"
 #include "../TimeTick/time_tick.h"
 #include "../Utilities/ConsoleFunctions/consoleFunctions.h"
@@ -18,7 +18,7 @@
 
 
 #define TASK_KOMMUNIKATION_STACK_SIZE (2048/ sizeof(portSTACK_TYPE))
-#define TASK_KOMMUNIKATION_PRIORITY   (2)
+#define TASK_KOMMUNIKATION_PRIORITY   (1)
 
 void task_kommunikation(void *pvParamters);
 

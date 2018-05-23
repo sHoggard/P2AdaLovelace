@@ -29,6 +29,18 @@ void task_kommunikation(void *pvParamters)
 		init_twi();
 	
 	
+	bool check_com = false;
+	while(!check_com)
+	{
+		//när vi fått in data från positionering
+		//if data mottagits:
+		if(){
+		changeState(TOWARDS_OBJECT_0);
+		check_com = true;
+		}
+	}
+	
+	
 
 		//	Example code, send and receive
 		/*printf("Start Send\n");

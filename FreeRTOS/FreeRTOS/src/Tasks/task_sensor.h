@@ -6,7 +6,7 @@
  */ 
 #include <asf.h>
 #include "semphr.h"
-#include "task_control.h"
+#include "task_state.h"
 #include "../Navigering/NAV_SENS_STYR.h"
 
 #ifndef TASK_SENSOR_H_

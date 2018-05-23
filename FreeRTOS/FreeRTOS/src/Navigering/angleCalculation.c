@@ -74,7 +74,7 @@ double degreeCalculation(double xObject, double xRobot, double yObject, double y
 }
 
 double distanceCalculation(double xObject, double xRobot, double yObject, double yRobot){
-	double s = sqrt( pow((xObject-xRobot),2)  +  pow ( (yObject-yRobot),2) );
+	double s = 10*(sqrt( pow((xObject-xRobot),2)  +  pow ( (yObject-yRobot),2) ));
 	return s;
 }
 double rad2deg(double radianValue){

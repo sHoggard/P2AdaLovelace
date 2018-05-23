@@ -6,7 +6,7 @@
 
 #include <asf.h>
 #include "semphr.h"
-#include "task_control.h"
+#include "task_state.h"
 #include "../Utilities/ConsoleFunctions/consoleFunctions.h"
 #include "../Navigering/angleCalculation.h"
 #include "../Navigering/NAV_SENS_STYR.h"

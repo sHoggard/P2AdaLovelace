@@ -21,7 +21,7 @@
 #include "Tasks/task_sensor.h"
 #include "Tasks/task_styrning.h"
 #include "Tasks/task_reglering.h"
-#include "Tasks/task_control.h"
+#include "Tasks/task_state.h"
 #include "Movement/Movement.h"
 #include "ADC/sampel_int.h"
 #include "UltrasonicSensor/Ultraljud.h"
@@ -88,10 +88,10 @@ int main (void)
 	vSemaphoreCreateBinary(xSemaphoreReglering);
 	
 	//Semaphores are configured, task1 will be resumed in task_control.c
-	//xSemaphoreTake(xSemaphoreKommunikation,0);
-	//xSemaphoreTake(xSemaphoreNavigering, 0); 
-	//xSemaphoreTake(xSemaphoreSensor,0);
-	//xSemaphoreGive(xSemaphoreStyrning); //GLÖM EJ ATT AVKOMMENTERA DESSA EFTER DE OLIKA TESTEN
+	xSemaphoreGive(xSemaphoreKommunikation);
+	xSemaphoreTake(xSemaphoreNavigering, 0); 
+	xSemaphoreTake(xSemaphoreSensor,0);
+	xSemaphoreTake(xSemaphoreStyrning,0); //GLÖM EJ ATT AVKOMMENTERA DESSA EFTER DE OLIKA TESTEN
 	
 	//Test Nav-Styr
 	//xSemaphoreGive(xSemaphoreNavigering);
@@ -102,9 +102,9 @@ int main (void)
 	 //xSemaphoreTake(xSemaphoreNavigering,0);
 	 
 	 //Test Nav-Sens-Styr
-	 xSemaphoreGive(xSemaphoreSensor);
-	 //xSemaphoreTake(xSemaphoreStyrning,0);
-	 xSemaphoreTake(xSemaphoreNavigering,0);
+	 //xSemaphoreGive(xSemaphoreSensor);
+	 ////xSemaphoreTake(xSemaphoreStyrning,0);
+	 //xSemaphoreTake(xSemaphoreNavigering,0);
 
 	printf("Creating task handler...\n");
 	

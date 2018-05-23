@@ -41,31 +41,72 @@ void task_navigering(void *pvParamters)
 		float distance = 0.0;
 		float goalAngle = 0.0;
 	
-		if(check_PDMM == 1)
-		{
-			//--------------- Test för NAV-SENS ---------------------------------------------------------
-				int j;
-				printf("Tryck 1 om TC0, 2 om TC1 ska köras");
-				scanf("%i", &j);
-				printf("\nDu tryckte: ");
-				printInt(j);
+		if(currentState == TOWARDS_OBJECT_0){
+			bool check_rotation = false;
+			while(!check_rotation)
+				{
+					goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
+					printf("Roboten ska rotera till följande vinkel : ");
+					printInt(goalAngle);
+					
+					distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot))*10;
+					printf("Roboten har följande avstånd till stålkulan : ");
+					printInt(distance);
+					
+					if(distance =< 500){
+						changeState(SCAN_OBJECT);
+						check_rotation = true;
+					}else if(distance > 500)
+					{
+						rotation_angle = 360 - goalAngle;
+						rotate(200, rotation_angle);
+						
+						changeState(TOWARDS_OBJECT_1);
+						check_rotation = true;
+					}
+				}
+		}
+		
+		if(currentState == TOWARDS_OBJECT_1){
+			bool check_distance = false;
+			while(!check_distance)
+			{
+				drive(200, distance);
 				
-				if(j == 1)	//Sensor tar över
-				{
-					check_Dist = 0;
-					printf("\ntask_navigering: switch to SCAN_OBJECT\n");
-				}
-					
-				if(j == 2)	//Navigering aktiv igen
-				{
-					check_Dist = 1;
-					printf("\ntask_navigering: TOWARDS_OBJECT\n");
-					//printf("\nNavigering out");
-					
-					//xSemaphoreGive(xSemaphoreSensor);
-					//vTaskSuspend(NULL);
-				}
-			//------------------------------------------------------------------------------------------
+				changeState(TOWARDS_OBJECT_0);
+				check_distance = true;
+			}
+		}
+		
+		printf("\nNavigering out");
+		xSemaphoreGive(xSemaphoreNavigering);
+		vTaskSuspend(NULL);
+	}
+		//if(check_PDMM == 1)
+		//{
+			////--------------- Test för NAV-SENS ---------------------------------------------------------
+				//int j;
+				//printf("Tryck 1 om TC0, 2 om TC1 ska köras");
+				//scanf("%i", &j);
+				//printf("\nDu tryckte: ");
+				//printInt(j);
+				//
+				//if(j == 1)	//Sensor tar över
+				//{
+					//check_Dist = 0;
+					//printf("\ntask_navigering: switch to SCAN_OBJECT\n");
+				//}
+					//
+				//if(j == 2)	//Navigering aktiv igen
+				//{
+					//check_Dist = 1;
+					//printf("\ntask_navigering: TOWARDS_OBJECT\n");
+					////printf("\nNavigering out");
+					//
+					////xSemaphoreGive(xSemaphoreSensor);
+					////vTaskSuspend(NULL);
+				//}
+			////------------------------------------------------------------------------------------------
 
 			
 			
@@ -169,19 +210,19 @@ void task_navigering(void *pvParamters)
 			//vTaskSuspend(NULL);
 			//---------------------------------------------------------------------------------------------
 				//rotate(200,-1);	//sätt i rotation för scanning
-				printf("\nNavigering out");
-				xSemaphoreGive(xSemaphoreNavigering);
-				//vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
-				
-				vTaskSuspend(NULL);
-		}
+				//printf("\nNavigering out");
+				//xSemaphoreGive(xSemaphoreNavigering);
+				////vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
+				//
+				//vTaskSuspend(NULL);
+		//}
 	
 	//printf("\nNavigering out");
 	//xSemaphoreGive(xSemaphoreNavigering);
 	////vTaskDelayUntil( &xLastWakeTime, xTimeIncrement );
 	//vTaskSuspend(NULL);
 			
-	}
+	//}
 }
 			
 //--------------- Test för NAV-MOVE --------------------------------------------------------	

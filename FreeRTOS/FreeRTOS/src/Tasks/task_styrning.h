@@ -7,7 +7,7 @@
 
 #include <asf.h>
 #include "semphr.h"
-#include "task_control.h"
+#include "task_state.h"
 //System modules
 #include "../WheelCounters/WheelCounters.h"
 #include "../Navigering/angleCalculation.h"
