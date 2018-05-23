@@ -30,6 +30,8 @@ uint16_t IR_edgeRight;
 
 uint16_t objectCentre;
 
+int sensor;
+
 void initEdges(void);
 
 void task_sensor(void *pvParamters);
