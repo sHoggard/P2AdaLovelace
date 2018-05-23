@@ -37,7 +37,7 @@ void task_sensor(void *pvParamters)
 		printf("Sensor\n");
 		xLastWakeTime = xTaskGetTickCount();
 		
-		if(currentState == SCAN_OBJECT || currentState == SCAN_BOX){
+		if(currentState == SCAN_OBJECT){
 			bool check_scan = false;
 			sensor = 0;
 			while(!check_scan)
@@ -58,16 +58,11 @@ void task_sensor(void *pvParamters)
 					rotate(50,5);
 					//vTaskResume(*(taskHandler->taskStyrning));
 				}
-				if(currentState == SCAN_OBJECT){
-					changeState(CLOSE_OBJECT_0);
-				}else{
-					changeState(CLOSE_BOX_1);
-				}
-				
+				changeState(CLOSE_OBJECT_0);
 			}
 		}
 		
-		else if(currentState == CLOSE_OBJECT_0 || currentState == CLOSE_BOX_0){
+		else if(currentState == CLOSE_OBJECT_0){
 			bool check_scan = false;
 			int rotateAngle = 5;
 			while(!check_scan)
@@ -89,15 +84,10 @@ void task_sensor(void *pvParamters)
 					check_scan = true;	
 				}
 			}
-			if(currentState == CLOSE_OBJECT_0){
-				changeState(CLOSE_OBJECT_1);
-			}else{
-				changeState(CLOSE_BOX_1);
-			}
-				
+			changeState(CLOSE_OBJECT_1);
 		}
 		
-		else if(currentState == CLOSE_OBJECT_1 || currentState == CLOSE_BOX_1){
+		else if(currentState == CLOSE_OBJECT_1){
 			bool check_scan = false;
 			while(!check_scan)
 			{
@@ -107,12 +97,34 @@ void task_sensor(void *pvParamters)
 				//drive(50, 30);
 				//vTaskResume(*(taskHandler->taskStyrning));
 			}
-			if(currentState == CLOSE_OBJECT_1){
-				changeState(PICKUP);	
-			}else{
-				changeState(DROPOFF);
+			changeState(PICKUP);
+		}
+		
+		
+		else if(currentState == SCAN_BOX){
+			bool check_scan = false;
+			while(!check_scan)
+			{
+				check_scan = true;
 			}
-			
+			changeState(CLOSE_BOX_0);
+		}
+		else if(currentState == CLOSE_BOX_0){
+			bool check_scan = false;
+			while(!check_scan)
+			{
+				check_scan = true;
+			}
+			changeState(CLOSE_BOX_1);
+		}
+		
+		else if(currentState == CLOSE_BOX_1){
+			bool check_scan = false;
+			while(!check_scan)
+			{
+				check_scan = true;
+			}
+			changeState(DROPOFF);
 		}
 		
 			printf("\ntask_sensor: SCAN_OBJECT\n");
