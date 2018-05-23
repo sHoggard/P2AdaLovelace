@@ -9,6 +9,7 @@
 #include "task_navigering.h"
 #include "Movement/Movement.h"
 #include "../RunState.h"
+#include "../xHandlerParameters.h"
 
 #define xBlockTime 5
 

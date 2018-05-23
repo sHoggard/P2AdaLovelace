@@ -124,7 +124,7 @@ int main (void)
 		printf("task_navigering created...\n");
 		
 	}
-	xReturned = xTaskCreate(task_sensor, (const signed char * const) "sensor", TASK_SENSOR_STACK_SIZE, NULL, TASK_SENSOR_PRIORITY, &taskHandlerSensor);
+	xReturned = xTaskCreate(task_sensor, (const signed char * const) "sensor", TASK_SENSOR_STACK_SIZE, (void *) xHandler, TASK_SENSOR_PRIORITY, &taskHandlerSensor);
 	if( xReturned == pdPASS )
 	{
 		printf("task_sensor created...\n");

@@ -76,8 +76,6 @@
 /* Use TC2_Handler for TC capture interrupt. */
 #define TC_Handler  TC2_Handler
 #define TC_IRQn     TC2_IRQn
-
-#define CONF_BOARD_TWI1 TWI1
 //! [tc_define_irq_handler]
 
 #endif /* CONF_BOARD_H_INCLUDED */

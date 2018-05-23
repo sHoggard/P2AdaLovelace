@@ -10,9 +10,6 @@
 #define MOVEMENT_H_
 
 #include <inttypes.h>
-#include "FreeRTOS.h"
-#include "task.h"
-#include "xHandlerParameters.h"
 
 #define FULL_ROTATION_TICKS 731
 #define FULL_ROTATION 2470
@@ -27,8 +24,6 @@
 #define HUMAN_MAX_DRIVE 300				// mm/s
 #define MAX_ROTATE 500					// �s difference from MOTOR_BRAKE
 #define HUMAN_MAX_ROTATE 100			// mm/s
-
-//xSemaphoreHandle xSemaphoreMovement;
 
 void initMovement(void);
 

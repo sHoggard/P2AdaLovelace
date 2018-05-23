@@ -11,6 +11,7 @@
 #include "__vars.h"
 #include "MotorControl/MotorControl.h"
 #include "WheelCounters/WheelCounters.h"
+#include "config/conf_AdaLovelace.h"
 
 static bool f_auto = false;
 static int16_t humanTargetSpeed;
@@ -32,6 +33,12 @@ void initMovement()
 	puts("initMovement");
 	#ifdef NO_REGULATION
 	puts("No regulation");
+	#endif
+	#ifndef SPEED_REGULATION
+	puts("No speed regulation");
+	#endif
+	#ifdef DEBUG_PRINTS
+	puts("Debug prints");
 	#endif
 	
 	initMotors();
@@ -90,11 +97,11 @@ void drive(int16_t speed, uint32_t distance)
 		speed = (-HUMAN_MAX_DRIVE);
 	}
 	regulated_speed.target = speed;
-	#ifndef DOUBLE_REGULATION
+	#ifndef SPEED_REGULATION
 	// TODO: convert mm/s to target pulse
 	regulated_speed.left = speed;
 	regulated_speed.right = speed;
-	#endif	//DOUBLE_REGULATION
+	#endif	//SPEED_REGULATION
 	printf("Moving straight %s at %i mm/s\n", (speed >= 0 ? "forwards" : "backwards"), abs(speed));
 	
 	// calculate target distance
@@ -138,11 +145,11 @@ void rotate(int16_t speed, int16_t orientation)
 	orientation %= HUMAN_FULL_ROTATION;
 	// TODO: convert degrees/s to mm/s
 	regulated_speed.target = speed;
-	#ifndef DOUBLE_REGULATION
+	#ifndef SPEED_REGULATION
 	// TODO: convert degrees/s to target pulse
 	regulated_speed.left = speed;
 	regulated_speed.right = speed;
-	#endif	//DOUBLE_REGULATION
+	#endif	//SPEED_REGULATION
 	printf("Rotating %s at %i degrees/s\n", (speed >= 0 ? "clockwise" : "counter-clockwise"), abs(speed));
 	
 	// calculate target orientation
@@ -259,7 +266,9 @@ void updateTargetSpeed()		// should only revise speeds downwards
 	int16_t targetSpeed = 0;
 	int32_t remainingDistance = calculateRemainingDistance();
 	
-	//printf("remainingDistance: %i\n", (int)remainingDistance);
+	#ifdef DEBUG_PRINTS
+	printf("remainingDistance: %li\n", remainingDistance);
+	#endif
 	
 	// calculate target speed
 	switch (mode_movement)
@@ -268,7 +277,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			if (abs(remainingDistance) < DISTANCE_PRECISION)
 			{
 				stop();
-				regulated_speed.target = 0;
+				//regulated_speed.target = 0;
 				//delay_ms(10);
 				// TODO: precise adjustments
 			}
@@ -293,7 +302,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			if (abs(remainingDistance) < ROTATION_PRECISION)
 			{
 				stop();
-				regulated_speed.target = 0;
+				//regulated_speed.target = 0;
 				//delay_ms(10);
 				// TODO: precise adjustments
 			}
@@ -318,7 +327,9 @@ void updateTargetSpeed()		// should only revise speeds downwards
 			targetSpeed = 0;
 			break;
 	}
-	//printf("targetSpeed: %i\n", (int)targetSpeed);
+	#ifdef DEBUG_PRINTS
+	printf("targetSpeed: %i\n", targetSpeed);
+	#endif
 	
 	// send to regulator
 	regulated_speed.target = targetSpeed;
