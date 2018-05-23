@@ -41,7 +41,6 @@ int main (void)
 { 
 	//Instantiating the struct
 	xHandler = ( xHandlerParameters* ) pvPortMalloc( sizeof( xHandler ) );
-	
 	// Insert board initialization code here (board_init())
 	board_init();
 	// Insert system clock initialization code here (sysclk_init())
@@ -50,15 +49,18 @@ int main (void)
 	configureConsole();
 	// Insert application code here, after the board has been initialized.
 	ioport_init();
-	
 	//Check pin for the TC-handler
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);
 	//Configuring board settings
 	pmc_enable_periph_clk(ID_TRNG);
 	trng_enable(TRNG);
+	//Init movement
 	initMovement();
+	//Init ultrasonic sensors
+	printf("initUltrasonic()");
 	initUltrasonic();
 	
+	//Init communication, TWI, I2C
 	membag_init();
 	initCom();
 	delay_ms(100);
@@ -105,43 +107,23 @@ int main (void)
 	 //xSemaphoreGive(xSemaphoreSensor);
 	 ////xSemaphoreTake(xSemaphoreStyrning,0);
 	 //xSemaphoreTake(xSemaphoreNavigering,0);
-
-	printf("Creating task handler...\n");
-	
-	bool xReturned = false;
-	
+	printf("Creating task handlers...\n");
 	printf("Creating tasks...\n");
-	
+	bool xReturned = false;
 	xReturned = xTaskCreate(task_kommunikation, (const signed char * const) "kommunikation", TASK_KOMMUNIKATION_STACK_SIZE, NULL, TASK_KOMMUNIKATION_PRIORITY, &taskHandlerKommunikation);
-	if( xReturned == pdPASS )
-	{
-		printf("task_kommunikation created...\n");
+	xReturned ? printf("task_kommunikation created...\n"): printf("create task failed");
 		
-	}
 	xReturned = xTaskCreate(task_navigering, (const signed char * const) "navigering", TASK_NAVIGERING_STACK_SIZE, (void *) xHandler, TASK_NAVIGERING_PRIORITY, &taskHandlerNavigering);
-	if( xReturned == pdPASS )
-	{
-		printf("task_navigering created...\n");
-		
-	}
+	xReturned ? printf("task_navigering created...\n"): printf("create task failed");
+	
 	xReturned = xTaskCreate(task_sensor, (const signed char * const) "sensor", TASK_SENSOR_STACK_SIZE, (void *) xHandler, TASK_SENSOR_PRIORITY, &taskHandlerSensor);
-	if( xReturned == pdPASS )
-	{
-		printf("task_sensor created...\n");
+	xReturned ? printf("task_sensor created...\n"): printf("create task failed");
 		
-	}
 	xReturned = xTaskCreate(task_styrning, (const signed char * const) "styrning", TASK_STYRNING_STACK_SIZE, (void *) xHandler, TASK_STYRNING_PRIORITY, &taskHandlerStyrning);
-	if( xReturned == pdPASS )
-	{
-		printf("task_styrning created...\n");
+	xReturned ? printf("task_styrning created...\n"): printf("create task failed");
 		
-	}
 	xReturned = xTaskCreate(task_reglering, (const signed char * const) "tickReglering", TASK_REGLERING_STACK_SIZE, NULL, TASK_REGLERING_PRIORITY, &taskHandlerReglering);
-	if( xReturned == pdPASS )
-	{
-		printf("task_reglering created...\n");
-		
-	}
+	xReturned ? printf("task_reglering created...\n"): printf("create task failed");
 	
 	printf("Task handler stored in struct xHandlerParameter.h...\n");
 	xHandler->taskKommunikation = &taskHandlerKommunikation;
@@ -150,43 +132,17 @@ int main (void)
 	xHandler->taskStyrning = &taskHandlerStyrning;
 	xHandler->taskReglering = &taskHandlerReglering;
 	
-	//Suspend all tasks
+	printf("Suspending all tasks...");
 	vTaskSuspend(*(xHandler->taskKommunikation));
 	vTaskSuspend(*(xHandler->taskNavigering));
 	vTaskSuspend(*(xHandler->taskSensor));
 	vTaskSuspend(*(xHandler->taskStyrning));
 	vTaskSuspend(*(xHandler->taskReglering));
-	
-	printf("Address stored in &xHandler: %x\n", &xHandler );
-	printf("Address stored in xHandler: %x\n", xHandler );
-	
-	printf("Address stored in &xHandler->taskplayer1: %x\n", &xHandler->taskKommunikation );
-	printf("Address stored in &xHandler->taskplayer1: %x\n", &xHandler->taskNavigering );
-	printf("Address stored in &xHandler->taskplayer1: %x\n", &xHandler->taskSensor );
-	printf("Address stored in &xHandler->taskplayer2: %x\n", &xHandler->taskStyrning );
-	
-	printf("Address stored in xHandler->taskplayer1: %x\n", xHandler->taskKommunikation );
-	printf("Address stored in xHandler->taskplayer1: %x\n", xHandler->taskNavigering );
-	printf("Address stored in xHandler->taskplayer1: %x\n", xHandler->taskSensor );
-	printf("Address stored in xHandler->taskplayer2: %x\n", xHandler->taskStyrning );
-	
-	
-
-	
+		
 	// Start the FreeRTOS scheduler running all tasks indefinitely
 	printf("Starting scheduler...\n");
 	xTaskCreate(task_state, (const signed char * const) "state", TASK_STATE_STACK_SIZE, (void *) xHandler, TASK_STATE_PRIORITY, NULL);
-	vTaskStartScheduler();
-	
 	xHandler->check = &checkInt;
-	
-
-	
-	/*
-	while(1){
-		delay_ms(500);
-		printInt(pulseIn(1));
-		
-		}
-	*/
+	vTaskStartScheduler();
+	while(1);
 }

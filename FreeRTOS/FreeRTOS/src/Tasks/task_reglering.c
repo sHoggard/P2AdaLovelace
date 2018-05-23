@@ -22,14 +22,14 @@ void task_reglering(void *pvParamters)
 		if(isDone()){
 			printf("check = 0\n");
 			check = 0;
+			printf("task_reglering out\n");
 			vTaskSuspend(NULL);
 		}
 		else if (check)
 		{
 			printf("%i: \n", counter++);
-			//task_movement();
+			printf("task_regulate\n");
 			task_regulate();
-			printf("\n");
 			vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
 		}		
 	}

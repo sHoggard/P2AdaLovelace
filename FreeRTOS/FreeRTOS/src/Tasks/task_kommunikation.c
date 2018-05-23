@@ -26,55 +26,64 @@ void task_kommunikation(void *pvParamters)
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	
-			
 	while (1)
 	{
-		printf("Kommunikation\n");
+		printf("task_kommunikation\n");
 		vTaskDelay(xBlockTime);
 		xLastWakeTime = xTaskGetTickCount();
 		//--------------------------------------------------------
 		// GLÖM EJ SÄTTA check_PDMM= 1 för vinglas och check_PDMM=2 för stålkula
 		//--------------------------------------------------------
-
-	
-	if(currentState == STARTUP){
-		bool check_com = false;
-		while(!check_com)
-		{
-			//när vi fått in data från positionering
-			//if data mottagits:
-			if(data_extension.ID != 0) {
-				changeState(TOWARDS_OBJECT_0);
-				check_com = true;
-			}
-			else
+		if(currentState == STARTUP){
+			bool check_com = false;
+			while(!check_com)
 			{
-				#ifdef DEBUG_PRINTS
-				printf("task_com\n");
-				#endif
+				//när vi fått in data från positionering
+				//if data mottagits:
+				if(data_extension.ID != 0) {
+					printf("data_extemsion.ID != 0");
+					printf("changeState(TOWARDS_OBJECT_0)");
+					changeState(TOWARDS_OBJECT_0);
+					check_com = true;
+				}
+				else
+				{
+					printf("data_extemsion.ID == 0");
 				
-				task_com();
+					#ifdef DEBUG_PRINTS
+					printf("task_com\n");
+					#endif
 				
-				#ifdef DEBUG_PRINTS
-				printf("task_com done\n");
-				#endif
+					task_com();
 				
-				vTaskDelay(500);
+					#ifdef DEBUG_PRINTS
+					printf("task_com done\n");
+					#endif
+				
+					vTaskDelay(500);
+				}
 			}
 		}
-	}
-	
-	else if(currentState == PICKUP){
-		bool check_com = false;
-		while(!check_com)
-		{
-			//if(){
-			changeState(TOWARDS_BOX_0);
-			check_com = true;
-			//}
+		else if(currentState == PICKUP){
+			printf("currentState == PICKUP");
+		
+			bool check_com = false;
+			printf("check_com = false;");
+			while(!check_com)
+			{
+					//if(){
+						printf("changeState(TOWARDS_BOX_0)");
+						changeState(TOWARDS_BOX_0);
+						check_com = true;
+						printf("check_com = true");
+					//}
+			}
 		}
+		printf("\ntask_kommunikation out");
+		xSemaphoreGive(xSemaphoreKommunikation);
+		vTaskSuspend(NULL);
 	}
-	
+}	
 	
 
 		//	Example code, send and receive
@@ -98,15 +107,7 @@ void task_kommunikation(void *pvParamters)
 			//printf("\nDu tryckte: ");
 			//printInt(j);
 			//testNavKom(j);
-			
-			xSemaphoreGive(xSemaphoreKommunikation);
-			vTaskSuspend(NULL);
-	}
-		
-	printf("\nKommunikation out");
-	xSemaphoreGive(xSemaphoreKommunikation);
-	vTaskSuspend(NULL);
-}
+
 
 
 //--------------- Test för KOM-NAV --------------------------------------------------------

@@ -18,53 +18,25 @@
 
 void task_styrning(void *pvParamters)
 {
-	 
-	printf("task_styrning started\n");
 	xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
-	printf("P2\n");
 	while(1){
-		vTaskDelay(xBlockTime); //hänger i tasken 200 000 ticks
-		printf("Styrning\n");
+		vTaskDelay(xBlockTime);
 		xLastWakeTime = xTaskGetTickCount();
+		printf("task_styrning started\n");
 
-		//if(check_Dist == 0){
-			//
-			//
-			//printf("\nKör med navigering+positioneringssystem");
-		//}
-
-		volatile int j=0; /* makes sure j doesn't overflow */
-		ioport_set_pin_level(PIO_PB26_IDX, HIGH);
-
-		char clrCom[] = {27, '[', '2', 'J', 27, '[', 'H', '\0'};
-
-		char buffer[20];
-		int speed = 200;
-		//drive(speed, 1000);
-		
-		
-		//printf("speed: %i\n\n", speed);
-
-
-		counter = 0;
-		check = 1;
+		counter = 0; //shared with task_reglering
+		check = 1; //shared with task_reglering
 		vTaskResume(*(taskHandler->taskReglering));
 		while(!isDone())
 		{
 			task_movement();
-			printf("delay%i\n", 50/portTICK_RATE_MS);
-			vTaskDelay(50/portTICK_RATE_MS);
-			
+			printf("task_movement delay: %i\n", 50/portTICK_RATE_MS);
+			vTaskDelay(50/portTICK_RATE_MS);		
 		}	
-		
-		
-		//ioport_set_pin_level(PIO_PB26_IDX, LOW);
-		printf("\nStyrning out");
+		printf("\ntask_styrning out");
 		xSemaphoreGive(xSemaphoreStyrning);
-		//while(1); //+hög prio
-		//vTaskSuspendAll();
 		vTaskSuspend(NULL);	
-		}
+	}
 }
