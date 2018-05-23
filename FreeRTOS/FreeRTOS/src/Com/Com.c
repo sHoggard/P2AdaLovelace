@@ -87,6 +87,8 @@ void initCom()
 	init_twi();
 	#endif //DEBUG_PRINTS
 	
+	delay_s(2);
+	
 	output(extension->buffer_out, 0x20);		// Uppstart
 }
 
@@ -153,7 +155,7 @@ void task_com()
 			}
 			input(extension->buffer_in);
 			data_extension.distance_object = input(extension->buffer_in);
-			data_extension.bearing_object = input(extension->buffer_in);
+			data_extension.bearing_object = input(extension->buffer_in)*2;
 			break;
 		case 0x12:									// Placering relativt lådkant
 			if (availableFromSlave(extension) < 3)
@@ -162,7 +164,7 @@ void task_com()
 			}
 			input(extension->buffer_in);
 			data_extension.distance_dropzone = input(extension->buffer_in);
-			data_extension.bearing_dropzone = input(extension->buffer_in);
+			data_extension.bearing_dropzone = input(extension->buffer_in)*2;
 			break;
 		case 0x13:									// Maxhastighet
 			if (availableFromSlave(extension) < 2)

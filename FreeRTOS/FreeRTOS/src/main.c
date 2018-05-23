@@ -148,12 +148,12 @@ void test_driveAccuracy()
 void test_track(bool f_TWI)
 {
 	test_comFunctions();
-	delay_ms(500);
+	delay_ms(1000);
 	test_comFunctions();
-	delay_ms(500);
+	delay_ms(1000);
 	test_comFunctions();
 	printf("First leg\n");
-	test_regulatedDrive(300, 4000, f_TWI);
+	test_regulatedDrive(300, 3500, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
@@ -171,11 +171,20 @@ void test_track(bool f_TWI)
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	test_regulatedDrive(400, 2000, f_TWI);
+	test_regulatedDrive(400, 1500, f_TWI);
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
+	printf("Orientate towards object\n");
+	test_regulatedRotate(100, data_extension.bearing_object + 180, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
 	test_pickupObject(data_extension.type_object);
+	test_regulatedRotate(100, 180, f_TWI);
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
 	printf("Fourth leg\n");
 	test_regulatedRotate(100, 135, f_TWI);
 	task_regulate();				// get rid of straggling values
@@ -185,8 +194,7 @@ void test_track(bool f_TWI)
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
-	printf("Reset\n");
-	test_regulatedRotate(100, 0, f_TWI);
+	test_regulatedRotate(100, data_extension.bearing_dropzone + 0, f_TWI);
 	task_regulate();				// get rid of straggling values
 	task_regulate();
 	delay_ms(200);
@@ -194,6 +202,11 @@ void test_track(bool f_TWI)
 	{
 		test_dropOffObject();
 	}
+	printf("Reset\n");
+	test_regulatedRotate(100, 0, f_TWI);
+	task_regulate();				// get rid of straggling values
+	task_regulate();
+	delay_ms(200);
 	while(1)
 	{
 		printf("Test drive done\n");
