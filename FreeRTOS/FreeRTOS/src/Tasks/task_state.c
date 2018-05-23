@@ -34,8 +34,7 @@ void task_state(void *pvParamters)
 	{	
 		//printf("task_state\n");
 		xLastWakeTime = xTaskGetTickCount();
-		
-		
+				
 		switch(currentState)
 		{
 			case STARTUP: 

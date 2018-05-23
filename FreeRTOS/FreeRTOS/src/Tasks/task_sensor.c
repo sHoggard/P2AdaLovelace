@@ -35,17 +35,25 @@ void task_sensor(void *pvParamters)
 		vTaskDelay(xBlockTime);
 		printf("Sensor\n");
 		xLastWakeTime = xTaskGetTickCount();
-		printf("Nu har navigeringen startat task_sensor och satt den i rotation för scanning");
-	
 		
-		if (check_Dist == 0)
-		{
+		if(currentState == SCAN_OBJECT){
+			bool check_scan = false;
+			while(!check_scan)
+			{
+				
+				
+				changeState(TOWARDS_OBJECT_0);
+				check_distance = true;
+			}
+		}
+		
+		
 			printf("\ntask_sensor: SCAN_OBJECT\n");
 			printf("\nKLART\n");
 			
 			xSemaphoreGive(xSemaphoreSensor);
 			vTaskSuspend(NULL);
-		}
+		
 			//if(check_Dist == 1)
 			//{
 				//printf("\ntask_sensor: TOWARDS_OBJECT\n");
