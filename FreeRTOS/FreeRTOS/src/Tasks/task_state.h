@@ -19,5 +19,6 @@ xSemaphoreHandle xSemaphoreStyrning;
 xSemaphoreHandle xSemaphoreReglering;
 
 void task_state(void *pvParamters);
+void changeState(int newState);
 
 #endif /* TASK_NAVIGERING_H_ */

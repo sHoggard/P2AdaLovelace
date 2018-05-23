@@ -141,7 +141,8 @@ void task_state(void *pvParamters)
 		vTaskDelay(xBlockTime);	
 	}
 }
-
+}
+}
 void changeState(int newState)
 {
 	currentState = newState;

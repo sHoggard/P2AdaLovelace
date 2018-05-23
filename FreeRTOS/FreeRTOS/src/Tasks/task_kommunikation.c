@@ -25,7 +25,10 @@ void task_kommunikation(void *pvParamters)
 		printf("Kommunikation\n");
 		vTaskDelay(xBlockTime);
 		xLastWakeTime = xTaskGetTickCount();
-		
+		//--------------------------------------------------------
+		// GLÖM EJ SÄTTA check_PDMM= 1 för vinglas och check_PDMM=2 för stålkula
+		//--------------------------------------------------------
+
 		delay_ms(1000);
 		init_twi();
 	

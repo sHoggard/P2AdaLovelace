@@ -9,6 +9,7 @@
 #include "task_state.h"
 #include "../Navigering/NAV_SENS_STYR.h"
 #include "../UltrasonicSensor/Ultraljud.h"
+#include "../RunState.h"
 
 #ifndef TASK_SENSOR_H_
 #define TASK_SENSOR_H_
