@@ -7,6 +7,7 @@
 */
 
 #include "task_styrning.h"
+#include "../xHandlerParameters.h"
 
 
 #define xBlockTime 5
