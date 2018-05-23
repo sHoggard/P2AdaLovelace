@@ -16,8 +16,11 @@
 #define CENTRE_SENSOR 2
 #define RIGHT_SENSOR 3
 
-void initUltrasonic(void);
+int previousDistance;
+int currentDistance;
 
+void initUltrasonic(void);
+bool checkIfMinima(int);
 uint16_t pulseIn(int);
 
 #endif /* ULTRALJUD_H_ */
