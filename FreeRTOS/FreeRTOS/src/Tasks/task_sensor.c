@@ -7,6 +7,7 @@
 #include "task_sensor.h"
 #include "ADC/sampel_int.h"
 #include "Sensor/Ultraljud.h"
+#include "UltrasonicSensor/Ultraljud.h"
 #include "Movement/Movement.h"
 
 #define xBlockTime 5
@@ -38,15 +39,46 @@ void task_sensor(void *pvParamters)
 		
 		if(currentState == SCAN_OBJECT){
 			bool check_scan = false;
+			sensor = 0;
 			while(!check_scan)
 			{
-				
-				
+				//scan if object found
+				if(pulseIn(LEFT_SENSOR) <=500){
+					sensor = LEFT_SENSOR;
+					check_scan = true;
+				}else if(pulseIn(CENTRE_SENSOR) <=500){
+					sensor = CENTRE_SENSOR;
+					check_scan = true;
+				}else if(pulseIn(CENTRE_SENSOR) <=500){
+					sensor = LEFT_SENSOR;
+					check_scan = true;
+					
+				}else{
+					//object not found, rotate 5 degrees
+					rotate(50, 5);
+				}
 				changeState(TOWARDS_OBJECT_0);
-				check_distance = true;
 			}
 		}
 		
+		if(currentState == TOWARDS_OBJECT_0){
+			bool check_scan = false;
+			while(!check_scan)
+			{
+				rotate(50, 5);
+				if(checkIfMinima(sensor)); //returns true 
+				check_scan = true;
+			}
+		}
+		
+		if(currentState == TOWARDS_OBJECT_1){
+			bool check_scan = false;
+			while(!check_scan)
+			{
+				
+				check_scan = true;
+			}
+		}
 		
 			printf("\ntask_sensor: SCAN_OBJECT\n");
 			printf("\nKLART\n");
