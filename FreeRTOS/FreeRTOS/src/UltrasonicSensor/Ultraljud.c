@@ -7,9 +7,10 @@
 
 #include "Ultraljud.h"
 
-
 void initUltrasonic()
 {
+	previousDistance = 500;
+	currentDistance = 500;
 	pmc_enable_periph_clk(ID_TC0); // Enable clock
 	tc_init(TC0,0,0); // init clock
 }
@@ -78,4 +79,21 @@ uint16_t pulseIn(int sensor){
 	duration=duration/58  ; // gör duration till cm enhet genom att dividera med 58 ;
 
 	return duration;
+}
+
+bool checkIfMinima(int sensor){
+	
+	if(pulseIn(sensor) > 500){
+		//invalid sensor value, do nothing
+	}
+	else{
+		currentDistance = pulseIn(sensor);
+	}
+	if(currentDistance > previousDistance)
+		return true;
+	else{
+		previousDistance = currentDistance;
+		return false;	
+	}
+	
 }
