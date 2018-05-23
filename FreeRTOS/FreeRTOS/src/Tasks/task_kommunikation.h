@@ -5,13 +5,6 @@
  *  Author: Jelena
  */ 
 #include <asf.h>
-#include "semphr.h"
-#include "task_state.h"
-#include "../config/conf_AdaLovelace.h"
-#include "../TimeTick/time_tick.h"
-#include "../Utilities/ConsoleFunctions/consoleFunctions.h"
-#include "../TWI_Kommunikationen/KOM_NAV.h"
-#include "xHandlerParameters.h"
 
 #ifndef TASK_KOMMUNIKATION_H_
 #define TASK_KOMMUNIKATION_H_

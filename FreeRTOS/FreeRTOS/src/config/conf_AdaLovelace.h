@@ -9,7 +9,7 @@
 #ifndef CONF_ADALOVELACE_H_
 #define CONF_ADALOVELACE_H_
 
-//#define DEBUG_PRINTS
+#define DEBUG_PRINTS
 
 #define SOFTDEC
 //#define HARDDEC

@@ -38,7 +38,10 @@ void task_state(void *pvParamters)
 		switch(currentState)
 		{
 			case STARTUP: 
-				
+				if(xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
+					printf("- xSemaphoreKommunikation\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
+				}
 			break;	
 			case TOWARDS_OBJECT_0:
 				if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){

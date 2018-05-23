@@ -8,6 +8,10 @@
 
 #include "task_styrning.h"
 #include "../xHandlerParameters.h"
+#include "../Movement/Movement.h"
+#include "../config/conf_AdaLovelace.h"
+#include "../Movement/__vars.h"
+#include "../Navigering/NAV_SENS_STYR.h"
 
 
 #define xBlockTime 5
@@ -25,11 +29,11 @@ void task_styrning(void *pvParamters)
 		printf("Styrning\n");
 		xLastWakeTime = xTaskGetTickCount();
 
-		if(check_Dist == 0){
-			
-			
-			printf("\nKör med navigering+positioneringssystem");
-		}
+		//if(check_Dist == 0){
+			//
+			//
+			//printf("\nKör med navigering+positioneringssystem");
+		//}
 
 		volatile int j=0; /* makes sure j doesn't overflow */
 		ioport_set_pin_level(PIO_PB26_IDX, HIGH);
@@ -38,7 +42,6 @@ void task_styrning(void *pvParamters)
 
 		char buffer[20];
 		int speed = 200;
-		uint32_t start = time_tick_get();		
 		//drive(speed, 1000);
 		
 		
@@ -48,7 +51,7 @@ void task_styrning(void *pvParamters)
 		counter = 0;
 		check = 1;
 		vTaskResume(*(taskHandler->taskReglering));
-		while(check)
+		while(!isDone())
 		{
 			task_movement();
 			printf("delay%i\n", 50/portTICK_RATE_MS);

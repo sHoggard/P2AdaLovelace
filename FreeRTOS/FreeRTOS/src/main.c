@@ -25,7 +25,7 @@
 #include "Movement/Movement.h"
 #include "ADC/sampel_int.h"
 #include "UltrasonicSensor/Ultraljud.h"
-//#include "TWI_Kommunikationen/I2CFunctions.h"
+#include "Com/Com.h"
 
 
 volatile xHandlerParameters *xHandler;
@@ -51,16 +51,16 @@ int main (void)
 	// Insert application code here, after the board has been initialized.
 	ioport_init();
 	
-	//init_twi();
-	//send_package(0x20, 0x8);
-	
 	//Check pin for the TC-handler
 	ioport_set_pin_dir(CHECK_PIN, IOPORT_DIR_OUTPUT);
 	//Configuring board settings
 	pmc_enable_periph_clk(ID_TRNG);
 	trng_enable(TRNG);
 	initMovement();
+	initUltrasonic();
 	
+	membag_init();
+	initCom();
 	delay_ms(100);
 
 	// Initiating board pins
@@ -88,10 +88,10 @@ int main (void)
 	vSemaphoreCreateBinary(xSemaphoreReglering);
 	
 	//Semaphores are configured, task1 will be resumed in task_control.c
-	xSemaphoreGive(xSemaphoreKommunikation);
+	xSemaphoreTake(xSemaphoreKommunikation, 0);
 	xSemaphoreTake(xSemaphoreNavigering, 0); 
 	xSemaphoreTake(xSemaphoreSensor,0);
-	xSemaphoreTake(xSemaphoreStyrning,0); //GLÖM EJ ATT AVKOMMENTERA DESSA EFTER DE OLIKA TESTEN
+	xSemaphoreGive(xSemaphoreStyrning); //GLÖM EJ ATT AVKOMMENTERA DESSA EFTER DE OLIKA TESTEN
 	
 	//Test Nav-Styr
 	//xSemaphoreGive(xSemaphoreNavigering);
@@ -176,17 +176,17 @@ int main (void)
 	// Start the FreeRTOS scheduler running all tasks indefinitely
 	printf("Starting scheduler...\n");
 	xTaskCreate(task_state, (const signed char * const) "state", TASK_STATE_STACK_SIZE, (void *) xHandler, TASK_STATE_PRIORITY, NULL);
-	//vTaskStartScheduler();
+	vTaskStartScheduler();
 	
 	xHandler->check = &checkInt;
 	
-	initUltrasonic();
+
 	
-	
+	/*
 	while(1){
 		delay_ms(500);
 		printInt(pulseIn(1));
 		
 		}
-	
+	*/
 }

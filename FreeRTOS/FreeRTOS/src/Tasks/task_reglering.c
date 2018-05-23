@@ -27,7 +27,7 @@ void task_reglering(void *pvParamters)
 		else if (check)
 		{
 			printf("%i: \n", counter++);
-			task_movement();
+			//task_movement();
 			task_regulate();
 			printf("\n");
 			vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);

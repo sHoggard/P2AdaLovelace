@@ -11,6 +11,7 @@
 #include "TWI_Kommunikationen/TWI_Handler.h"
 #include "Movement/Movement.h"
 #include "config/conf_AdaLovelace.h"
+#include "../RunState.h"
 
 struct buffer_data {
 	uint8_t *data;
@@ -78,8 +79,10 @@ void initCom()
 	extension->buffer_out->end_buffer = 0;
 	
 	// test address allocation
-	//printf("position: %p\n", position);
-	//printf("extension: %p\n", extension);
+	#ifdef DEBUG_PRINTS
+	printf("position: %p\n", position);
+	printf("extension: %p\n", extension);
+	#endif //DEBUG_PRINTS
 	
 	#ifdef DEBUG_PRINTS
 	printf("init_twi: %i\n", init_twi());
@@ -177,12 +180,12 @@ void task_com()
 		case 0x14:									// Lyckat lyft
 			state_com = input(extension->buffer_in);
 			printf("state_com: %x\n", state_com);
-			// TODO: check and possibly change running state
+			changeState(TOWARDS_BOX_0);
 			break;
 		case 0x15:									// Misslyckat lyft
 			state_com = input(extension->buffer_in);
 			printf("state_com: %x\n", state_com);
-			// TODO: check and possibly change running state
+			changeState(TOWARDS_OBJECT_0);
 			break;
 		case 0x16:									// Lyckad avlämning
 			state_com = input(extension->buffer_in);
@@ -253,6 +256,18 @@ void task_com()
 		//y_koord_Vinglas = (double)((int)input(position->buffer_in)*20);
 		//x_koord_Robot = (double)((int)input(position->buffer_in)*20);
 		//y_koord_Robot = (double)((int)input(position->buffer_in)*20);
+		#ifdef DEBUG_PRINTS
+		printf("x_koord_Box: %i\n", x_koord_Box = (int)input(position->buffer_in)*20);
+		printf("y_koord_Box: %i\n", y_koord_Box = (int)input(position->buffer_in)*20);
+		printf("x_koord_Kub: %i\n", x_koord_Kub = (int)input(position->buffer_in)*20);
+		printf("y_koord_Kub: %i\n", y_koord_Kub = (int)input(position->buffer_in)*20);
+		printf("x_koord_Kula: %i\n", x_koord_Kula = (int)input(position->buffer_in)*20);
+		printf("y_koord_Kula: %i\n", y_koord_Kula = (int)input(position->buffer_in)*20);
+		printf("x_koord_Vinglas: %i\n", x_koord_Vinglas = (int)input(position->buffer_in)*20);
+		printf("y_koord_Vinglas: %i\n", y_koord_Vinglas = (int)input(position->buffer_in)*20);
+		printf("x_koord_Robot: %i\n", x_koord_Robot = (int)input(position->buffer_in)*20);
+		printf("y_koord_Robot: %i\n", y_koord_Robot = (int)input(position->buffer_in)*20);
+		#else
 		x_koord_Box = ((int)input(position->buffer_in)*20);
 		y_koord_Box = ((int)input(position->buffer_in)*20);
 		x_koord_Kub = ((int)input(position->buffer_in)*20);
@@ -263,16 +278,8 @@ void task_com()
 		y_koord_Vinglas = ((int)input(position->buffer_in)*20);
 		x_koord_Robot = ((int)input(position->buffer_in)*20);
 		y_koord_Robot = ((int)input(position->buffer_in)*20);
-		//printf("x_koord_Box: %i\n", (int)input(position->buffer_in)*20);
-		//printf("y_koord_Box: %i\n", (int)input(position->buffer_in)*20);
-		//printf("x_koord_Kub: %i\n", (int)input(position->buffer_in)*20);
-		//printf("y_koord_Kub: %i\n", (int)input(position->buffer_in)*20);
-		//printf("x_koord_Kula: %i\n", (int)input(position->buffer_in)*20);
-		//printf("y_koord_Kula: %i\n", (int)input(position->buffer_in)*20);
-		//printf("x_koord_Vinglas: %i\n", (int)input(position->buffer_in)*20);
-		//printf("y_koord_Vinglas: %i\n", (int)input(position->buffer_in)*20);
-		//printf("x_koord_Robot: %i\n", (int)input(position->buffer_in)*20);
-		//printf("y_koord_Robo: %i\n"t, (int)input(position->buffer_in)*20);
+		#endif //DEBUG_PRINTS
+		delay_s(10);
 		#ifdef DEBUG_PRINTS
 		printf("Robot X: %i\n", x_koord_Robot);
 		printf("Robot Y: %i\n", y_koord_Robot);
@@ -288,6 +295,9 @@ void task_com()
 	}
 	while (availableFromSlave(position))		// clear out potential garbage
 	{
+		#ifdef DEBUG_PRINTS
+		printf("position in buffer not empty");
+		#endif //DEBUG_PRINTS
 		input(position->buffer_in);
 	}
 	

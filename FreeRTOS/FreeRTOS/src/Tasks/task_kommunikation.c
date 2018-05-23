@@ -6,12 +6,19 @@
  *  Author: Jelena
  */ 
 
-#include "task_kommunikation.h"
 #include <asf.h>
+#include "task_kommunikation.h"
 #include "../TWI_Kommunikationen/TWI_Handler.h"
-#define xBlockTime 5
 #include "../Navigering/angleCalculation.h"
 #include "../RunState.h"
+#include "semphr.h"
+#include "task_state.h"
+#include "../config/conf_AdaLovelace.h"
+#include "../Utilities/ConsoleFunctions/consoleFunctions.h"
+#include "xHandlerParameters.h"
+#include "../Com/Com.h"
+
+#define xBlockTime 5
 
 void task_kommunikation(void *pvParamters)
 {
@@ -29,24 +36,43 @@ void task_kommunikation(void *pvParamters)
 		// GLÖM EJ SÄTTA check_PDMM= 1 för vinglas och check_PDMM=2 för stålkula
 		//--------------------------------------------------------
 
-		delay_ms(1000);
-		init_twi();
 	
+	if(currentState == STARTUP){
+		bool check_com = false;
+		while(!check_com)
+		{
+			//när vi fått in data från positionering
+			//if data mottagits:
+			if(data_extension.ID != 0) {
+				changeState(TOWARDS_OBJECT_0);
+				check_com = true;
+			}
+			else
+			{
+				#ifdef DEBUG_PRINTS
+				printf("task_com\n");
+				#endif
+				
+				task_com();
+				
+				#ifdef DEBUG_PRINTS
+				printf("task_com done\n");
+				#endif
+				
+				vTaskDelay(500);
+			}
+		}
+	}
 	
-	bool check_com = false;
-	while(!check_com)
-	{
-		//när vi fått in data från positionering
-		//if data mottagits:
-		//if(){
-		changeState(TOWARDS_OBJECT_0);
-		check_com = true;
-		//}
-
-		//if(){
-		changeState(TOWARDS_BOX_0);
-		check_com = true;
-		//}
+	else if(currentState == PICKUP){
+		bool check_com = false;
+		while(!check_com)
+		{
+			//if(){
+			changeState(TOWARDS_BOX_0);
+			check_com = true;
+			//}
+		}
 	}
 	
 	

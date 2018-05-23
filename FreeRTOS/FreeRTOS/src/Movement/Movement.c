@@ -230,6 +230,9 @@ uint16_t calculateOrientation()
 	{
 		orientation += FULL_ROTATION;
 	}
+	#ifdef DEBUG_PRINTS
+	printf("Calculated orientation: %i\n", orientation);
+	#endif
 	return orientation;
 }
 

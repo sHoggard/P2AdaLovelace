@@ -91,6 +91,9 @@
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
 
+// From module: MEMBAG Memory Bag Allocator
+#include <membag.h>
+
 // From module: PIO - Parallel Input/Output Controller
 #include <pio.h>
 
