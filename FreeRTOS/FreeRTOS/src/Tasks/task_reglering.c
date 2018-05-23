@@ -14,7 +14,7 @@
 void task_reglering(void *pvParamters)
 {
 	portTickType xLastWakeTime;
-	portTickType xTimeIncrement = 20/portTICK_RATE_MS;
+	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	printf("task_reglering started\n");
 	check = 1;
 	while(1){
@@ -30,14 +30,6 @@ void task_reglering(void *pvParamters)
 			task_movement();
 			task_regulate();
 			printf("\n");
-			vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
-			task_movement();
-			vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
-			task_movement();
-			vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
-			task_movement();
-			vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
-			task_movement();
 			vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
 		}		
 	}
