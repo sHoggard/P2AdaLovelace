@@ -8,6 +8,8 @@
 
 #ifndef KOM_NAV_H_
 #define KOM_NAV_H_
+#define VINGLAS 1
+#define KULA 2
 
 
 #include <inttypes.h>
@@ -29,10 +31,10 @@ double  x_koord_Kub;
 double  y_koord_Kub;
 
 
-int check_PDMM;
+int check_PDMM;	
 int check_Arm;
 
-int testWhat;
+//int testWhat;
 
 
 #endif /* KOM_NAV_H_ */

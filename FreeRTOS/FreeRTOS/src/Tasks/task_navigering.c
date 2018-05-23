@@ -16,6 +16,7 @@
 void task_navigering(void *pvParamters)
 {
 	printf("task_navigering started\n");
+	xHandlerParameters *taskHandler =  pvParamters;
 	portTickType xLastWakeTime;
 	portTickType xTimeIncrement = 100/portTICK_RATE_MS;
 	check_Dist = 0;
@@ -42,18 +43,19 @@ void task_navigering(void *pvParamters)
 		float distance = 0.0;
 		float goalAngle = 0.0;
 	
-		if(currentState == TOWARDS_OBJECT_0){
-			bool check_rotation = false;
-			while(!check_rotation)
-				{
-					goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
-					printf("Roboten ska rotera till följande vinkel : ");
-					printInt(goalAngle);
+		if(check_PDMM == VINGLAS){
+			if(currentState == TOWARDS_OBJECT_0){
+				bool check_rotation = false;
+				while(!check_rotation)
+					{
+						goalAngle = degreeCalculation(x_koord_Vinglas,x_koord_Robot,y_koord_Vinglas,y_koord_Robot);
+						printf("Roboten ska rotera till följande vinkel : ");
+						printInt(goalAngle);
 					
-					distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot))*10;
-					printf("Roboten har följande avstånd till stålkulan : ");
-					printInt(distance);
-					
+						distance = (distanceCalculation(x_koord_Vinglas,x_koord_Robot,y_koord_Vinglas,y_koord_Robot));
+						printf("Roboten har följande avstånd till vinglaset : ");
+						printInt(distance);
+						
 					if(distance <= 500){
 						changeState(SCAN_OBJECT);
 						check_rotation = true;
@@ -73,15 +75,96 @@ void task_navigering(void *pvParamters)
 			while(!check_distance)
 			{
 				drive(200, distance);
+				vTaskResume(*(taskHandler->taskStyrning));
 				
 				changeState(TOWARDS_OBJECT_0);
 				check_distance = true;
 			}
 		}
+
+			if(check_PDMM == KULA){
+				if(currentState == TOWARDS_OBJECT_0){
+					bool check_rotation = false;
+					while(!check_rotation)
+					{
+						goalAngle = degreeCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot);
+						printf("Roboten ska rotera till följande vinkel : ");
+						printInt(goalAngle);
+						
+						distance = (distanceCalculation(x_koord_Kula,x_koord_Robot,y_koord_Kula,y_koord_Robot));
+						printf("Roboten har följande avstånd till stålkulan : ");
+						printInt(distance);
+						
+						if(distance <= 500){
+							changeState(SCAN_OBJECT);
+							check_rotation = true;
+						}else if(distance > 500)
+						{
+							rotation_angle = 360 - goalAngle;
+							rotate(200, rotation_angle);
+							
+							changeState(TOWARDS_OBJECT_1);
+							check_rotation = true;
+						}
+					}
+				}
+				
+				if(currentState == TOWARDS_OBJECT_1){
+					bool check_distance = false;
+					while(!check_distance)
+					{
+						drive(200, distance);
+						vTaskResume(*(taskHandler->taskStyrning));
+						
+						changeState(TOWARDS_OBJECT_0);
+						check_distance = true;
+					}
+				}
+
+				if(currentState == TOWARDS_BOX_0){
+					bool check_rotation = false;
+					while(!check_rotation)
+					{
+						goalAngle = degreeCalculation(x_koord_Box,x_koord_Robot,y_koord_Box,y_koord_Robot);
+						printf("Roboten ska rotera till följande vinkel : ");
+						printInt(goalAngle);
+						
+						distance = (distanceCalculation(x_koord_Box,x_koord_Robot,y_koord_Box,y_koord_Robot));
+						printf("Roboten har följande avstånd till lådan : ");
+						printInt(distance);
+						
+						if(distance <= 500){
+							changeState(SCAN_BOX);
+							check_rotation = true;
+						}else if(distance > 500)
+						{
+							rotation_angle = 360 - goalAngle;
+							rotate(200, rotation_angle);
+							
+							changeState(TOWARDS_BOX_1);
+							check_rotation = true;
+						}
+					}
+				
+				if(currentState == TOWARDS_BOX_1){
+					bool check_distance = false;
+					while(!check_distance)
+					{
+						drive(200, distance);
+						vTaskResume(*(taskHandler->taskStyrning));
+						
+						changeState(TOWARDS_BOX_0);
+						check_distance = true;
+					}
+				}
+			}
 		
 		printf("\nNavigering out");
 		xSemaphoreGive(xSemaphoreNavigering);
 		vTaskSuspend(NULL);
+	}
+	}
+	}
 	}
 		//if(check_PDMM == 1)
 		//{
@@ -224,7 +307,7 @@ void task_navigering(void *pvParamters)
 	//vTaskSuspend(NULL);
 			
 	//}
-}
+//}
 			
 //--------------- Test för NAV-MOVE --------------------------------------------------------	
 //void testStyr(int typo)

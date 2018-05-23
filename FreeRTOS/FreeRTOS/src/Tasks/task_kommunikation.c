@@ -39,6 +39,11 @@ void task_kommunikation(void *pvParamters)
 		changeState(TOWARDS_OBJECT_0);
 		check_com = true;
 		//}
+
+		//if(){
+		changeState(TOWARDS_BOX_0);
+		check_com = true;
+		//}
 	}
 	
 	
@@ -91,76 +96,76 @@ void testNavKom(int jin)
 	
 	int t = jin;
 	
-	if(t == 1)	//TC0 
-	{
-		x5 = 20.0;	//kulans testpos
-		x6 = 20.0;
-		
-		x9 = 20.0;	//robotens testpos
-		x10 = 50.0;
-		
-		testWhat = 0;	//variabel för att (0) endast se så data delas
-		
-	} else if(t == 2)	//TC1
-	{		
-		testWhat = 1;	//variabel för att (1) beräkna avstånd från datan
-		
-	} else if(t == 3)	//TC2
-	{
-		testWhat = 2;	//variabel för att (2) beräkna vinkel från datan
-	} 
-	fakePositionUpdate(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
-	printf("testNavKomFunction done");
-	
-}
-
-void fakePositionUpdate(double xBox,double  yBox,double  xCube,double  yCube,double  xBall,double  yBall,double  xGlass,double  yGlass,double  xRob,double  yRob){
-	double posRead [] = {xBox, yBox, xCube, yCube, xBall, yBall, xGlass, yGlass, xRob, yRob};
-	int i;
-	for(i=0; i<10 ;i++)
-	{
-		if (i == 0)
-		{
-			x_koord_Box = posRead[i];
-			
-		} else if (i == 1)
-		{
-			y_koord_Box = posRead[i];
-			
-		} else if (i == 2)
-		{
-			x_koord_Kub = posRead[i];
-			
-		} else if (i == 3)
-		{
-			x_koord_Kub = posRead[i];
-			
-		} else if (i == 4)
-		{
-			x_koord_Kula = posRead[i];
-			
-		} else if (i == 5)
-		{
-			y_koord_Kula = posRead[i];
-			
-		} else if (i == 6)
-		{
-			x_koord_Vinglas = posRead[i];
-			
-		} else if (i == 7)
-		{
-			y_koord_Vinglas = posRead[i];
-			
-		} else if (i == 8)
-		{
-			x_koord_Robot = posRead[i];
-			
-		} else if (i == 9)
-		{
-			y_koord_Robot = posRead[i];
-		}
-		//printInt(posRead[i]);
-	}
-	printf("fakePositionUpdateFunction done");
+	//if(t == 1)	//TC0 
+	//{
+		//x5 = 20.0;	//kulans testpos
+		//x6 = 20.0;
+		//
+		//x9 = 20.0;	//robotens testpos
+		//x10 = 50.0;
+		//
+		//testWhat = 0;	//variabel för att (0) endast se så data delas
+		//
+	//} else if(t == 2)	//TC1
+	//{		
+		//testWhat = 1;	//variabel för att (1) beräkna avstånd från datan
+		//
+	//} else if(t == 3)	//TC2
+	//{
+		//testWhat = 2;	//variabel för att (2) beräkna vinkel från datan
+	//} 
+	//fakePositionUpdate(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
+	//printf("testNavKomFunction done");
+	//
+//}
+//
+//void fakePositionUpdate(double xBox,double  yBox,double  xCube,double  yCube,double  xBall,double  yBall,double  xGlass,double  yGlass,double  xRob,double  yRob){
+	//double posRead [] = {xBox, yBox, xCube, yCube, xBall, yBall, xGlass, yGlass, xRob, yRob};
+	//int i;
+	//for(i=0; i<10 ;i++)
+	//{
+		//if (i == 0)
+		//{
+			//x_koord_Box = posRead[i];
+			//
+		//} else if (i == 1)
+		//{
+			//y_koord_Box = posRead[i];
+			//
+		//} else if (i == 2)
+		//{
+			//x_koord_Kub = posRead[i];
+			//
+		//} else if (i == 3)
+		//{
+			//x_koord_Kub = posRead[i];
+			//
+		//} else if (i == 4)
+		//{
+			//x_koord_Kula = posRead[i];
+			//
+		//} else if (i == 5)
+		//{
+			//y_koord_Kula = posRead[i];
+			//
+		//} else if (i == 6)
+		//{
+			//x_koord_Vinglas = posRead[i];
+			//
+		//} else if (i == 7)
+		//{
+			//y_koord_Vinglas = posRead[i];
+			//
+		//} else if (i == 8)
+		//{
+			//x_koord_Robot = posRead[i];
+			//
+		//} else if (i == 9)
+		//{
+			//y_koord_Robot = posRead[i];
+		//}
+		////printInt(posRead[i]);
+	//}
+	//printf("fakePositionUpdateFunction done");
 }
 //------------------------------------------------------------------------------------------

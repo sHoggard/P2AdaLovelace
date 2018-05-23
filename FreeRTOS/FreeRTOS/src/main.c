@@ -118,7 +118,7 @@ int main (void)
 		printf("task_kommunikation created...\n");
 		
 	}
-	xReturned = xTaskCreate(task_navigering, (const signed char * const) "navigering", TASK_NAVIGERING_STACK_SIZE, NULL, TASK_NAVIGERING_PRIORITY, &taskHandlerNavigering);
+	xReturned = xTaskCreate(task_navigering, (const signed char * const) "navigering", TASK_NAVIGERING_STACK_SIZE, (void *) xHandler, TASK_NAVIGERING_PRIORITY, &taskHandlerNavigering);
 	if( xReturned == pdPASS )
 	{
 		printf("task_navigering created...\n");
@@ -136,7 +136,7 @@ int main (void)
 		printf("task_styrning created...\n");
 		
 	}
-	xReturned = xTaskCreate(task_reglering, (const signed char * const) "tickReglering", TASK_REGLERING_STACK_SIZE, xHandler, TASK_REGLERING_PRIORITY, &taskHandlerReglering);
+	xReturned = xTaskCreate(task_reglering, (const signed char * const) "tickReglering", TASK_REGLERING_STACK_SIZE, NULL, TASK_REGLERING_PRIORITY, &taskHandlerReglering);
 	if( xReturned == pdPASS )
 	{
 		printf("task_reglering created...\n");
