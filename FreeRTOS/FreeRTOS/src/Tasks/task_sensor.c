@@ -49,35 +49,82 @@ void task_sensor(void *pvParamters)
 				}else if(pulseIn(CENTRE_SENSOR) <=500){
 					sensor = CENTRE_SENSOR;
 					check_scan = true;
-				}else if(pulseIn(CENTRE_SENSOR) <=500){
-					sensor = LEFT_SENSOR;
+				}else if(pulseIn(RIGHT_SENSOR) <=500){
+					sensor = RIGHT_SENSOR;
 					check_scan = true;
 					
 				}else{
 					//object not found, rotate 5 degrees
-					rotate(50, 5);
+					rotate(50,5);
+					//vTaskResume(*(taskHandler->taskStyrning));
 				}
-				changeState(TOWARDS_OBJECT_0);
+				changeState(CLOSE_OBJECT_0);
 			}
 		}
 		
-		if(currentState == TOWARDS_OBJECT_0){
+		else if(currentState == CLOSE_OBJECT_0){
 			bool check_scan = false;
+			int rotateAngle = 5;
 			while(!check_scan)
 			{
-				rotate(50, 5);
-				if(checkIfMinima(sensor)); //returns true 
-				check_scan = true;
+				rotate(50, rotateAngle); //searching for minima
+				//vTaskResume(*(taskHandler->taskStyrning));
+				if(checkIfMinima(sensor)){ //returns true 
+					if(sensor == LEFT_SENSOR){
+						//rotate(200, 360-LEFT_SENSOR_PLACEMENT);
+					}
+					else if(sensor == RIGHT_SENSOR){
+						//rotate(200, 360-RIGHT_SENSOR_PLACEMENT);
+					//vTaskResume(*(taskHandler->taskStyrning));
+					}
+					else{
+							rotate(50, 2*rotateAngle); //searching for minima
+							//vTaskResume(*(taskHandler->taskStyrning));
+					}
+					check_scan = true;	
+				}
 			}
+			changeState(CLOSE_OBJECT_1);
 		}
 		
-		if(currentState == TOWARDS_OBJECT_1){
+		else if(currentState == CLOSE_OBJECT_1){
 			bool check_scan = false;
 			while(!check_scan)
 			{
-				
+				//if(pulseIn(CENTRE_SENSOR) > idealDistanceToObject)){
+					//check_scan = true;
+				//}
+				//drive(50, 30);
+				//vTaskResume(*(taskHandler->taskStyrning));
+			}
+			changeState(PICKUP);
+		}
+		
+		
+		else if(currentState == SCAN_BOX){
+			bool check_scan = false;
+			while(!check_scan)
+			{
 				check_scan = true;
 			}
+			changeState(CLOSE_BOX_0);
+		}
+		else if(currentState == CLOSE_BOX_0){
+			bool check_scan = false;
+			while(!check_scan)
+			{
+				check_scan = true;
+			}
+			changeState(CLOSE_BOX_1);
+		}
+		
+		else if(currentState == CLOSE_BOX_1){
+			bool check_scan = false;
+			while(!check_scan)
+			{
+				check_scan = true;
+			}
+			changeState(DROPOFF);
 		}
 		
 			printf("\ntask_sensor: SCAN_OBJECT\n");
