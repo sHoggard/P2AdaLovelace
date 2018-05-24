@@ -10,6 +10,7 @@
 #define MOVEMENT_H_
 
 #include <inttypes.h>
+#include <stdbool.h>
 
 #define FULL_ROTATION_TICKS 731
 #define FULL_ROTATION 2470
@@ -31,6 +32,8 @@ uint16_t getOrientation(void);
 uint32_t getRemainingDistance(void);
 int16_t getSpeed(void);
 uint8_t isDone(void);
+
+bool f_auto;
 
 void drive(int16_t speed, uint32_t distance);
 void rotate(int16_t speed, int16_t orientation);

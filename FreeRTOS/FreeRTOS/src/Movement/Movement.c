@@ -13,12 +13,12 @@
 #include "WheelCounters/WheelCounters.h"
 #include "config/conf_AdaLovelace.h"
 
-static bool f_auto = false;
-static int16_t humanTargetSpeed;
-static int32_t humanTargetDistance;
-static uint16_t humanTargetOrientation;
-static int32_t targetDistance;
-static uint16_t targetOrientation;
+//static volatile bool f_auto;
+static volatile int16_t humanTargetSpeed;
+static volatile int32_t humanTargetDistance;
+static volatile uint16_t humanTargetOrientation;
+static volatile int32_t targetDistance;
+static volatile uint16_t targetOrientation;
 
 uint16_t calculateOrientation(void);
 int32_t calculateRemainingDistance(void);
@@ -49,7 +49,7 @@ void initMovement()
 	regulated_speed.right = 0;
 	regulated_speed.target = 0;
 	
-	f_auto = false;
+	//f_auto = false;
 }
 
 /**
@@ -77,6 +77,9 @@ uint32_t getRemainingDistance()
 uint8_t isDone()
 {
 	//return mode_movement == 's' ? 1 : 0;
+	
+	//printf("isDone(): %x\n", f_auto );
+	//printf("isDone(): %x\n", &f_auto );
 	return !f_auto;
 }
 
@@ -279,6 +282,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 		case 'd':
 			if (abs(remainingDistance) < DISTANCE_PRECISION)
 			{
+				printf("stop1");
 				stop();
 				//regulated_speed.target = 0;
 				//delay_ms(10);
@@ -304,6 +308,7 @@ void updateTargetSpeed()		// should only revise speeds downwards
 		case 'r':
 			if (abs(remainingDistance) < ROTATION_PRECISION)
 			{
+				printf("stop2");
 				stop();
 				//regulated_speed.target = 0;
 				//delay_ms(10);

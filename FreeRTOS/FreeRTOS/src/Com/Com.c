@@ -279,7 +279,7 @@ void task_com()
 		x_koord_Robot = ((int)input(position->buffer_in)*20);
 		y_koord_Robot = ((int)input(position->buffer_in)*20);
 		#endif //DEBUG_PRINTS
-		delay_s(10);
+		delay_ms(10);
 		#ifdef DEBUG_PRINTS
 		printf("Robot X: %i\n", x_koord_Robot);
 		printf("Robot Y: %i\n", y_koord_Robot);

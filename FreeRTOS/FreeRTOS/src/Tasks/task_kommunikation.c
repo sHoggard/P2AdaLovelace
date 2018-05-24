@@ -18,7 +18,7 @@
 #include "xHandlerParameters.h"
 #include "../Com/Com.h"
 
-#define xBlockTime 5
+#define xBlockTime 100
 
 void task_kommunikation(void *pvParamters)
 {
@@ -41,14 +41,14 @@ void task_kommunikation(void *pvParamters)
 				//när vi fått in data från positionering
 				//if data mottagits:
 				if(data_extension.ID != 0) {
-					printf("data_extemsion.ID != 0");
-					printf("changeState(TOWARDS_OBJECT_0)");
+					printf("data_extemsion.ID != 0\n");
+					printf("changeState(TOWARDS_OBJECT_0)\n");
 					changeState(TOWARDS_OBJECT_0);
 					check_com = true;
 				}
 				else
 				{
-					printf("data_extemsion.ID == 0");
+					printf("data_extemsion.ID == 0\n");
 				
 					#ifdef DEBUG_PRINTS
 					printf("task_com\n");
@@ -65,21 +65,35 @@ void task_kommunikation(void *pvParamters)
 			}
 		}
 		else if(currentState == PICKUP){
-			printf("currentState == PICKUP");
+			printf("currentState == PICKUP\n");
 		
 			bool check_com = false;
-			printf("check_com = false;");
+			printf("check_com = false;\n");
 			while(!check_com)
 			{
 					//if(){
-						printf("changeState(TOWARDS_BOX_0)");
+						printf("changeState(TOWARDS_BOX_0)\n");
 						changeState(TOWARDS_BOX_0);
 						check_com = true;
-						printf("check_com = true");
+						printf("check_com = true\n");
 					//}
 			}
+		}else{
+				
+				printf("data_extemsion.ID == 0\n");
+				
+				#ifdef DEBUG_PRINTS
+				printf("task_com\n");
+				#endif
+				
+				task_com();
+				
+				#ifdef DEBUG_PRINTS
+				printf("task_com done\n");
+				#endif
+				
 		}
-		printf("\ntask_kommunikation out");
+		printf("\ntask_kommunikation out\n");
 		xSemaphoreGive(xSemaphoreKommunikation);
 		vTaskSuspend(NULL);
 	}

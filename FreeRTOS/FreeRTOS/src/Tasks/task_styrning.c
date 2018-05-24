@@ -14,7 +14,7 @@
 #include "../Navigering/NAV_SENS_STYR.h"
 
 
-#define xBlockTime 5
+#define xBlockTime 500
 
 void task_styrning(void *pvParamters)
 {
@@ -28,6 +28,9 @@ void task_styrning(void *pvParamters)
 
 		counter = 0; //shared with task_reglering
 		check = 1; //shared with task_reglering
+		f_auto = true;
+		//printf("task_styrning: %x\n", f_auto );
+		//printf("task_styrning: %x\n", &f_auto );
 		vTaskResume(*(taskHandler->taskReglering));
 		while(!isDone())
 		{
@@ -35,7 +38,7 @@ void task_styrning(void *pvParamters)
 			printf("task_movement delay: %i\n", 50/portTICK_RATE_MS);
 			vTaskDelay(50/portTICK_RATE_MS);		
 		}	
-		printf("\ntask_styrning out");
+		printf("task_styrning out\n");
 		xSemaphoreGive(xSemaphoreStyrning);
 		vTaskSuspend(NULL);	
 	}

@@ -180,9 +180,9 @@ src/Tasks/task_navigering.d src/Tasks/task_navigering.o: \
  ../src/MotorControl/MotorControl.h ../src/WheelCounters/WheelCounters.h \
  ../src/Utilities/ConsoleFunctions/consoleFunctions.h \
  ../src/Tasks/../Navigering/NAV_SENS_STYR.h \
- ../src/Tasks/../Movement/Movement.h ../src/Movement/Movement.h \
- ../src/Tasks/../RunState.h ../src/Tasks/../xHandlerParameters.h \
- ../src/Tasks/../Com/KOM_NAV.h ../src/Tasks/../Com/Extension.h
+ ../src/Tasks/../Movement/Movement.h ../src/Tasks/../RunState.h \
+ ../src/Tasks/../xHandlerParameters.h ../src/Tasks/../Com/KOM_NAV.h \
+ ../src/Tasks/../Com/Extension.h
 
 ../src/Tasks/task_navigering.h:
 
@@ -565,8 +565,6 @@ c:\verktyg\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\includ
 ../src/Tasks/../Navigering/NAV_SENS_STYR.h:
 
 ../src/Tasks/../Movement/Movement.h:
-
-../src/Movement/Movement.h:
 
 ../src/Tasks/../RunState.h:
 

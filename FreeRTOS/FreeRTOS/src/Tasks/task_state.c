@@ -15,7 +15,7 @@
 #include "RunState.h"
 
 
-#define xBlockTime 5	//5ticks
+#define xBlockTime 1000	//5ticks
 portTickType xTimeStampTicks;
 portTickType timeStart;
 
@@ -31,6 +31,7 @@ void task_state(void *pvParamters)
 	{	
 		printf("task_state\n");
 		xLastWakeTime = xTaskGetTickCount();
+		vTaskDelay(xBlockTime);
 		switch(currentState)
 		{
 			case STARTUP: 
@@ -41,37 +42,42 @@ void task_state(void *pvParamters)
 				}
 				break;	
 			case TOWARDS_OBJECT_0:
-				if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){
+				if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE || xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 					printf("- xSemaphoreKommunikation\n");
 					printf("- resume taskNavigering\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskNavigering));
 				}
 				break;
 			case TOWARDS_OBJECT_1:
-				if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
+				if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE || xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 					printf("- xSemaphoreNavigering\n");
 					printf("- resume taskNavigering\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskNavigering));
 				}
 				break;
 			case SCAN_OBJECT:
-				if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
+				if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE || xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 					printf("- xSemaphoreNavigering\n");
 					printf("- resume taskSensor\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskSensor));
 				}
 				break;
 			case CLOSE_OBJECT_0:
-				if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
+				if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE || xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 					printf("- xSemaphoreSensor\n");
 					printf("- resume taskSensor\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskSensor));
 				}
 				break;
 			case CLOSE_OBJECT_1:
-				if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
+				if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE || xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 					printf("- xSemaphoreSensor\n");
 					printf("- resume taskSensor\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskSensor));
 				}
 				break;
@@ -83,23 +89,26 @@ void task_state(void *pvParamters)
 			}
 			break;
 			case TOWARDS_BOX_0:
-				if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){
+				if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE || xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 					printf("- xSemaphoreKommunikation\n");
 					printf("- resume taskNavigering\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskNavigering));
 				}
 				break;
 			case TOWARDS_BOX_1:
-				if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
+				if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE || xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 					printf("- xSemaphoreNavigering\n");
 					printf("- resume taskNavigering\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskNavigering));
 				}
 				break;
 			case SCAN_BOX:
-				if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE){
+				if(xSemaphoreTake(xSemaphoreNavigering, 0) == pdTRUE || xSemaphoreTake(xSemaphoreStyrning, 0) == pdTRUE){
 					printf("- xSemaphoreNavigering\n");
 					printf("- resume taskSensorer\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskSensor));
 				}
 				break;
@@ -107,6 +116,7 @@ void task_state(void *pvParamters)
 				if(xSemaphoreTake(xSemaphoreKommunikation, 0) == pdTRUE){
 					printf("- xSemaphoreKommunikation\n");
 					printf("- resume taskNavigering\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskNavigering));
 				}
 				break;
@@ -114,6 +124,7 @@ void task_state(void *pvParamters)
 				if(xSemaphoreTake(xSemaphoreSensor, 0) == pdTRUE){
 					printf("- xSemaphoreSensorer\n");
 					printf("- resume taskSensorer\n");
+					vTaskResume(*(taskHandler->taskKommunikation));
 					vTaskResume(*(taskHandler->taskSensor));
 				}
 				break;
@@ -130,6 +141,6 @@ void task_state(void *pvParamters)
 }
 
 void changeState(int newState){
-	printf("tast_state: changeState()");
+	printf("tast_state: changeState()\n");
 	currentState = newState;
 }
